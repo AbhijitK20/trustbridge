@@ -1,0 +1,381 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum DealStatus {
+  DRAFT
+  AWAITING_PAYMENT
+  HELD
+  DELIVERED
+  CONFIRMED
+  RELEASED
+  DISPUTED
+  REFUNDED
+  EXPIRED
+}
+
+enum DisputeResolution {
+  RELEASE_TO_SELLER
+  REFUND_TO_BUYER
+  SPLIT_SETTLEMENT
+}
+
+enum ReportStatus {
+  OPEN
+  REVIEWING
+  RESOLVED
+  DISMISSED
+}
+
+enum KycStatus {
+  NOT_STARTED
+  PENDING
+  VERIFIED
+  REJECTED
+  EXPIRED
+}
+
+enum SanctionsStatus {
+  NOT_SCREENED
+  CLEAR
+  REVIEW
+  HIT
+}
+
+enum SellerEntityType {
+  INDIVIDUAL
+  SOLE_PROPRIETOR
+  PARTNERSHIP
+  LLP
+  COMPANY
+}
+
+enum ConsentKind {
+  TERMS
+  PRIVACY
+  SELLER_AGREEMENT
+  PAYOUT_AUTHORIZATION
+  ELECTRONIC_RECORDS
+}
+
+enum ApprovalAction {
+  DISPUTE_REFUND
+  DISPUTE_RELEASE
+  DELIVERY_ACCEPT
+  DELIVERY_REFUND
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  EXECUTED
+  CANCELLED
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String?
+  image         String?
+  role          UserRole       @default(BUYER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  sellerProfile SellerProfile?
+  buyerDeals    Deal[]         @relation("BuyerDeals")
+  sellerDeals   Deal[]         @relation("SellerDeals")
+  disputes      Dispute[]
+  ratings       Rating[]
+  reports       ScamReport[]
+  auditEvents   AuditLog[]
+  accounts      Account[]
+  sessions      Session[]
+  consents      Consent[]
+  approvalRequests  AdminApproval[] @relation("ApprovalRequests")
+  approvalDecisions AdminApproval[] @relation("ApprovalDecisions")
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([sessionToken])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model SellerProfile {
+  id              String       @id @default(cuid())
+  userId          String       @unique
+  slug            String       @unique
+  bio             String?
+  stripeAccountId String?      @unique
+  completedDeals  Int          @default(0)
+  averageRating   Decimal      @default(0) @db.Decimal(3, 2)
+  trustScore      Int          @default(0)
+  isVerified      Boolean      @default(false)
+  verificationMethod String?
+  verificationDomain String?
+  verifiedAt      DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deals           Deal[]
+  ratings         Rating[]
+  reports         ScamReport[]
+  kyc             SellerKyc?
+}
+
+model Deal {
+  id               String        @id @default(cuid())
+  publicToken      String        @unique @default(cuid())
+  title            String
+  description      String
+  priceCents       Int
+  depositCents     Int           @default(0)
+  balanceCents     Int           @default(0)
+  depositReleasedAt DateTime?
+  balanceReleasedAt DateTime?
+  currency         String        @default("usd")
+  deliveryDeadline DateTime?
+  autoReleaseAt    DateTime?
+  status           DealStatus    @default(DRAFT)
+  stripePaymentId  String?       @unique
+  stripeTransferId String?       @unique
+  stripeDepositTransferId String? @unique
+  platformFeeCents Int           @default(0)
+  buyerId          String?
+  sellerId         String
+  sellerProfileId  String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  buyer            User?         @relation("BuyerDeals", fields: [buyerId], references: [id])
+  seller           User          @relation("SellerDeals", fields: [sellerId], references: [id])
+  sellerProfile    SellerProfile @relation(fields: [sellerProfileId], references: [id])
+  verificationCheckId String?
+  verificationCheck   VerificationCheck? @relation(fields: [verificationCheckId], references: [id])
+  evidence         Evidence[]
+  disputes         Dispute[]
+  consents         Consent[]
+  approvals        AdminApproval[]
+  rating           Rating?
+  reports          ScamReport[]
+  auditEvents      AuditLog[]
+
+  @@index([status])
+  @@index([buyerId])
+  @@index([sellerId])
+  @@index([sellerProfileId])
+  @@index([verificationCheckId])
+}
+
+model Evidence {
+  id           String   @id @default(cuid())
+  dealId       String
+  fileName     String
+  fileUrl      String
+  storageKey   String?
+  fileSize     Int?
+  mimeType     String
+  sha256       String?
+  note         String?
+  aiProvider   String?
+  aiVerdict    String?
+  aiConfidence Int?
+  aiReasoning  String?
+  createdAt    DateTime @default(now())
+  deal         Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
+
+  @@index([dealId])
+}
+
+model Dispute {
+  id           String             @id @default(cuid())
+  dealId       String
+  reporterId   String
+  reason       String
+  resolution   DisputeResolution?
+  decisionNote String?
+  decidedById  String?
+  createdAt    DateTime           @default(now())
+  resolvedAt   DateTime?
+  deal         Deal               @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  reporter     User               @relation(fields: [reporterId], references: [id])
+  approvals    AdminApproval[]
+
+  @@index([dealId])
+  @@index([resolvedAt])
+}
+
+model Rating {
+  id         String        @id @default(cuid())
+  dealId     String        @unique
+  sellerId   String
+  reviewerId String
+  score      Int
+  comment    String?
+  createdAt  DateTime      @default(now())
+  deal       Deal          @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  seller     SellerProfile @relation(fields: [sellerId], references: [id])
+  reviewer   User          @relation(fields: [reviewerId], references: [id])
+}
+
+model ScamReport {
+  id         String        @id @default(cuid())
+  sellerId   String
+  reporterId String
+  dealId     String?
+  reason     String
+  status     ReportStatus  @default(OPEN)
+  createdAt  DateTime      @default(now())
+  seller     SellerProfile @relation(fields: [sellerId], references: [id])
+  reporter   User          @relation(fields: [reporterId], references: [id])
+  deal       Deal?         @relation(fields: [dealId], references: [id])
+
+  @@index([sellerId])
+  @@index([status])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  dealId    String?
+  actorId   String?
+  action    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+  deal      Deal?    @relation(fields: [dealId], references: [id])
+  actor     User?    @relation(fields: [actorId], references: [id])
+
+  @@index([dealId, createdAt])
+  @@index([actorId])
+}
+
+model SellerKyc {
+  id                 String           @id @default(cuid())
+  sellerProfileId    String           @unique
+  legalName          String?
+  entityType         SellerEntityType?
+  taxIdLast4         String?
+  kycStatus          KycStatus        @default(NOT_STARTED)
+  kycProvider        String?
+  kycReference       String?
+  sanctionsStatus    SanctionsStatus  @default(NOT_SCREENED)
+  payoutAccountName  String?
+  payoutAccountLast4 String?
+  payoutBankName     String?
+  payoutVerifiedAt   DateTime?
+  verifiedAt         DateTime?
+  expiresAt          DateTime?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  sellerProfile      SellerProfile    @relation(fields: [sellerProfileId], references: [id], onDelete: Cascade)
+
+  @@index([kycStatus])
+  @@index([sanctionsStatus])
+}
+
+model Consent {
+  id         String      @id @default(cuid())
+  userId     String
+  dealId     String?
+  kind       ConsentKind
+  version    String
+  acceptedAt DateTime    @default(now())
+  ipAddress  String?
+  userAgent  String?
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deal       Deal?       @relation(fields: [dealId], references: [id], onDelete: Cascade)
+
+  @@index([userId, kind])
+  @@index([dealId])
+}
+
+model VerificationCheck {
+  id                String   @id @default(cuid())
+  outcome           String
+  decision          String
+  organization      String
+  counterpartyEmail String?
+  promise           String
+  result            Json
+  createdAt         DateTime @default(now())
+  deals             Deal[]
+
+  @@index([createdAt])
+}
+
+model AdminApproval {
+  id            String         @id @default(cuid())
+  dealId        String
+  disputeId     String?
+  action        ApprovalAction
+  amountCents   Int
+  note          String
+  status        ApprovalStatus @default(PENDING)
+  requestedById String
+  decidedById   String?
+  createdAt     DateTime       @default(now())
+  decidedAt     DateTime?
+  executedAt    DateTime?
+  deal          Deal           @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  dispute       Dispute?       @relation(fields: [disputeId], references: [id], onDelete: SetNull)
+  requestedBy   User           @relation("ApprovalRequests", fields: [requestedById], references: [id])
+  decidedBy     User?          @relation("ApprovalDecisions", fields: [decidedById], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([dealId])
+}
+
+model WhatsAppMessage {
+  id        String   @id @default(cuid())
+  waId      String
+  direction String
+  body      String
+  reply     String?
+  createdAt DateTime @default(now())
+
+  @@index([waId, createdAt])
+}
+
+model WebhookEvent {
+  id          String   @id
+  type        String
+  processedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+}

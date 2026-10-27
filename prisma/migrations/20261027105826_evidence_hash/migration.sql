@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Evidence" ADD COLUMN     "sha256" TEXT;

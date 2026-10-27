@@ -1,0 +1,10 @@
+{
+  "framework": "nextjs",
+  "regions": ["hnd1"],
+  "crons": [
+    {
+      "path": "/api/cron/auto-release",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

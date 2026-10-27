@@ -1,0 +1,7 @@
+.env
+.env.*
+.env.local
+.vercel
+refs
+coverage
+supabase/.temp

@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "TrustBridge \u2014 Check before you pay",
+  "version": "0.1.0",
+  "description": "Four-state verification for offers found in chat, email, and job boards.",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "http://localhost:3000/*",
+    "https://trustbridge-abhithe.vercel.app/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "config.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "TrustBridge \u2014 check this page"
+  }
+}
