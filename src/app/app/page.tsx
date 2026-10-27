@@ -120,10 +120,10 @@ export default async function AppHomePage() {
             <small>Write the scope, set milestones, share one link.</small>
             <span className="app-quick-arrow">↗</span>
           </Link>
-          <Link className="app-quick-card" href="/app/deals">
+          <Link className="app-quick-card" href="/dashboard">
             <span className="app-quick-icon">03</span>
-            <strong>My deals</strong>
-            <small>Track delivery, milestones, and signatures.</small>
+            <strong>Dashboard</strong>
+            <small>Progress, next action, and money in one place.</small>
             <span className="app-quick-arrow">↗</span>
           </Link>
           <Link className="app-quick-card app-quick-card-dark" href="/demo/whatsapp">

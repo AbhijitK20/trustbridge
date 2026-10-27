@@ -96,6 +96,10 @@ export default async function AppProfilePage() {
 
       <section className="app-info-card">
         <p className="card-label">WORKSPACE</p>
+        <Link className="app-link-row" href="/dashboard">
+          <span>Buyer / seller dashboard</span>
+          <span>↗</span>
+        </Link>
         <Link className="app-link-row" href="/app/deals">
           <span>All deals</span>
           <span>↗</span>

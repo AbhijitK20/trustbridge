@@ -30,7 +30,7 @@ export async function demoSignIn(role: DemoRole, formData?: FormData) {
 
   const requested = formData?.get("next");
   const safeNext = typeof requested === "string" && requested.startsWith("/") ? requested : null;
-  const fallback = role === "admin" ? "/admin/disputes" : role === "reviewer" ? "/admin/approvals" : role === "seller" ? "/seller/meera-studio" : "/create";
+  const fallback = role === "admin" ? "/admin/disputes" : role === "reviewer" ? "/admin/approvals" : role === "seller" ? "/seller/meera-studio" : "/dashboard";
   redirect(safeNext ?? fallback);
 }
 
