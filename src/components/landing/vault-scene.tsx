@@ -44,7 +44,7 @@ function Dust({ count }: { count: number }) {
       </bufferGeometry>
       <pointsMaterial
         size={0.032}
-        color="#D9F26B"
+        color="#e7d4a8"
         transparent
         opacity={0.65}
         sizeAttenuation
@@ -90,18 +90,18 @@ function Seal({ quality }: { quality: Quality }) {
       <mesh rotation={[Math.PI / 2.35, 0, 0]}>
         <torusGeometry args={[2.02, 0.145, 48, 220]} />
         <meshStandardMaterial
-          color="#dfe6d8"
-          metalness={0.86}
-          roughness={0.22}
-          envMapIntensity={3.1}
+          color="#c9a45c"
+          metalness={0.94}
+          roughness={0.24}
+          envMapIntensity={2.9}
         />
       </mesh>
 
       <mesh rotation={[Math.PI / 2.35, 0, 0]} scale={1.007}>
         <torusGeometry args={[2.02, 0.15, 24, 32, Math.PI * 0.42]} />
         <meshStandardMaterial
-          color="#D9F26B"
-          emissive="#a9cc3f"
+          color="#e7d4a8"
+          emissive="#8a6a2f"
           emissiveIntensity={0.55}
           metalness={0.7}
           roughness={0.28}
@@ -110,38 +110,38 @@ function Seal({ quality }: { quality: Quality }) {
 
       <mesh ref={arcA} rotation={[Math.PI / 1.7, 0.34, 0]}>
         <torusGeometry args={[2.42, 0.024, 12, 180, Math.PI * 1.3]} />
-        <meshBasicMaterial color="#D9F26B" toneMapped={false} />
+        <meshBasicMaterial color="#e7d4a8" toneMapped={false} />
       </mesh>
 
       <mesh ref={arcB} rotation={[Math.PI / 2.9, -0.5, 0.4]}>
         <torusGeometry args={[2.62, 0.012, 8, 140, Math.PI * 0.85]} />
-        <meshBasicMaterial color="#7fa35a" toneMapped={false} transparent opacity={0.6} />
+        <meshBasicMaterial color="#b08a46" toneMapped={false} transparent opacity={0.6} />
       </mesh>
 
       <mesh ref={core}>
         <icosahedronGeometry args={[0.78, quality === "high" ? 8 : 3]} />
         <meshPhysicalMaterial
-          color="#d5f077"
-          transmission={quality === "high" ? 0.94 : 0.4}
-          thickness={1.1}
-          roughness={0.06}
+          color="#75281b"
+          transmission={quality === "high" ? 0.55 : 0.2}
+          thickness={1.6}
+          roughness={0.18}
           metalness={0}
-          ior={1.38}
+          ior={1.52}
           clearcoat={1}
-          clearcoatRoughness={0.12}
-          envMapIntensity={1.9}
-          emissive="#6d9c33"
-          emissiveIntensity={0.22}
+          clearcoatRoughness={0.14}
+          envMapIntensity={2.2}
+          emissive="#2c0a05"
+          emissiveIntensity={0.4}
         />
       </mesh>
 
       <mesh scale={1.28}>
         <icosahedronGeometry args={[0.92, 1]} />
         <meshBasicMaterial
-          color="#D9F26B"
+          color="#e7d4a8"
           wireframe
           transparent
-          opacity={0.1}
+          opacity={0.12}
           toneMapped={false}
         />
       </mesh>
@@ -155,9 +155,9 @@ function Seal({ quality }: { quality: Quality }) {
           >
             <sphereGeometry args={[0.055, 20, 20]} />
             <meshStandardMaterial
-              color="#F3EFE6"
-              emissive="#D9F26B"
-              emissiveIntensity={0.8}
+              color="#f3e7cc"
+              emissive="#c9a45c"
+              emissiveIntensity={0.7}
               metalness={0.4}
               roughness={0.2}
             />
@@ -178,15 +178,15 @@ export default function VaultScene({ quality = "high" }: { quality?: Quality }) 
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.55} />
-        <directionalLight position={[4, 6, 5]} intensity={1.4} color="#fff8e6" />
-        <pointLight position={[-5, -2, 3]} intensity={18} color="#D9F26B" distance={12} />
-        <pointLight position={[3, -4, -4]} intensity={10} color="#2f6b52" distance={14} />
+        <directionalLight position={[4, 6, 5]} intensity={1.5} color="#fff3df" />
+        <pointLight position={[-5, -2, 3]} intensity={18} color="#e7d4a8" distance={12} />
+        <pointLight position={[3, -4, -4]} intensity={10} color="#4a3524" distance={14} />
 
         <Environment resolution={quality === "high" ? 256 : 128} frames={1}>
           <Lightformer
             form="ring"
             intensity={6}
-            color="#D9F26B"
+            color="#e7d4a8"
             scale={7}
             position={[4, 3, -5]}
           />
@@ -201,14 +201,14 @@ export default function VaultScene({ quality = "high" }: { quality?: Quality }) 
           <Lightformer
             form="ring"
             intensity={5}
-            color="#eaffa8"
+            color="#f0dcb0"
             scale={4}
             position={[-4, -3, -4]}
           />
           <Lightformer
             form="rect"
             intensity={2.4}
-            color="#2E6B55"
+            color="#3b2a1c"
             scale={[7, 7, 1]}
             position={[0, -5, -3]}
           />

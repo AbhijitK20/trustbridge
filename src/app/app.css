@@ -1004,9 +1004,11 @@
 
 .app-hero p {
   color: #b8c9bf;
-  font-size: 10px;
-  line-height: 1.55;
-  max-width: 240px;
+  font-size: 11.5px;
+  letter-spacing: 0;
+  line-height: 1.6;
+  margin: 15px 0 0;
+  max-width: 252px;
 }
 
 .app-hero-actions {

@@ -146,9 +146,10 @@ body {
 .contract-page > .topbar .brand-mark,
 .admin-page > .topbar .brand-mark {
   background: var(--lime);
-  color: #0a1712;
+  color: #17140f;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
   height: 32px;
   width: 32px;
 }
@@ -274,7 +275,7 @@ body {
 .wa-page > .wa-hero::after,
 .admin-page > .admin-header::after,
 .contract-page > .contract-hero::after {
-  background: radial-gradient(46% 70% at 82% 18%, rgba(148, 189, 74, 0.24), transparent 68%);
+  background: radial-gradient(46% 70% at 82% 18%, rgba(191, 66, 41, 0.16), transparent 68%);
   content: "";
   inset: 0;
   pointer-events: none;
@@ -324,11 +325,11 @@ body {
 .wa-page > .wa-hero h1 em,
 .admin-page > .admin-header h1 em,
 .contract-page > .contract-hero h1 em {
-  color: var(--lime);
+  color: inherit;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .check-hero-text,
@@ -390,8 +391,8 @@ body {
 }
 
 .seller-hero .trust-badge {
-  background: rgba(217, 242, 107, 0.12);
-  border: 1px solid rgba(217, 242, 107, 0.24);
+  background: rgba(231, 212, 168, 0.16);
+  border: 1px solid rgba(231, 212, 168, 0.24);
   margin-top: 22px;
 }
 
@@ -510,9 +511,9 @@ body {
 
 .check-result h2 em,
 .check-empty h2 em {
-  color: var(--green);
+  color: inherit;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
 }
 
@@ -624,8 +625,8 @@ body {
 
 .scenario-chip.is-active {
   background: var(--lime);
-  border-color: #b9d54e;
-  box-shadow: 0 10px 24px rgba(150, 180, 60, 0.22);
+  border-color: #c6b183;
+  box-shadow: 0 10px 24px rgba(120, 96, 52, 0.18);
 }
 
 .scenario-chip small {
@@ -720,33 +721,34 @@ body {
 .button-light,
 .form-submit {
   align-items: center;
-  border: 0;
-  border-radius: 100px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   cursor: pointer;
   display: inline-flex;
   font-family: var(--font-sans), sans-serif;
   font-size: 13px;
   font-weight: 600;
   gap: 10px;
-  justify-content: center;
-  padding: 14px 20px;
-  transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+  justify-content: space-between;
+  padding: 13px 16px;
+  text-align: left;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
 .button-primary {
   background: var(--ink);
-  box-shadow: 0 16px 32px rgba(10, 21, 16, 0.18);
+  border-color: var(--ink);
   color: var(--cream);
 }
 
 .button-primary:hover {
   background: var(--green);
-  transform: translateY(-1px);
+  border-color: var(--green);
 }
 
 .button-light {
   background: #fff;
-  border: 1px solid #dcded2;
+  border: 1px solid #d5cbb6;
   color: var(--ink);
 }
 
@@ -780,7 +782,7 @@ body {
 .button-danger {
   background: #f9eae5;
   border: 1px solid #f0d6ce;
-  border-radius: 100px;
+  border-radius: 4px;
   color: #984c40;
   cursor: pointer;
   padding: 12px 18px;
@@ -799,7 +801,7 @@ body {
 
 main.form-page {
   background:
-    radial-gradient(60% 50% at 78% 10%, rgba(148, 189, 74, 0.22), transparent 62%),
+    radial-gradient(60% 50% at 78% 10%, rgba(191, 66, 41, 0.16), transparent 62%),
     radial-gradient(50% 40% at 10% 90%, rgba(23, 73, 58, 0.5), transparent 60%),
     var(--ink);
   box-sizing: border-box;
@@ -848,9 +850,10 @@ main.form-page .form-intro .brand {
 
 main.form-page .form-intro .brand-mark {
   background: var(--lime);
-  color: #0a1712;
+  color: #17140f;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
 }
 
 main.form-page .form-intro .eyebrow {
@@ -868,9 +871,9 @@ main.form-page .form-intro h1 {
 }
 
 main.form-page .form-intro h1 em {
-  color: var(--lime);
+  color: inherit;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
 }
 
@@ -884,8 +887,8 @@ main.form-page .form-intro > p:last-child {
 main.form-page .deal-form {
   align-self: center;
   background: var(--paper);
-  border-radius: 24px;
-  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+  border-radius: 8px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
   color: var(--ink);
   margin: 32px clamp(20px, 4vw, 60px) 32px 0;
   padding: 36px;
@@ -1081,9 +1084,9 @@ main.form-page .form-error {
 }
 
 .public-deal-card h1 em {
-  color: var(--green);
+  color: inherit;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
 }
 
@@ -1097,11 +1100,33 @@ main.form-page .form-error {
 }
 
 .protection-note {
-  background: #f1f4e4;
-  border: 1px solid #e3e8d2;
-  border-radius: 12px;
-  color: #5f7052;
+  background: #f6efdf;
+  border: 1px solid #e6d9bb;
+  border-radius: 4px;
+  color: #77642f;
   padding: 14px 16px;
+}
+
+.public-deal-card .status-pill {
+  background: #f2e7cd;
+  border: 1px solid #e3d5b3;
+  border-radius: 3px;
+  color: #74602f;
+}
+
+.public-deal-card .status-pill b {
+  background: #a8802f;
+}
+
+.public-deal-card .verify-chip {
+  background: #efe6d1;
+  border: 1px solid #ded0ab;
+  border-radius: 3px;
+  color: #6b5a2e;
+}
+
+.protection-note .secure-lock {
+  color: #a8802f;
 }
 
 .pay-area {
@@ -1306,11 +1331,12 @@ main.form-page .form-error {
   align-items: center;
   background: var(--lime);
   border-radius: 50%;
-  color: #0a1712;
+  color: #17140f;
   display: inline-flex;
   font-family: var(--font-display), Georgia, serif;
   font-size: 22px;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
   height: 46px;
   justify-content: center;
   margin-bottom: 18px;
@@ -1703,7 +1729,7 @@ main.form-page .form-error {
 
 .app-shell {
   background:
-    radial-gradient(60% 40% at 50% 0%, rgba(148, 189, 74, 0.14), transparent 60%),
+    radial-gradient(60% 40% at 50% 0%, rgba(191, 66, 41, 0.12), transparent 60%),
     #071410;
   padding: 34px 16px;
 }
@@ -1957,8 +1983,8 @@ main.form-page .form-error {
 
 .wa-shell .wa-chat {
   animation: tb-rise 0.9s 0.18s var(--ease-out) both;
-  background: #e9efe2;
-  border: 1px solid rgba(10, 21, 16, 0.08);
+  background: #efe7db;
+  border: 1px solid rgba(20, 17, 13, 0.1);
   border-radius: 22px;
   box-shadow: 0 28px 70px rgba(10, 21, 16, 0.12);
   overflow: hidden;
@@ -1976,12 +2002,13 @@ main.form-page .form-error {
 .wa-avatar {
   align-items: center;
   background: var(--lime);
-  border-radius: 50%;
-  color: #0a1712;
+  border-radius: 4px;
+  color: #17140f;
   display: flex;
   font-family: var(--font-display), Georgia, serif;
   font-size: 17px;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
   height: 36px;
   justify-content: center;
   width: 36px;
@@ -2002,7 +2029,7 @@ main.form-page .form-error {
 }
 
 .wa-status {
-  background: rgba(217, 242, 107, 0.16);
+  background: rgba(231, 212, 168, 0.14);
   border-radius: 100px;
   color: var(--lime);
   font-family: var(--font-mono), monospace;
@@ -2163,4 +2190,57 @@ main.form-page .form-error {
     margin-top: -54px;
     padding: 0 16px;
   }
+}
+
+.public-deal-card .deal-card-head {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.public-deal-card .deal-card-head .small-muted {
+  color: #8d8777;
+}
+
+/* Outcome and status chrome in the warm palette */
+.demo-banner {
+  background: #f6efdf;
+  border-left-color: #c9a45c;
+  color: #77642f;
+}
+
+.delivery-count {
+  background: #f2e7cd;
+  color: #74602f;
+}
+
+.triage-low-risk {
+  background: #e9e6d6;
+  color: #4f5f3a;
+}
+
+.triage-conditions-open {
+  background: #f2e7cd;
+  color: #74602f;
+}
+
+.triage-human-review {
+  background: #efe6d1;
+  color: #6b5a2e;
+}
+
+.verified-pending {
+  background: #f2e7cd;
+  color: #74602f;
+}
+
+.sanctions-clear {
+  background: #e4e6d5;
+  color: #4f5f3a;
+}
+
+.sanctions-not_screened {
+  background: #e7e2d9;
+  color: #5f5a4e;
 }

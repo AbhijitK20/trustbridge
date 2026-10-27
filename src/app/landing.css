@@ -4,16 +4,17 @@
    ============================================================ */
 
 .lp {
-  --ink: #08120e;
-  --ink-2: #0c1a14;
-  --ink-3: #10241b;
-  --cream: #f3efe6;
-  --paper: #faf8f2;
-  --lime: #d9f26b;
-  --lime-soft: #eaffa8;
-  --green: #17493a;
-  --sage: #8ba180;
-  --muted: #6d7d72;
+  --ink: #14110d;
+  --ink-2: #1b1712;
+  --ink-3: #241f18;
+  --cream: #f1eadd;
+  --paper: #fbf6ec;
+  --lime: #e7d4a8;
+  --lime-soft: #f2e3bf;
+  --green: #233a30;
+  --sage: #8a836f;
+  --accent: #bf4229;
+  --muted: #6e6a5e;
   --line-d: rgba(243, 239, 230, 0.14);
   --line-l: rgba(8, 18, 14, 0.13);
   background: var(--ink);
@@ -69,8 +70,8 @@
 
 .xp-tag {
   align-items: center;
-  border: 1px solid var(--line-d);
-  border-radius: 100px;
+  border: 1px solid rgba(243, 239, 230, 0.24);
+  border-radius: 3px;
   display: inline-flex;
   font-family: var(--font-mono), monospace;
   font-size: 10px;
@@ -81,30 +82,28 @@
 }
 
 .xp-tag-light {
-  border-color: var(--line-l);
+  border-color: rgba(20, 17, 13, 0.2);
 }
 
 .xp-tag-dot {
-  animation: lp-pulse 2.4s ease-in-out infinite;
-  background: var(--lime);
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(217, 242, 107, 0.5);
-  height: 6px;
-  width: 6px;
+  background: var(--accent);
+  border-radius: 1px;
+  height: 7px;
+  width: 7px;
 }
 
 .xp-tag-light .xp-tag-dot {
-  background: var(--green);
+  background: var(--accent);
 }
 
 @keyframes lp-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(217, 242, 107, 0.45);
+    box-shadow: 0 0 0 0 rgba(191, 66, 41, 0.35);
     opacity: 1;
   }
   60% {
-    box-shadow: 0 0 0 7px rgba(217, 242, 107, 0);
+    box-shadow: 0 0 0 7px rgba(191, 66, 41, 0);
     opacity: 0.75;
   }
 }
@@ -124,8 +123,8 @@
 }
 
 .xp-intro-grid {
-  background-image: linear-gradient(rgba(217, 242, 107, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(217, 242, 107, 0.06) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(231, 212, 168, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231, 212, 168, 0.06) 1px, transparent 1px);
   background-size: 88px 88px;
   inset: -10%;
   mask-image: radial-gradient(circle at 50% 50%, black, transparent 68%);
@@ -160,10 +159,10 @@
 
 @keyframes lp-mark-glow {
   from {
-    box-shadow: 0 0 0 0 rgba(217, 242, 107, 0.25);
+    box-shadow: 0 0 0 0 rgba(231, 212, 168, 0.25);
   }
   to {
-    box-shadow: 0 0 60px 6px rgba(217, 242, 107, 0.28);
+    box-shadow: 0 0 60px 6px rgba(231, 212, 168, 0.22);
   }
 }
 
@@ -228,7 +227,7 @@
 }
 
 .xp-cursor-ring.is-hot {
-  background: rgba(217, 242, 107, 0.1);
+  background: rgba(231, 212, 168, 0.12);
   border-color: var(--lime);
   scale: 1.45;
 }
@@ -273,8 +272,8 @@
 .lp-brand-mark {
   align-items: center;
   background: var(--lime);
-  border-radius: 50%;
-  color: #0a1712;
+  border-radius: 4px;
+  color: #17140f;
   display: inline-flex;
   height: 30px;
   justify-content: center;
@@ -284,20 +283,14 @@
 
 .lp-brand-mark span {
   font-family: var(--font-display), Georgia, serif;
-  font-size: 18px;
-  font-style: italic;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 500;
   line-height: 1;
   transform: translateY(1px);
 }
 
-.lp-brand-mark::after {
-  animation: lp-pulse 3s ease-in-out infinite;
-  border: 1px solid rgba(217, 242, 107, 0.6);
-  border-radius: 50%;
-  content: "";
-  inset: -5px;
-  position: absolute;
-}
+
 
 .lp-nav-links {
   align-items: center;
@@ -321,7 +314,7 @@
 .lp-nav-cta {
   align-items: center;
   background: var(--cream);
-  border-radius: 100px;
+  border-radius: 4px;
   color: var(--ink) !important;
   display: inline-flex;
   font-weight: 600;
@@ -333,20 +326,16 @@
 
 .lp-nav-cta:hover {
   background: var(--lime) !important;
-  transform: translateY(-1px);
 }
 
 .lp-nav-cta i {
-  align-items: center;
-  background: var(--ink);
-  border-radius: 50%;
-  color: var(--lime);
-  display: inline-flex;
-  font-size: 10px;
+  font-size: 11px;
   font-style: normal;
-  height: 18px;
-  justify-content: center;
-  width: 18px;
+  transition: transform 0.3s;
+}
+
+.lp-nav-cta:hover i {
+  transform: translate(2px, -2px);
 }
 
 .lp-nav-progress {
@@ -385,10 +374,10 @@
 
 .lp-hero-glow {
   background: radial-gradient(
-    42% 46% at 72% 44%,
-    rgba(148, 189, 74, 0.34),
-    rgba(23, 73, 58, 0.18) 46%,
-    transparent 72%
+    44% 48% at 72% 44%,
+    rgba(191, 66, 41, 0.16),
+    rgba(35, 58, 48, 0.2) 46%,
+    transparent 74%
   );
   filter: blur(6px);
   inset: 0;
@@ -434,12 +423,12 @@
 }
 
 .lp-h1-em {
-  color: var(--lime);
+  color: inherit;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  padding-right: 0.06em;
+  letter-spacing: -0.03em;
+  padding-right: 0.04em;
 }
 
 .lp-hero-sub {
@@ -460,39 +449,35 @@
 
 .lp-btn {
   align-items: center;
-  border-radius: 100px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   display: inline-flex;
   font-size: 14px;
   font-weight: 600;
-  gap: 12px;
-  padding: 16px 22px;
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  gap: 10px;
+  padding: 15px 20px;
+  transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
 }
 
 .lp-btn i {
-  align-items: center;
-  border-radius: 50%;
   display: inline-flex;
-  font-size: 11px;
+  font-size: 12px;
   font-style: normal;
-  height: 22px;
-  justify-content: center;
-  transition: transform 0.35s, background 0.3s, color 0.3s;
-  width: 22px;
+  transition: transform 0.3s;
 }
 
 .lp-btn:hover i {
-  transform: rotate(45deg);
+  transform: translate(2px, -2px);
 }
 
 .lp-btn-lime {
   background: var(--lime);
-  color: #0a1712;
+  border-color: #c6b183;
+  color: #17140f;
 }
 
 .lp-btn-lime i {
-  background: #0a1712;
-  color: var(--lime);
+  color: #17140f;
 }
 
 .lp-btn-lime:hover {
@@ -505,7 +490,6 @@
 }
 
 .lp-btn-ghost i {
-  background: rgba(243, 239, 230, 0.12);
   color: var(--cream);
 }
 
@@ -583,14 +567,14 @@
 
 .lp-chip {
   align-items: center;
-  backdrop-filter: blur(14px);
-  background: rgba(10, 23, 18, 0.66);
-  border: 1px solid rgba(243, 239, 230, 0.16);
-  border-radius: 14px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  background: var(--paper);
+  border: 1px solid #d5cbb6;
+  border-radius: 5px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  color: var(--ink);
   display: flex;
   gap: 11px;
-  padding: 12px 15px;
+  padding: 11px 14px;
   position: absolute;
   z-index: 4;
 }
@@ -607,7 +591,7 @@
 }
 
 .lp-chip small {
-  color: rgba(243, 239, 230, 0.45);
+  color: #89806d;
   font-family: var(--font-mono), monospace;
   font-size: 8.5px;
   letter-spacing: 0.06em;
@@ -617,12 +601,13 @@
 
 .lp-chip-icon {
   align-items: center;
-  border-radius: 50%;
+  border-radius: 3px;
   display: flex;
   flex: 0 0 auto;
-  height: 30px;
+  font-size: 12px;
+  height: 26px;
   justify-content: center;
-  width: 30px;
+  width: 26px;
 }
 
 .lp-chip-proof {
@@ -631,8 +616,8 @@
 }
 
 .lp-chip-proof .lp-chip-icon {
-  background: rgba(217, 242, 107, 0.16);
-  color: var(--lime);
+  background: #efe3c7;
+  color: #8a6a2f;
 }
 
 .lp-chip-release {
@@ -641,21 +626,21 @@
 }
 
 .lp-chip-release .lp-chip-icon {
-  background: var(--lime);
-  color: #0a1712;
+  background: var(--accent);
+  color: #fff4ef;
 }
 
 
 /* ---------- marquee ---------- */
 
 .lp-marquee {
-  background: var(--lime);
-  color: #0a1712;
+  background: #e3d5ba;
+  border-bottom: 1px solid #c7b998;
+  border-top: 1px solid #c7b998;
+  color: #17140f;
   overflow: hidden;
-  padding: 15px 0;
+  padding: 12px 0;
   position: relative;
-  transform: rotate(-1.1deg) scale(1.03);
-  margin: 0 -2%;
   z-index: 4;
 }
 
@@ -675,16 +660,16 @@
   align-items: center;
   display: flex;
   font-family: var(--font-mono), monospace;
-  font-size: 11px;
-  gap: 30px;
-  letter-spacing: 0.2em;
-  padding-right: 30px;
+  font-size: 10.5px;
+  gap: 34px;
+  letter-spacing: 0.18em;
+  padding-right: 34px;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .lp-marquee-set i {
-  color: rgba(10, 23, 18, 0.4);
+  color: var(--accent);
   font-style: normal;
 }
 
@@ -735,11 +720,11 @@
 
 .lp-h2 em,
 .lp-em {
-  color: var(--green);
+  color: inherit;
   font-family: var(--font-display), Georgia, serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .lp-statement-note {
@@ -817,7 +802,7 @@
 }
 
 .lp-process-intro .lp-h2 em {
-  color: var(--lime);
+  color: inherit;
 }
 
 .lp-pin {
@@ -898,7 +883,7 @@
 }
 
 .lp-step-visual::after {
-  background: radial-gradient(60% 70% at 50% 40%, rgba(217, 242, 107, 0.16), transparent 70%);
+  background: radial-gradient(60% 70% at 50% 40%, rgba(231, 212, 168, 0.14), transparent 70%);
   content: "";
   inset: 0;
   position: absolute;
@@ -1021,7 +1006,7 @@
 }
 
 .lp-outcomes-top .lp-h2 em {
-  color: var(--lime);
+  color: inherit;
 }
 
 .lp-outcomes-copy {
@@ -1277,8 +1262,8 @@
 .lp-preview-stage {
   align-items: center;
   background:
-    radial-gradient(50% 60% at 70% 30%, rgba(217, 242, 107, 0.5), transparent 70%),
-    linear-gradient(150deg, #123b2f, #071410 60%);
+    radial-gradient(50% 60% at 70% 30%, rgba(231, 212, 168, 0.22), transparent 70%),
+    linear-gradient(150deg, #2a241c, #14110d 62%);
   border-radius: 30px;
   display: grid;
   gap: 40px;
@@ -1313,9 +1298,9 @@
 }
 
 .lp-preview-copy h2 em {
-  color: var(--lime);
+  color: inherit;
   font-family: var(--font-display), serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
 }
 
@@ -1344,14 +1329,15 @@
 
 .lp-preview-list i {
   align-items: center;
-  background: rgba(217, 242, 107, 0.16);
-  border-radius: 50%;
-  color: var(--lime);
+  background: #efe6d1;
+  border-radius: 3px;
+  color: #7a6636;
   display: flex;
   flex: 0 0 auto;
   font-size: 9px;
   font-style: normal;
   height: 18px;
+  line-height: 1;
   justify-content: center;
   width: 18px;
 }
@@ -1382,9 +1368,10 @@
 
 .lp-deal-status {
   align-items: center;
-  background: #e7f2cd;
-  border-radius: 100px;
-  color: #3f6b34;
+  background: #eeeadf;
+  border: 1px solid #d8d3c2;
+  border-radius: 3px;
+  color: #4e6650;
   display: inline-flex;
   font-family: var(--font-mono), monospace;
   font-size: 8.5px;
@@ -1395,20 +1382,20 @@
 }
 
 .lp-deal-status b {
-  background: #6f9b3f;
+  background: #5d7a58;
   border-radius: 50%;
   height: 5px;
   width: 5px;
 }
 
 .lp-deal-id {
-  color: #9aa39c;
+  color: #8d8777;
   font-family: var(--font-mono), monospace;
   font-size: 9px;
 }
 
 .lp-deal-label {
-  color: #99a29a;
+  color: #8d8777;
   font-family: var(--font-mono), monospace;
   font-size: 8.5px;
   letter-spacing: 0.16em;
@@ -1425,21 +1412,21 @@
 }
 
 .lp-deal-sub {
-  color: #7c8880;
+  color: #827b6b;
   font-size: 12px;
   line-height: 1.5;
   margin: 0;
 }
 
 .lp-deal-rows {
-  border-top: 1px solid #e4e4dc;
+  border-top: 1px solid #e6dfd0;
   margin-top: 22px;
   padding-top: 6px;
 }
 
 .lp-deal-row {
   align-items: center;
-  border-bottom: 1px solid #edede6;
+  border-bottom: 1px solid #ece6d8;
   display: flex;
   font-size: 11px;
   justify-content: space-between;
@@ -1447,7 +1434,7 @@
 }
 
 .lp-deal-row span {
-  color: #8b968e;
+  color: #827b6b;
 }
 
 .lp-deal-row b {
@@ -1462,7 +1449,7 @@
 }
 
 .lp-deal-total span {
-  color: #8b968e;
+  color: #827b6b;
   font-size: 11px;
 }
 
@@ -1473,7 +1460,7 @@
 }
 
 .lp-deal-total strong small {
-  color: #8b968e;
+  color: #827b6b;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0;
@@ -1482,9 +1469,10 @@
 
 .lp-deal-foot {
   align-items: center;
-  background: #eef3dd;
-  border-radius: 10px;
-  color: #5d6f52;
+  background: #f4ecda;
+  border: 1px solid #e3d7ba;
+  border-radius: 3px;
+  color: #7a6636;
   display: flex;
   font-family: var(--font-mono), monospace;
   font-size: 8.5px;
@@ -1495,15 +1483,15 @@
 }
 
 .lp-deal-foot i {
-  color: #6f9b3f;
+  color: #a8802f;
   font-style: normal;
 }
 
 .lp-float {
   animation: lp-float 7s ease-in-out infinite;
-  backdrop-filter: blur(12px);
-  background: rgba(250, 248, 242, 0.94);
-  border-radius: 12px;
+  background: var(--paper);
+  border: 1px solid #d5cbb6;
+  border-radius: 5px;
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.3);
   color: var(--ink);
   padding: 11px 14px;
@@ -1522,7 +1510,7 @@
 }
 
 .lp-float small {
-  color: #8b968e;
+  color: #827b6b;
   font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin-top: 3px;
@@ -1564,8 +1552,8 @@
 .lp-cta::before {
   background: radial-gradient(
     46% 60% at 50% 100%,
-    rgba(148, 189, 74, 0.42),
-    rgba(23, 73, 58, 0.2) 45%,
+    rgba(191, 66, 41, 0.22),
+    rgba(35, 58, 48, 0.22) 45%,
     transparent 74%
   );
   content: "";
@@ -1592,9 +1580,9 @@
 }
 
 .lp-cta h2 em {
-  color: var(--lime);
+  color: inherit;
   font-family: var(--font-display), serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
 }
 

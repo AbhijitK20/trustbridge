@@ -320,7 +320,7 @@ export function Process() {
                 <span />
               </div>
               <h3>
-                Then it&rsquo;s <em style={{ fontFamily: "var(--font-display)", color: "var(--lime)" }}>done.</em>
+                Then it&rsquo;s <em>done.</em>
               </h3>
               <p>
                 No chasing, no screenshots, no &ldquo;trust me bro.&rdquo; Just a
