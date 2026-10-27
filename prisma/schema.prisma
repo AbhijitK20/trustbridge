@@ -108,6 +108,7 @@ model User {
   id                 String              @id @default(cuid())
   email              String              @unique
   name               String?
+  emailVerified      DateTime?
   image              String?
   role               UserRole            @default(BUYER)
   createdAt          DateTime            @default(now())
