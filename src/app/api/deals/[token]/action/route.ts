@@ -26,7 +26,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ tok
           prisma.deal.update({ where: { id: deal.id }, data: { status: "RELEASED", balanceReleasedAt: new Date() } }),
           prisma.auditLog.create({ data: { dealId: deal.id, actorId: deal.buyerId, action: "DELIVERY_CONFIRMED_SIMULATED", metadata: { simulated: true, balanceReleased: true } } }),
         ]);
-        return NextResponse.json({ status: "RELEASED", message: "Delivery confirmed. Demo ledger released the funds." });
+        return NextResponse.json({ status: "RELEASED", message: "Delivery confirmed. Sandbox ledger released the funds." });
       }
       await prisma.$transaction([
         prisma.deal.update({ where: { id: deal.id }, data: { status: "CONFIRMED" } }),

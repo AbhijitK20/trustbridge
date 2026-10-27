@@ -39,7 +39,9 @@ export default function DealActions({ token, status, isSeller, isBuyer, demoMode
       setPending(false);
       return;
     }
-    const putResponse = await fetch(upload.uploadUrl, { method: "PUT", headers: { "Content-Type": file.type }, body: file });
+    const putHeaders: Record<string, string> = { "Content-Type": file.type };
+    if (upload.provider === "supabase") putHeaders["x-upsert"] = "true";
+    const putResponse = await fetch(upload.uploadUrl, { method: "PUT", headers: putHeaders, body: file });
     if (!putResponse.ok) {
       setError("Evidence upload failed.");
       setPending(false);
@@ -104,13 +106,13 @@ export default function DealActions({ token, status, isSeller, isBuyer, demoMode
         />
         {demoMode ? (
           <>
-            <p className="form-hint">Demo mode: no file storage is configured, so this records a text delivery.</p>
+            <p className="form-hint">Storage is not configured, so this records a text delivery.</p>
             <button
               className="button-primary form-submit"
               onClick={submitDemoDelivery}
               disabled={pending || note.length < 10}
             >
-              {pending ? "Submitting delivery…" : "Submit demo delivery ↗"}
+              {pending ? "Submitting delivery…" : "Submit text delivery ↗"}
             </button>
           </>
         ) : (

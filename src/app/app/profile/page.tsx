@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { demoModeEnabled } from "@/lib/demo-mode";
 import { appSignOut } from "./actions";
 
 function initials(name: string | null | undefined) {
@@ -134,12 +133,6 @@ export default async function AppProfilePage() {
           <span>↗</span>
         </Link>
       </section>
-
-      {demoModeEnabled() && (
-        <p className="app-demo-note">
-          Demo workspace: payments and releases are simulated. No real money moves.
-        </p>
-      )}
 
       <form action={appSignOut}>
         <button className="app-signout" type="submit">

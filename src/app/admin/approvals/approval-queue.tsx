@@ -72,7 +72,7 @@ export default function ApprovalQueue({
 
   return (
     <section className="approval-list">
-      {demoMode && <p className="demo-banner">Demo ledger: second approval updates this workspace only.</p>}
+      {demoMode && <p className="demo-banner">Sandbox ledger: second approval updates this workspace only.</p>}
       {notice && <p className="form-success admin-notice">{notice}</p>}
       {error && <p className="form-error admin-notice">{error}</p>}
       {approvals.map((approval) => {

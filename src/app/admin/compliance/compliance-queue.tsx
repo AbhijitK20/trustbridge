@@ -63,7 +63,7 @@ export default function ComplianceQueue({ sellers: initial, demoMode }: { seller
 
   return (
     <section className="compliance-list">
-      {demoMode && <p className="demo-banner">Demo KYC: no real identity documents, bank details, or sanctions calls are used.</p>}
+      {demoMode && <p className="demo-banner">Sandbox review: no real identity documents, bank details, or sanctions calls are used.</p>}
       {notice && <p className="form-success admin-notice">{notice}</p>}
       {error && <p className="form-error admin-notice">{error}</p>}
       {sellers.map((seller) => (

@@ -74,7 +74,7 @@ export default function DisputeQueue({ disputes: initial, deliveries, demoMode =
       setDisputes((items) => items.filter((item) => item.id !== id));
       setNotice(
         body.simulated
-          ? `Decision recorded in the demo ledger: ${body.status}. No real money moved.`
+          ? `Decision recorded in the sandbox ledger: ${body.status}. No real money moved.`
           : `Decision recorded: ${body.status}.`,
       );
       setNote("");
@@ -102,7 +102,7 @@ export default function DisputeQueue({ disputes: initial, deliveries, demoMode =
       </header>
 
       {demoMode && (
-        <p className="demo-banner">Demo ledger: decisions update this workspace, but no real money moves.</p>
+        <p className="demo-banner">Sandbox ledger: decisions update this workspace, but no real money moves.</p>
       )}
       {notice && <p className="form-success admin-notice">{notice}</p>}
       {error && <p className="form-error admin-notice">{error}</p>}
@@ -185,7 +185,7 @@ export default function DisputeQueue({ disputes: initial, deliveries, demoMode =
                       <small>
                         {evidence.aiVerdict
                           ? `Auto triage: ${evidence.aiVerdict} · ${evidence.aiConfidence}%`
-                          : evidence.note ?? "Demo evidence · preview not stored"}
+                          : evidence.note ?? "Evidence preview · not stored"}
                         {evidence.sha256 ? ` · SHA-256 ${evidence.sha256.slice(0, 10)}…` : ""}
                       </small>
                     </div>

@@ -53,7 +53,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ token:
   const fee = deal.platformFeeCents || calculatePlatformFee(deal.priceCents);
   const sellerNet = Math.max(0, deal.priceCents - fee);
   const consent = deal.consents.find((item) => item.userId === deal.buyerId) ?? deal.consents[0];
-  const paymentRef = deal.stripePaymentId?.startsWith("demo_") ? "Demo ledger (simulated)" : deal.stripePaymentId ?? "Not recorded";
+  const paymentRef = deal.stripePaymentId?.startsWith("demo_") ? "Sandbox ledger (simulated)" : deal.stripePaymentId ?? "Not recorded";
 
   return (
     <main className="receipt-page">

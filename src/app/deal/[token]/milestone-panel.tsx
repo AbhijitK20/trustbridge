@@ -290,7 +290,7 @@ export default function MilestonePanel({
                   )}
                   {demoMode && (
                     <p className="milestone-demo-note">
-                      Demo ledger: this records the release in the workspace. No real money moves.
+                      Sandbox settlement: this records the release in the workspace ledger.
                     </p>
                   )}
                 </div>

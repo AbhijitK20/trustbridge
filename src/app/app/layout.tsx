@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/auth";
-import { demoModeEnabled } from "@/lib/demo-mode";
 import AppNav from "./app-nav";
 
 export const dynamic = "force-dynamic";
@@ -36,7 +35,6 @@ export default async function AppLayout({
             </span>
           </Link>
           <div className="app-topbar-right">
-            {demoModeEnabled() && <span className="app-demo-chip">Demo</span>}
             <Link className="app-avatar" href="/app/profile" aria-label="Profile">
               {initials(session.user.name)}
             </Link>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/auth";
-import { createUploadUrl, storageConfigured } from "@/lib/storage";
+import { createUploadUrl, storageConfigured, storageProvider } from "@/lib/storage";
 import { prisma } from "@/lib/prisma";
 import { mutationGuard } from "@/lib/abuse";
 
@@ -20,7 +20,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ tok
     if (deal.status !== "HELD") return NextResponse.json({ error: "Evidence can only be uploaded while payment is held." }, { status: 409 });
     const safeName = input.fileName.toLowerCase().replace(/[^a-z0-9.-]+/g, "-").slice(-120);
     const key = `deals/${deal.id}/${crypto.randomUUID()}-${safeName}`;
-    return NextResponse.json({ key, uploadUrl: await createUploadUrl(key, input.contentType) });
+    return NextResponse.json({ key, uploadUrl: await createUploadUrl(key, input.contentType), provider: storageProvider });
   } catch (error) {
     if (error instanceof z.ZodError) return NextResponse.json({ error: "Unsupported file or file is too large." }, { status: 400 });
     console.error("evidence.upload_url_failed", error);

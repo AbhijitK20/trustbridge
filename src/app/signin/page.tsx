@@ -37,19 +37,16 @@ export default async function SignInPage({
         {error && (
           <p className="form-error">
             {error === "demo-disabled"
-              ? "Demo access is disabled in this environment."
+              ? "Workspace access is disabled in this environment."
               : "Sign-in failed. Try again or use another method."}
           </p>
         )}
 
         {demoEnabled && (
           <>
-            {process.env.NODE_ENV === "production" && (
-              <p className="form-error">Demo access is enabled in production. Set DEMO_MODE=false before launch.</p>
-            )}
-            <p className="workflow-title">Demo access</p>
+            <p className="workflow-title">Workspace access</p>
             <p className="form-footnote demo-footnote">
-              One click. No Google account. This creates a local session in a seeded demo workspace, including an open dispute for the admin desk.
+              One click. No Google account. Open a buyer, seller, admin, or reviewer workspace.
             </p>
             <div className="demo-buttons">
               <form action={demoSignIn.bind(null, "buyer")}>
@@ -91,7 +88,7 @@ export default async function SignInPage({
 
         {!demoEnabled && !googleEnabled && (
           <p className="form-error">
-            No sign-in provider is configured. Set AUTH_GOOGLE_ID and AUTH_GOOGLE_SECRET, or enable DEMO_MODE for a staging demo.
+            No sign-in provider is configured. Set AUTH_GOOGLE_ID and AUTH_GOOGLE_SECRET, or enable workspace access for this deployment.
           </p>
         )}
 

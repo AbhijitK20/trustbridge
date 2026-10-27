@@ -53,8 +53,7 @@ export default function ContractSignForm({
         <p className="card-label">SIGN AS {role}</p>
         <h3>Make it yours.</h3>
         <p>
-          Type your name exactly as you want it recorded. This is a demo electronic acknowledgment,
-          not a qualified e-signature.
+          Type your name exactly as you want it recorded. This is a typed electronic acknowledgment, not a qualified e-signature.
         </p>
       </div>
       <div className="contract-sign-fields">

@@ -70,11 +70,11 @@ export default function PayButton({
           : disabled
             ? "Payment unavailable"
             : demoMode
-              ? "Hold payment (demo) ↗"
+              ? "Hold payment ↗"
               : "Pay securely with Stripe ↗"}
       </button>
       <p className="form-hint">
-        Terms version {termsVersion}. {demoMode ? "Demo ledger: no card is charged and no real money moves." : "Payment is processed by the licensed payment partner shown above."}
+        Terms version {termsVersion}. {demoMode ? "Sandbox settlement: no card is charged in this environment." : "Payment is processed by the licensed payment partner shown above."}
       </p>
       {error && <p className="form-error">{error}</p>}
     </div>
