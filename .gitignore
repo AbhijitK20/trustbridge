@@ -38,3 +38,11 @@ supabase/.branches/
 
 # Keep the safe template, never the real env files
 !.env.example
+
+# Flutter mobile build artifacts
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/android/.gradle/

@@ -1,0 +1,48 @@
+name: Flutter APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "mobile/**"
+      - ".github/workflows/flutter-apk.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Scaffold Android shell
+        run: |
+          cp lib/main.dart /tmp/trustbridge_main.dart
+          cp pubspec.yaml /tmp/trustbridge_pubspec.yaml
+          flutter create --platforms=android --org com.trustbridge --project-name trustbridge .
+          cp /tmp/trustbridge_main.dart lib/main.dart
+          cp /tmp/trustbridge_pubspec.yaml pubspec.yaml
+          python3 scripts/patch_android.py
+
+      - name: Resolve packages
+        run: flutter pub get
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trustbridge-apk
+          path: mobile/build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 14
