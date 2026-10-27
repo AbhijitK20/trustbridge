@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { CheckResult, Outcome } from "@/lib/verification";
+import MilestoneEditor, { type MilestoneDraftView } from "./milestone-editor";
 
 type AttachedVerification = {
   id: string;
@@ -34,6 +35,9 @@ export default function CreateDealForm({
   const [consent, setConsent] = useState(false);
   const [verification, setVerification] = useState<AttachedVerification | null>(null);
   const [verificationError, setVerificationError] = useState("");
+  const [price, setPrice] = useState(initialPrice ?? "");
+  const [currency, setCurrency] = useState("inr");
+  const [milestones, setMilestones] = useState<MilestoneDraftView[]>([]);
 
   useEffect(() => {
     if (!verificationId) return;
@@ -71,19 +75,41 @@ export default function CreateDealForm({
     setPending(true);
     setError("");
     const form = new FormData(event.currentTarget);
-    const price = Number(form.get("price"));
+    const priceCents = Math.round(Number(price) * 100);
+    const milestonePayload = milestones.map((milestone) => ({
+      title: milestone.title,
+      description: milestone.description,
+      acceptanceCriteria: milestone.acceptanceCriteria,
+      amountCents: Math.round(Number(milestone.amount) * 100),
+      dueAt: milestone.dueAt ? new Date(`${milestone.dueAt}T23:59:00`).toISOString() : undefined,
+      verificationRequired: milestone.verificationRequired,
+    }));
+    if (milestonePayload.length > 0) {
+      if (milestonePayload.some((milestone) => milestone.title.trim().length < 2 || milestone.acceptanceCriteria.trim().length < 5 || milestone.amountCents <= 0)) {
+        setError("Complete every milestone title, amount, and acceptance criteria.");
+        setPending(false);
+        return;
+      }
+      const total = milestonePayload.reduce((sum, milestone) => sum + milestone.amountCents, 0);
+      if (total !== priceCents) {
+        setError("Milestone amounts must add up to the agreed price.");
+        setPending(false);
+        return;
+      }
+    }
     const response = await fetch("/api/deals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         title: form.get("title"),
         description: form.get("description"),
-        priceCents: Math.round(price * 100),
+        priceCents,
         depositPercent: Number(form.get("depositPercent") || 30),
-        currency: form.get("currency") || "inr",
+        currency,
         sellerName: form.get("sellerName"),
         deliveryDeadline: form.get("deadline") ? new Date(`${form.get("deadline")}T23:59:00`).toISOString() : undefined,
         verificationId: form.get("verificationId") || undefined,
+        milestones: milestonePayload.length > 0 ? milestonePayload : undefined,
         consent: true,
       }),
     });
@@ -142,8 +168,8 @@ export default function CreateDealForm({
           <label htmlFor="price">
             Agreed price
             <span className="price-row">
-              <input id="price" name="price" required min="1" step="0.01" type="number" defaultValue={initialPrice} placeholder="1200.00" />
-              <select name="currency" defaultValue="inr" aria-label="Currency">
+              <input id="price" name="price" required min="1" step="0.01" type="number" value={price} onChange={(event) => setPrice(event.target.value)} placeholder="1200.00" />
+              <select name="currency" value={currency} onChange={(event) => setCurrency(event.target.value)} aria-label="Currency">
                 <option value="inr">INR ₹</option>
                 <option value="usd">USD $</option>
               </select>
@@ -154,15 +180,20 @@ export default function CreateDealForm({
             <input id="deadline" name="deadline" type="date" />
           </label>
         </div>
-        <label htmlFor="depositPercent">
-          Deposit schedule
-          <select id="depositPercent" name="depositPercent" defaultValue="30">
-            <option value="30">30% at delivery · 70% on acceptance</option>
-            <option value="50">50% at delivery · 50% on acceptance</option>
-            <option value="100">100% on acceptance</option>
-          </select>
-        </label>
-        <p className="form-hint">The full amount is held. The deposit releases when delivery is submitted; the balance releases when you accept.</p>
+        {milestones.length === 0 && (
+          <>
+            <label htmlFor="depositPercent">
+              Deposit schedule
+              <select id="depositPercent" name="depositPercent" defaultValue="30">
+                <option value="30">30% at delivery · 70% on acceptance</option>
+                <option value="50">50% at delivery · 50% on acceptance</option>
+                <option value="100">100% on acceptance</option>
+              </select>
+            </label>
+            <p className="form-hint">The full amount is held. The deposit releases when delivery is submitted; the balance releases when you accept.</p>
+          </>
+        )}
+        <MilestoneEditor milestones={milestones} onChange={setMilestones} price={price} currency={currency} />
         <div className="form-divider" />
         <p className="form-label">Seller details</p>
         <label htmlFor="sellerName">

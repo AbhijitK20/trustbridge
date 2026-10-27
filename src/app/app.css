@@ -1,0 +1,1783 @@
+/* Milestones, deal passport, and the mobile app shell. */
+
+.deal-extras {
+  margin: 34px auto 0;
+  max-width: 650px;
+}
+
+.milestone-section {
+  background: var(--paper);
+  box-shadow: 0 20px 50px #475d4d10;
+  padding: 32px;
+}
+
+.milestone-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.milestone-head h2 {
+  font-size: 30px;
+  letter-spacing: -0.055em;
+  margin: 8px 0 8px;
+}
+
+.milestone-intro {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  max-width: 390px;
+}
+
+.milestone-total {
+  align-items: center;
+  background: var(--green);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  height: 66px;
+  justify-content: center;
+  width: 66px;
+}
+
+.milestone-total strong {
+  font-size: 18px;
+  letter-spacing: -0.04em;
+}
+
+.milestone-total span {
+  color: #c9dfba;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  text-transform: uppercase;
+}
+
+.milestone-progress {
+  background: #e4e6dc;
+  border-radius: 999px;
+  height: 5px;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.milestone-progress span {
+  background: var(--green);
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.milestone-totals {
+  color: #89958c;
+  display: flex;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  justify-content: space-between;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.milestone-list {
+  margin-top: 25px;
+}
+
+.milestone-card {
+  border-top: 1px solid var(--line);
+  padding: 22px 0 4px;
+}
+
+.milestone-card-top {
+  align-items: center;
+  display: flex;
+  gap: 9px;
+}
+
+.milestone-number {
+  color: #97a198;
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+}
+
+.ms-status {
+  background: #eef0e7;
+  border-radius: 20px;
+  color: #7a857d;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  padding: 6px 9px;
+  text-transform: uppercase;
+}
+
+.ms-submitted {
+  background: #f5ecd4;
+  color: #876e33;
+}
+
+.ms-changes-requested {
+  background: #f7e5df;
+  color: #9a5143;
+}
+
+.ms-released {
+  background: #e5f0d0;
+  color: #52723c;
+}
+
+.ms-disputed {
+  background: #f2dedb;
+  color: #984337;
+}
+
+.milestone-card-top > strong {
+  font-size: 14px;
+  margin-left: auto;
+}
+
+.milestone-card h3 {
+  font-size: 19px;
+  letter-spacing: -0.04em;
+  margin: 13px 0 7px;
+}
+
+.milestone-card > p {
+  color: #68756d;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.milestone-criteria {
+  background: #f2f4e8;
+  color: #65735f !important;
+  font-size: 10px !important;
+  padding: 10px 12px;
+}
+
+.milestone-criteria b {
+  color: #4e6047;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  margin-right: 5px;
+  text-transform: uppercase;
+}
+
+.milestone-meta {
+  color: #8e9990;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  gap: 7px 14px;
+  margin: 12px 0 4px;
+  text-transform: uppercase;
+}
+
+.milestone-note {
+  border-left: 2px solid #cbd8b8;
+  margin: 14px 0;
+  padding: 2px 0 2px 12px;
+}
+
+.milestone-note b {
+  color: #718068;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.milestone-note p {
+  color: #637067;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.45;
+  margin: 5px 0 0;
+}
+
+.milestone-note-review {
+  border-left-color: #e3c9a8;
+}
+
+.milestone-action {
+  margin-top: 14px;
+}
+
+.milestone-action textarea {
+  background: transparent;
+  border: 1px solid #c9d0c7;
+  color: var(--ink);
+  display: block;
+  font: 12px "DM Sans", sans-serif;
+  margin-bottom: 9px;
+  outline: 0;
+  padding: 10px;
+  resize: vertical;
+  width: 100%;
+}
+
+.milestone-action textarea:focus {
+  border-color: var(--green);
+}
+
+.milestone-action .button-primary,
+.milestone-action .button-light {
+  border: 0;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 11px 13px;
+}
+
+.milestone-action .button-primary:disabled,
+.milestone-action .button-light:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.milestone-gate {
+  background: #f6f1df;
+  border-left: 2px solid #d7b657;
+  color: #75612e;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  padding: 12px;
+}
+
+.milestone-gate b {
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.milestone-gate p {
+  margin: 6px 0 0;
+}
+
+.milestone-gate-blocked {
+  background: #f7e8e3;
+  border-left-color: #b76756;
+  color: #824b40;
+}
+
+.milestone-ack {
+  align-items: flex-start;
+  color: #6d5e3c;
+  display: flex;
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  gap: 7px;
+  margin-top: 9px;
+  text-transform: none;
+}
+
+.milestone-ack input {
+  margin-top: 2px;
+}
+
+.milestone-demo-note {
+  color: #9aa39c;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  line-height: 1.45;
+  margin: 10px 0 0;
+}
+
+.contract-callout {
+  align-items: flex-end;
+  background: var(--green);
+  color: white;
+  display: flex;
+  gap: 28px;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 30px 34px;
+}
+
+.contract-callout .card-label {
+  color: #a8bcad;
+  margin: 0 0 10px;
+}
+
+.contract-callout h3 {
+  color: white;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 27px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  margin-bottom: 8px;
+}
+
+.contract-callout p:not(.card-label) {
+  color: #b8c9bf;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 390px;
+}
+
+.contract-callout-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 15px;
+  margin-top: 15px;
+}
+
+.contract-callout-meta span {
+  color: #9eb3a6;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.contract-callout-actions {
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.contract-callout .button-primary {
+  background: var(--lime);
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.contract-callout .text-link {
+  border-color: #789183;
+  color: #c7d7cc;
+  white-space: nowrap;
+}
+
+/* Contract document */
+
+.contract-page {
+  min-height: 100vh;
+  padding: 30px 34px 90px;
+}
+
+.contract-topbar {
+  margin: auto;
+  max-width: 980px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.contract-hero {
+  margin: auto;
+  max-width: 900px;
+  padding: 74px 0 36px;
+}
+
+.contract-hero h1 {
+  font-size: clamp(48px, 7vw, 80px);
+  max-width: 700px;
+}
+
+.contract-hero > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.contract-meta-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 17px;
+  margin-top: 25px;
+}
+
+.contract-meta-row > span {
+  color: #89958c;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.contract-status {
+  border: 1px solid #b9c7b9;
+  border-radius: 20px;
+  color: var(--green) !important;
+  padding: 6px 9px;
+}
+
+.contract-status-signed {
+  background: #e5f0d0;
+  border-color: #c9dab1;
+}
+
+.contract-doc {
+  background: var(--paper);
+  box-shadow: 0 25px 70px #475d4d16;
+  margin: auto;
+  max-width: 900px;
+  padding: 52px 60px;
+}
+
+.contract-doc-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.contract-doc-head .card-label {
+  margin: 0 0 12px;
+}
+
+.contract-doc-head h2 {
+  font-size: clamp(30px, 4vw, 44px);
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+
+.contract-doc-number {
+  border-left: 1px solid var(--line);
+  flex: 0 0 auto;
+  padding-left: 20px;
+}
+
+.contract-doc-number strong,
+.contract-doc-number span {
+  display: block;
+}
+
+.contract-doc-number strong {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+}
+
+.contract-doc-number span {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 7px;
+}
+
+.contract-section {
+  border-top: 1px solid var(--line);
+  margin-top: 32px;
+  padding-top: 25px;
+}
+
+.contract-section > .card-label {
+  margin: 0 0 17px;
+}
+
+.contract-party-grid,
+.contract-signatures {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.contract-party-grid > div,
+.contract-signatures > div {
+  border: 1px solid #e1e3da;
+  padding: 16px;
+}
+
+.contract-party-grid span,
+.contract-signatures span {
+  color: #8a968c;
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+
+.contract-party-grid strong,
+.contract-signatures strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.contract-party-grid small,
+.contract-signatures small {
+  color: #8a968c;
+  display: block;
+  font-size: 10px;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.contract-signatures em {
+  color: var(--green);
+  display: block;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 17px;
+  margin: 7px 0 2px;
+}
+
+.contract-scope {
+  color: #68756d;
+  font-size: 13px;
+  line-height: 1.65;
+  max-width: 680px;
+}
+
+.contract-terms {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 20px;
+}
+
+.contract-terms span {
+  border-top: 1px solid #e5e6df;
+  color: var(--ink);
+  font-size: 13px;
+  padding: 11px 0;
+}
+
+.contract-terms b {
+  color: #8a968c;
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  font-weight: 400;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.contract-milestones {
+  border-top: 1px solid #e5e6df;
+}
+
+.contract-milestones > div {
+  align-items: flex-start;
+  border-bottom: 1px solid #e5e6df;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 28px 1fr 125px;
+  padding: 15px 0;
+}
+
+.contract-ms-number {
+  color: #98a39a;
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+}
+
+.contract-milestones strong {
+  display: block;
+  font-size: 13px;
+}
+
+.contract-milestones p {
+  color: #728076;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+
+.contract-milestones small {
+  color: #8e9990;
+  display: block;
+  font-size: 9px;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.contract-ms-side {
+  text-align: right;
+}
+
+.contract-ms-side strong {
+  font-size: 13px;
+}
+
+.contract-ms-side span,
+.contract-ms-side small {
+  color: #8e9990;
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.contract-verification {
+  align-items: flex-start;
+  display: flex;
+  gap: 13px;
+}
+
+.contract-outcome {
+  border-radius: 20px;
+  flex: 0 0 auto;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  padding: 7px 9px;
+  text-transform: uppercase;
+}
+
+.contract-outcome.outcome-undetermined {
+  background: #f5ecd4;
+  color: #876e33;
+}
+
+.contract-outcome.outcome-contradicted {
+  background: #f7e5df;
+  color: #9a5143;
+}
+
+.contract-outcome.outcome-verified {
+  background: #e5f0d0;
+  color: #52723c;
+}
+
+.contract-verification strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.contract-verification p {
+  color: #728076;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 5px 0 0;
+}
+
+.contract-open-questions {
+  background: #f6f1df;
+  color: #75612e;
+  font-size: 11px;
+  margin-top: 15px;
+  padding: 13px;
+}
+
+.contract-open-questions ul {
+  line-height: 1.5;
+  margin: 8px 0 0;
+  padding-left: 17px;
+}
+
+.contract-evidence {
+  border-top: 1px solid #e5e6df;
+  margin-top: 17px;
+  padding-top: 14px;
+}
+
+.contract-evidence > b {
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.contract-evidence > div {
+  border-bottom: 1px solid #eef0e8;
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+}
+
+.contract-evidence span {
+  font-size: 11px;
+}
+
+.contract-evidence small {
+  color: #8c978e;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+}
+
+.contract-fine {
+  color: #929c94;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.contract-hash {
+  color: #8a968c;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  line-height: 1.5;
+  margin: 17px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.contract-hash code {
+  color: #6a796f;
+}
+
+.contract-sign-form {
+  align-items: start;
+  background: var(--paper);
+  box-shadow: 0 20px 50px #475d4d10;
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 0.8fr 1fr;
+  margin: 24px auto 0;
+  max-width: 900px;
+  padding: 32px 40px;
+}
+
+.contract-sign-form .card-label {
+  margin: 0 0 9px;
+}
+
+.contract-sign-form h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.contract-sign-form p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.contract-sign-fields label {
+  color: #849087;
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  margin-bottom: 11px;
+  text-transform: uppercase;
+}
+
+.contract-sign-fields input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #c9d0c7;
+  color: var(--ink);
+  display: block;
+  font: 14px "DM Sans", sans-serif;
+  margin-top: 5px;
+  outline: 0;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.contract-sign-fields .signature-input {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.contract-sign-fields input:focus {
+  border-color: var(--green);
+}
+
+.contract-sign-fields .form-submit {
+  width: 100%;
+}
+
+.contract-signed-note {
+  color: #7f8d83;
+  font-size: 12px;
+  margin: 24px auto 0;
+  max-width: 900px;
+  text-align: center;
+}
+
+.contract-signed-note a {
+  border-bottom: 1px solid #a8b1aa;
+  color: var(--green);
+}
+
+/* Mobile app shell */
+
+.app-shell {
+  background: #0d211b;
+  min-height: 100vh;
+  padding: 26px 0;
+}
+
+.app-phone {
+  background: var(--cream);
+  border-radius: 32px;
+  box-shadow: 0 30px 90px #00000042;
+  margin: auto;
+  max-width: 430px;
+  min-height: calc(100vh - 52px);
+  overflow: hidden;
+  position: relative;
+}
+
+.app-topbar {
+  align-items: center;
+  backdrop-filter: blur(16px);
+  background: #f4f0e8f2;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 20px 13px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.app-brand {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.app-brand .brand-mark {
+  font-size: 15px;
+  height: 27px;
+  width: 27px;
+}
+
+.app-brand > span:last-child {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.app-brand small {
+  color: #93a097;
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 6px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.app-topbar-right {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.app-demo-chip {
+  background: #e7edda;
+  border-radius: 20px;
+  color: #687d57;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  padding: 5px 7px;
+  text-transform: uppercase;
+}
+
+.app-avatar,
+.app-mini-avatar {
+  align-items: center;
+  background: var(--green);
+  border-radius: 50%;
+  color: var(--lime);
+  display: inline-flex;
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  height: 31px;
+  justify-content: center;
+  width: 31px;
+}
+
+.app-mini-avatar {
+  background: #d8e5bf;
+  color: var(--green);
+  font-size: 11px;
+  height: 38px;
+  width: 38px;
+}
+
+.app-main {
+  padding: 0 18px 106px;
+}
+
+.app-bottom-nav {
+  backdrop-filter: blur(18px);
+  background: #fbfaf6f7;
+  border-top: 1px solid #e3e1d8;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  left: 50%;
+  max-width: 430px;
+  padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+  position: fixed;
+  transform: translateX(-50%);
+  width: min(430px, 100%);
+  z-index: 30;
+}
+
+.app-nav-item {
+  align-items: center;
+  color: #99a49b;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  gap: 4px;
+  letter-spacing: 0.03em;
+  padding: 4px 0;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.app-nav-item svg {
+  fill: none;
+  height: 19px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  width: 19px;
+}
+
+.app-nav-item.is-active {
+  color: var(--green);
+}
+
+.app-greeting {
+  padding: 17px 2px 22px;
+}
+
+.app-greeting-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-greeting h1 {
+  font-size: 38px;
+  letter-spacing: -0.07em;
+  line-height: 0.98;
+  margin: 0;
+}
+
+.app-greeting h1 em {
+  font-size: 39px;
+}
+
+.app-greeting > p:last-child {
+  color: #7e8b82;
+  font-size: 11px;
+  line-height: 1.55;
+  margin: 12px 0 0;
+  max-width: 270px;
+}
+
+.app-hero {
+  background: var(--green);
+  border-radius: 23px;
+  color: white;
+  overflow: hidden;
+  padding: 23px 22px 20px;
+  position: relative;
+}
+
+.app-hero-kicker {
+  color: #a8c1ae;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.app-hero h2 {
+  color: white;
+  font-family: "DM Mono", monospace;
+  font-size: 31px;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 0.98;
+  margin: 27px 0 14px;
+}
+
+.app-hero h2 em {
+  color: var(--lime);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.app-hero p {
+  color: #b8c9bf;
+  font-size: 10px;
+  line-height: 1.55;
+  max-width: 240px;
+}
+
+.app-hero-actions {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 19px;
+  position: relative;
+  width: max-content;
+  z-index: 2;
+}
+
+.app-button {
+  background: var(--green);
+  border: 0;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 12px 14px;
+  text-align: center;
+}
+
+.app-button span {
+  margin-left: 7px;
+}
+
+.app-button-lime {
+  background: var(--lime);
+  color: var(--green);
+}
+
+.app-text-link {
+  border-bottom: 1px solid #99aa9e;
+  color: #c5d4c9;
+  font-size: 10px;
+  padding-bottom: 3px;
+}
+
+.app-hero-mark {
+  align-items: center;
+  border: 1px solid #5b7b69;
+  border-radius: 50%;
+  bottom: 18px;
+  color: var(--lime);
+  display: flex;
+  flex-direction: column;
+  height: 88px;
+  justify-content: center;
+  position: absolute;
+  right: 17px;
+  transform: rotate(9deg);
+  width: 88px;
+}
+
+.app-hero-mark span {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 34px;
+  font-style: italic;
+}
+
+.app-hero-mark small {
+  color: #a8c1ae;
+  font-family: "DM Mono", monospace;
+  font-size: 6px;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.app-stat-grid {
+  background: var(--paper);
+  border: 1px solid #e1e1d7;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 14px 0 29px;
+}
+
+.app-stat-grid > div {
+  padding: 14px 9px;
+}
+
+.app-stat-grid > div + div {
+  border-left: 1px solid #e5e5dc;
+}
+
+.app-stat-grid strong,
+.app-stat-grid span {
+  display: block;
+}
+
+.app-stat-grid strong {
+  font-size: 13px;
+  letter-spacing: -0.04em;
+}
+
+.app-stat-grid span {
+  color: #909a92;
+  font-family: "DM Mono", monospace;
+  font-size: 6px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.app-section {
+  margin-top: 28px;
+}
+
+.app-section-first {
+  margin-top: 10px;
+}
+
+.app-section-head {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+
+.app-section-head .card-label {
+  margin: 0 0 6px;
+}
+
+.app-section-head h2 {
+  font-size: 25px;
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+
+.app-section-link {
+  border-bottom: 1px solid #a8b1aa;
+  color: #6d7b72;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  padding-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.app-quick-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.app-quick-card {
+  background: var(--paper);
+  border: 1px solid #e1e1d7;
+  display: flex;
+  flex-direction: column;
+  min-height: 119px;
+  padding: 13px;
+  position: relative;
+}
+
+.app-quick-icon {
+  color: #a4aea6;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  margin-bottom: 20px;
+}
+
+.app-quick-card strong {
+  font-size: 13px;
+  letter-spacing: -0.03em;
+}
+
+.app-quick-card small {
+  color: #869189;
+  font-size: 9px;
+  line-height: 1.45;
+  margin-top: 6px;
+  max-width: 130px;
+}
+
+.app-quick-arrow {
+  bottom: 12px;
+  color: #8fa38f;
+  font-size: 11px;
+  position: absolute;
+  right: 12px;
+}
+
+.app-quick-card-dark {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.app-quick-card-dark .app-quick-icon,
+.app-quick-card-dark small {
+  color: #a8c1ae;
+}
+
+.app-quick-card-dark strong,
+.app-quick-card-dark .app-quick-arrow {
+  color: white;
+}
+
+.app-deal-list {
+  display: grid;
+  gap: 8px;
+}
+
+.app-deal-card {
+  background: var(--paper);
+  border: 1px solid #e1e1d7;
+  display: block;
+  padding: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.app-deal-card:hover {
+  box-shadow: 0 12px 28px #475d4d12;
+  transform: translateY(-1px);
+}
+
+.app-deal-card-top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-status {
+  border-radius: 20px;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  padding: 5px 7px;
+  text-transform: uppercase;
+}
+
+.app-status-held,
+.app-status-delivered {
+  background: #edf1e2;
+  color: #647552;
+}
+
+.app-status-disputed {
+  background: #f5e6df;
+  color: #9b584a;
+}
+
+.app-status-released,
+.app-status-confirmed {
+  background: #e2efd1;
+  color: #52723c;
+}
+
+.app-status-refunded {
+  background: #f1e5df;
+  color: #8d5b4d;
+}
+
+.app-deal-amount {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+}
+
+.app-deal-card h3 {
+  font-size: 17px;
+  letter-spacing: -0.045em;
+  margin: 13px 0 8px;
+}
+
+.app-deal-meta {
+  color: #8b968e;
+  display: flex;
+  font-size: 9px;
+  justify-content: space-between;
+}
+
+.app-mini-progress {
+  background: #e7e9df;
+  height: 3px;
+  margin-top: 11px;
+  overflow: hidden;
+}
+
+.app-mini-progress span {
+  background: var(--green);
+  display: block;
+  height: 100%;
+}
+
+.app-deal-list-muted .app-deal-card {
+  opacity: 0.7;
+}
+
+.app-trust-note {
+  border-top: 1px solid #d8dad0;
+  margin-top: 32px;
+  padding-top: 19px;
+}
+
+.app-trust-note .card-label {
+  margin: 0 0 11px;
+}
+
+.app-trust-note blockquote {
+  color: var(--green);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.app-trust-note > p:last-child {
+  color: #8c978f;
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.app-page {
+  padding-top: 9px;
+}
+
+.app-page-head {
+  padding: 17px 2px 20px;
+}
+
+.app-page-head h1 {
+  font-size: 39px;
+  letter-spacing: -0.07em;
+  line-height: 0.98;
+  margin: 15px 0 12px;
+}
+
+.app-page-head h1 em {
+  font-size: 42px;
+}
+
+.app-page-head > p:not(.eyebrow) {
+  color: #7d8b82;
+  font-size: 11px;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 290px;
+}
+
+.app-back {
+  color: #7d8b82;
+  display: inline-block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  margin: 5px 2px 0;
+  text-transform: uppercase;
+}
+
+.app-deal-head {
+  padding: 23px 2px 17px;
+}
+
+.app-deal-head-top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-deal-ref {
+  color: #9aa49c;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+}
+
+.app-deal-head h1 {
+  font-size: 33px;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+  margin: 18px 0 11px;
+}
+
+.app-deal-head > p {
+  color: #7d8b82;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.app-deal-money {
+  align-items: baseline;
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.app-deal-money strong {
+  font-size: 27px;
+  letter-spacing: -0.055em;
+}
+
+.app-deal-money span {
+  color: #909b93;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  text-transform: uppercase;
+}
+
+.app-deal-facts {
+  background: var(--paper);
+  border: 1px solid #e1e1d7;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 17px;
+}
+
+.app-deal-facts > div {
+  padding: 13px;
+}
+
+.app-deal-facts > div + div {
+  border-left: 1px solid #e5e5dc;
+}
+
+.app-deal-facts span,
+.app-deal-facts strong,
+.app-deal-facts small {
+  display: block;
+}
+
+.app-deal-facts span {
+  color: #97a198;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  text-transform: uppercase;
+}
+
+.app-deal-facts strong {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.app-deal-facts small {
+  color: #8e9990;
+  font-size: 9px;
+  margin-top: 3px;
+}
+
+.app-deal-page .deal-extras {
+  margin-top: 0;
+}
+
+.app-deal-page .milestone-section,
+.app-deal-page .contract-callout {
+  padding: 22px;
+}
+
+.app-deal-page .milestone-head h2 {
+  font-size: 25px;
+}
+
+.app-deal-page .contract-callout {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.app-deal-page .contract-callout-actions {
+  align-items: stretch;
+  width: 100%;
+}
+
+.app-deal-page .contract-callout-actions .button-primary {
+  text-align: center;
+}
+
+.app-deal-page .DealTimeline,
+.app-deal-page .timeline {
+  margin-top: 24px;
+}
+
+.app-share {
+  margin-top: 22px;
+}
+
+.app-outline-link {
+  border: 1px solid #c9d0c7;
+  color: var(--green);
+  display: block;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  margin-top: 22px;
+  padding: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.app-empty {
+  background: var(--paper);
+  border: 1px solid #e1e1d7;
+  padding: 25px 18px;
+}
+
+.app-empty-compact {
+  padding: 18px;
+}
+
+.app-empty h3 {
+  font-size: 20px;
+  letter-spacing: -0.04em;
+  margin: 0 0 7px;
+}
+
+.app-empty p {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.app-count {
+  color: #97a198;
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+}
+
+.app-profile-card {
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid #e1e1d7;
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+}
+
+.app-profile-avatar {
+  align-items: center;
+  background: var(--green);
+  border-radius: 50%;
+  color: var(--lime);
+  display: flex;
+  flex: 0 0 auto;
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+  height: 53px;
+  justify-content: center;
+  width: 53px;
+}
+
+.app-profile-card h2 {
+  font-size: 19px;
+  letter-spacing: -0.04em;
+  margin: 0 0 4px;
+}
+
+.app-profile-card p {
+  color: #8c978f;
+  font-size: 10px;
+  margin: 0 0 7px;
+}
+
+.app-role-chip {
+  background: #edf1e2;
+  border-radius: 20px;
+  color: #687d57;
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  padding: 4px 7px;
+  text-transform: uppercase;
+}
+
+.app-info-card {
+  background: var(--paper);
+  border: 1px solid #e1e1d7;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+.app-info-card > .card-label {
+  margin: 0 0 9px;
+}
+
+.app-info-row,
+.app-link-row {
+  border-top: 1px solid #ecece4;
+  display: flex;
+  font-size: 10px;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.app-info-row {
+  gap: 15px;
+}
+
+.app-info-row span {
+  color: #909a92;
+}
+
+.app-info-row strong {
+  font-weight: 500;
+  text-align: right;
+}
+
+.app-link-row {
+  border-top: 1px solid #ecece4;
+  color: var(--green);
+}
+
+.app-info-card > .app-outline-link {
+  margin-top: 13px;
+}
+
+.app-demo-note {
+  background: #f4efe2;
+  color: #7f704f;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  line-height: 1.5;
+  margin: 17px 0;
+  padding: 10px;
+}
+
+.app-signout {
+  background: transparent;
+  border: 1px solid #d1d6cd;
+  color: #8b6259;
+  cursor: pointer;
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  padding: 10px;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.app-check-head .app-text-link {
+  border-bottom-color: #a8b1aa;
+  color: var(--green);
+  display: inline-block;
+  margin-top: 14px;
+}
+
+.app-check {
+  padding-bottom: 0;
+}
+
+.app-check .check-grid {
+  display: block;
+  padding: 0;
+}
+
+.app-check .check-panel,
+.app-check .check-result,
+.app-check .check-empty {
+  margin: 0 0 12px;
+  padding: 20px 18px;
+}
+
+.app-check .check-panel {
+  background: var(--paper);
+  box-shadow: 0 15px 35px #475d4d0e;
+}
+
+.app-check .scenario-chips {
+  grid-template-columns: 1fr;
+}
+
+.app-check .check-form .form-two,
+.app-check .result-columns {
+  grid-template-columns: 1fr;
+}
+
+.app-check .check-result {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .deal-extras {
+    margin-top: 22px;
+  }
+
+  .milestone-section {
+    padding: 22px 18px;
+  }
+
+  .milestone-head h2 {
+    font-size: 25px;
+  }
+
+  .milestone-total {
+    height: 57px;
+    width: 57px;
+  }
+
+  .milestone-total strong {
+    font-size: 16px;
+  }
+
+  .contract-callout {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    padding: 24px 20px;
+  }
+
+  .contract-callout-actions {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .contract-callout-actions .button-primary {
+    text-align: center;
+  }
+
+  .contract-page {
+    padding: 22px 20px 65px;
+  }
+
+  .contract-topbar {
+    padding-bottom: 24px;
+  }
+
+  .contract-hero {
+    padding: 20px 0 25px;
+  }
+
+  .contract-hero h1 {
+    font-size: 48px;
+  }
+
+  .contract-doc {
+    padding: 28px 20px;
+  }
+
+  .contract-doc-head {
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .contract-doc-number {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 12px;
+    width: 100%;
+  }
+
+  .contract-party-grid,
+  .contract-signatures,
+  .contract-terms {
+    grid-template-columns: 1fr;
+  }
+
+  .contract-milestones > div {
+    grid-template-columns: 24px 1fr;
+  }
+
+  .contract-ms-side {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .contract-sign-form {
+    display: block;
+    margin-top: 14px;
+    padding: 24px 20px;
+  }
+
+  .contract-sign-fields {
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 540px) {
+  .app-shell {
+    padding: 0;
+  }
+
+  .app-phone {
+    border-radius: 0;
+    min-height: 100vh;
+    max-width: none;
+  }
+}

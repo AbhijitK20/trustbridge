@@ -368,7 +368,149 @@ export async function ensureDemoWorkspace() {
     });
   }
 
-  return { buyer, seller, admin, reviewer, deal };
+  let milestoneDeal = await prisma.deal.upsert({
+    where: { publicToken: "demo-milestone-deal" },
+    update: {
+      buyerId: buyer.id,
+      sellerId: seller.id,
+      sellerProfileId: sellerProfile.id,
+      title: "Brand site — milestone build",
+      description: "A three-stage brand website: discovery and wireframes, visual design, then responsive build and handoff. Each stage releases against its own acceptance criteria.",
+      priceCents: 3000000,
+      depositCents: 0,
+      balanceCents: 3000000,
+      currency: "inr",
+      deliveryDeadline: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
+    },
+    create: {
+      publicToken: "demo-milestone-deal",
+      title: "Brand site — milestone build",
+      description: "A three-stage brand website: discovery and wireframes, visual design, then responsive build and handoff. Each stage releases against its own acceptance criteria.",
+      priceCents: 3000000,
+      depositCents: 0,
+      balanceCents: 3000000,
+      currency: "inr",
+      status: "HELD",
+      buyerId: buyer.id,
+      sellerId: seller.id,
+      sellerProfileId: sellerProfile.id,
+      deliveryDeadline: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
+    },
+  });
+
+  if (!milestoneDeal.verificationCheckId) {
+    const input = {
+      organization: "Independent seller",
+      counterpartyName: "Meera Nair",
+      counterpartyEmail: "seller@trustbridge.demo",
+      promise: milestoneDeal.description,
+      amount: "30000",
+      officialUrl: "",
+      evidenceText: "Portfolio, wireframes, staging link, and delivery notes.",
+    };
+    const result = runCheck(input);
+    const check = await prisma.verificationCheck.create({
+      data: {
+        outcome: result.outcome,
+        decision: result.decision,
+        organization: input.organization,
+        counterpartyEmail: input.counterpartyEmail,
+        promise: input.promise,
+        result: JSON.parse(JSON.stringify(result)),
+      },
+    });
+    milestoneDeal = await prisma.deal.update({ where: { id: milestoneDeal.id }, data: { verificationCheckId: check.id } });
+  }
+
+  const milestoneCount = await prisma.milestone.count({ where: { dealId: milestoneDeal.id } });
+  if (milestoneCount === 0) {
+    await prisma.milestone.createMany({
+      data: [
+        {
+          dealId: milestoneDeal.id,
+          position: 1,
+          title: "Discovery & wireframes",
+          description: "Sitemap, content outline, and low-fidelity wireframes for the homepage and three inner pages.",
+          acceptanceCriteria: "Sitemap and all wireframes are attached and approved by the buyer.",
+          amountCents: 900000,
+          dueAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+          status: "RELEASED",
+          verificationRequired: true,
+          submissionNote: "Sitemap and seven wireframes delivered in the shared folder.",
+          reviewNote: "Approved. Clear structure and all promised pages are covered.",
+          submittedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+          releasedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+          releasedById: buyer.id,
+        },
+        {
+          dealId: milestoneDeal.id,
+          position: 2,
+          title: "Visual design",
+          description: "Homepage and inner-page visual design in Figma, with the brand colour and type system applied.",
+          acceptanceCriteria: "Figma file covers every promised page and the buyer can inspect the components.",
+          amountCents: 1200000,
+          dueAt: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+          status: "SUBMITTED",
+          verificationRequired: true,
+          submissionNote: "Figma link and two exported page previews attached. Components are named and grouped.",
+          submittedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+        },
+        {
+          dealId: milestoneDeal.id,
+          position: 3,
+          title: "Build & handoff",
+          description: "Responsive build, QA pass, and a short handoff walkthrough with source files.",
+          acceptanceCriteria: "Staging site matches the approved design, passes mobile QA, and source files are handed over.",
+          amountCents: 900000,
+          dueAt: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000),
+          status: "PENDING",
+          verificationRequired: true,
+        },
+      ],
+    });
+
+    await prisma.evidence.create({
+      data: {
+        dealId: milestoneDeal.id,
+        fileName: "milestone-2-visual-design.txt",
+        fileUrl: "demo://milestone-submission",
+        storageKey: null,
+        fileSize: 160,
+        mimeType: "text/plain",
+        sha256: evidenceHash({
+          dealId: milestoneDeal.id,
+          fileName: "milestone-2-visual-design.txt",
+          fileSize: 160,
+          mimeType: "text/plain",
+          note: "Figma link and two exported page previews attached.",
+        }),
+        note: "Figma link and two exported page previews attached.",
+        aiProvider: "deterministic",
+        aiVerdict: "NEEDS_HUMAN_REVIEW",
+        aiConfidence: 50,
+        aiReasoning: "A human must compare the visual design against the milestone acceptance criteria.",
+      },
+    });
+
+    await prisma.auditLog.createMany({
+      data: [
+        {
+          dealId: milestoneDeal.id,
+          actorId: seller.id,
+          action: "MILESTONE_SUBMITTED",
+          metadata: { position: 2, title: "Visual design", note: "Figma link and two exported page previews attached." },
+        },
+        {
+          dealId: milestoneDeal.id,
+          actorId: buyer.id,
+          action: "MILESTONE_RELEASED",
+          metadata: { position: 1, title: "Discovery & wireframes", amountCents: 900000, simulated: true },
+        },
+      ],
+    });
+  }
+
+  return { buyer, seller, admin, reviewer, deal, milestoneDeal };
 }
 
 export async function createDemoSession(role: DemoRole) {

@@ -29,6 +29,10 @@ const ACTION_COPY: Record<string, { title: string; tone: TimelineTone }> = {
   DELIVERY_REFUNDED_SIMULATED: { title: "Delivery refunded (demo ledger)", tone: "bad" },
   DELIVERY_ESCALATED: { title: "Delivery escalated to dispute", tone: "warn" },
   AUTO_RELEASE_ELIGIBLE: { title: "Review window elapsed", tone: "warn" },
+  MILESTONE_SUBMITTED: { title: "Milestone submitted", tone: "neutral" },
+  MILESTONE_CHANGES_REQUESTED: { title: "Milestone changes requested", tone: "warn" },
+  MILESTONE_RELEASED: { title: "Milestone released", tone: "good" },
+  CONTRACT_SIGNED: { title: "Contract signed", tone: "good" },
 };
 
 function humanize(action: string) {

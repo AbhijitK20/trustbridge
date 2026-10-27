@@ -84,26 +84,48 @@ enum ApprovalStatus {
   CANCELLED
 }
 
+enum MilestoneStatus {
+  PENDING
+  SUBMITTED
+  CHANGES_REQUESTED
+  RELEASED
+  DISPUTED
+}
+
+enum ContractStatus {
+  AWAITING_SIGNATURES
+  PARTIALLY_SIGNED
+  SIGNED
+  VOID
+}
+
+enum ContractSignerRole {
+  BUYER
+  SELLER
+}
+
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  name          String?
-  image         String?
-  role          UserRole       @default(BUYER)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  sellerProfile SellerProfile?
-  buyerDeals    Deal[]         @relation("BuyerDeals")
-  sellerDeals   Deal[]         @relation("SellerDeals")
-  disputes      Dispute[]
-  ratings       Rating[]
-  reports       ScamReport[]
-  auditEvents   AuditLog[]
-  accounts      Account[]
-  sessions      Session[]
-  consents      Consent[]
-  approvalRequests  AdminApproval[] @relation("ApprovalRequests")
-  approvalDecisions AdminApproval[] @relation("ApprovalDecisions")
+  id                 String              @id @default(cuid())
+  email              String              @unique
+  name               String?
+  image              String?
+  role               UserRole            @default(BUYER)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  sellerProfile      SellerProfile?
+  buyerDeals         Deal[]              @relation("BuyerDeals")
+  sellerDeals        Deal[]              @relation("SellerDeals")
+  disputes           Dispute[]
+  ratings            Rating[]
+  reports            ScamReport[]
+  auditEvents        AuditLog[]
+  accounts           Account[]
+  sessions           Session[]
+  consents           Consent[]
+  approvalRequests   AdminApproval[]     @relation("ApprovalRequests")
+  approvalDecisions  AdminApproval[]     @relation("ApprovalDecisions")
+  milestoneReleases  Milestone[]         @relation("MilestoneReleases")
+  contractSignatures ContractSignature[]
 }
 
 model Account {
@@ -141,62 +163,64 @@ model VerificationToken {
 }
 
 model SellerProfile {
-  id              String       @id @default(cuid())
-  userId          String       @unique
-  slug            String       @unique
-  bio             String?
-  stripeAccountId String?      @unique
-  completedDeals  Int          @default(0)
-  averageRating   Decimal      @default(0) @db.Decimal(3, 2)
-  trustScore      Int          @default(0)
-  isVerified      Boolean      @default(false)
+  id                 String       @id @default(cuid())
+  userId             String       @unique
+  slug               String       @unique
+  bio                String?
+  stripeAccountId    String?      @unique
+  completedDeals     Int          @default(0)
+  averageRating      Decimal      @default(0) @db.Decimal(3, 2)
+  trustScore         Int          @default(0)
+  isVerified         Boolean      @default(false)
   verificationMethod String?
   verificationDomain String?
-  verifiedAt      DateTime?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  deals           Deal[]
-  ratings         Rating[]
-  reports         ScamReport[]
-  kyc             SellerKyc?
+  verifiedAt         DateTime?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  user               User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deals              Deal[]
+  ratings            Rating[]
+  reports            ScamReport[]
+  kyc                SellerKyc?
 }
 
 model Deal {
-  id               String        @id @default(cuid())
-  publicToken      String        @unique @default(cuid())
-  title            String
-  description      String
-  priceCents       Int
-  depositCents     Int           @default(0)
-  balanceCents     Int           @default(0)
-  depositReleasedAt DateTime?
-  balanceReleasedAt DateTime?
-  currency         String        @default("usd")
-  deliveryDeadline DateTime?
-  autoReleaseAt    DateTime?
-  status           DealStatus    @default(DRAFT)
-  stripePaymentId  String?       @unique
-  stripeTransferId String?       @unique
-  stripeDepositTransferId String? @unique
-  platformFeeCents Int           @default(0)
-  buyerId          String?
-  sellerId         String
-  sellerProfileId  String
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-  buyer            User?         @relation("BuyerDeals", fields: [buyerId], references: [id])
-  seller           User          @relation("SellerDeals", fields: [sellerId], references: [id])
-  sellerProfile    SellerProfile @relation(fields: [sellerProfileId], references: [id])
-  verificationCheckId String?
-  verificationCheck   VerificationCheck? @relation(fields: [verificationCheckId], references: [id])
-  evidence         Evidence[]
-  disputes         Dispute[]
-  consents         Consent[]
-  approvals        AdminApproval[]
-  rating           Rating?
-  reports          ScamReport[]
-  auditEvents      AuditLog[]
+  id                      String             @id @default(cuid())
+  publicToken             String             @unique @default(cuid())
+  title                   String
+  description             String
+  priceCents              Int
+  depositCents            Int                @default(0)
+  balanceCents            Int                @default(0)
+  depositReleasedAt       DateTime?
+  balanceReleasedAt       DateTime?
+  currency                String             @default("usd")
+  deliveryDeadline        DateTime?
+  autoReleaseAt           DateTime?
+  status                  DealStatus         @default(DRAFT)
+  stripePaymentId         String?            @unique
+  stripeTransferId        String?            @unique
+  stripeDepositTransferId String?            @unique
+  platformFeeCents        Int                @default(0)
+  buyerId                 String?
+  sellerId                String
+  sellerProfileId         String
+  createdAt               DateTime           @default(now())
+  updatedAt               DateTime           @updatedAt
+  buyer                   User?              @relation("BuyerDeals", fields: [buyerId], references: [id])
+  seller                  User               @relation("SellerDeals", fields: [sellerId], references: [id])
+  sellerProfile           SellerProfile      @relation(fields: [sellerProfileId], references: [id])
+  verificationCheckId     String?
+  verificationCheck       VerificationCheck? @relation(fields: [verificationCheckId], references: [id])
+  evidence                Evidence[]
+  disputes                Dispute[]
+  consents                Consent[]
+  approvals               AdminApproval[]
+  rating                  Rating?
+  reports                 ScamReport[]
+  auditEvents             AuditLog[]
+  milestones              Milestone[]
+  contract                Contract?
 
   @@index([status])
   @@index([buyerId])
@@ -287,24 +311,24 @@ model AuditLog {
 }
 
 model SellerKyc {
-  id                 String           @id @default(cuid())
-  sellerProfileId    String           @unique
+  id                 String            @id @default(cuid())
+  sellerProfileId    String            @unique
   legalName          String?
   entityType         SellerEntityType?
   taxIdLast4         String?
-  kycStatus          KycStatus        @default(NOT_STARTED)
+  kycStatus          KycStatus         @default(NOT_STARTED)
   kycProvider        String?
   kycReference       String?
-  sanctionsStatus    SanctionsStatus  @default(NOT_SCREENED)
+  sanctionsStatus    SanctionsStatus   @default(NOT_SCREENED)
   payoutAccountName  String?
   payoutAccountLast4 String?
   payoutBankName     String?
   payoutVerifiedAt   DateTime?
   verifiedAt         DateTime?
   expiresAt          DateTime?
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-  sellerProfile      SellerProfile    @relation(fields: [sellerProfileId], references: [id], onDelete: Cascade)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  sellerProfile      SellerProfile     @relation(fields: [sellerProfileId], references: [id], onDelete: Cascade)
 
   @@index([kycStatus])
   @@index([sanctionsStatus])
@@ -360,6 +384,67 @@ model AdminApproval {
 
   @@index([status])
   @@index([dealId])
+}
+
+model Milestone {
+  id                   String          @id @default(cuid())
+  dealId               String
+  position             Int
+  title                String
+  description          String
+  acceptanceCriteria   String?
+  amountCents          Int
+  dueAt                DateTime?
+  status               MilestoneStatus @default(PENDING)
+  verificationRequired Boolean         @default(false)
+  submissionNote       String?
+  reviewNote           String?
+  submittedAt          DateTime?
+  releasedAt           DateTime?
+  releasedById         String?
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+  deal                 Deal            @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  releasedBy           User?           @relation("MilestoneReleases", fields: [releasedById], references: [id], onDelete: SetNull)
+
+  @@unique([dealId, position])
+  @@index([dealId, status])
+}
+
+model Contract {
+  id          String              @id @default(cuid())
+  dealId      String              @unique
+  number      String              @unique
+  version     Int                 @default(1)
+  status      ContractStatus      @default(AWAITING_SIGNATURES)
+  contentHash String
+  snapshot    Json
+  signedAt    DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  deal        Deal                @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  signatures  ContractSignature[]
+
+  @@index([status])
+}
+
+model ContractSignature {
+  id            String             @id @default(cuid())
+  contractId    String
+  signerId      String
+  role          ContractSignerRole
+  name          String
+  email         String
+  signatureText String
+  method        String             @default("TYPED")
+  ipAddress     String?
+  userAgent     String?
+  signedAt      DateTime           @default(now())
+  contract      Contract           @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  signer        User               @relation(fields: [signerId], references: [id])
+
+  @@unique([contractId, role])
+  @@index([contractId])
 }
 
 model WhatsAppMessage {

@@ -4,6 +4,16 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { clientAddress, mutationGuard } from "@/lib/abuse";
 import { legalEntity } from "@/lib/legal";
+import { totalMilestoneCents, validateMilestoneDrafts } from "@/lib/milestones";
+
+const milestoneSchema = z.object({
+  title: z.string().trim().min(2).max(120),
+  description: z.string().trim().max(1_000).default(""),
+  acceptanceCriteria: z.string().trim().min(5).max(1_000),
+  amountCents: z.number().int().positive(),
+  dueAt: z.string().datetime().optional(),
+  verificationRequired: z.boolean().optional().default(false),
+});
 
 const createDealSchema = z.object({
   title: z.string().trim().min(3).max(120),
@@ -14,6 +24,7 @@ const createDealSchema = z.object({
   deliveryDeadline: z.string().datetime().optional(),
   sellerName: z.string().trim().min(2).max(80),
   verificationId: z.string().trim().max(40).optional(),
+  milestones: z.array(milestoneSchema).max(8).optional(),
   consent: z.literal(true),
 });
 
@@ -25,8 +36,14 @@ export async function POST(request: Request) {
     if (!session?.user?.id || !session.user.email) return NextResponse.json({ error: "Sign in to create a deal." }, { status: 401 });
     const body = createDealSchema.parse(await request.json());
     const slug = body.sellerName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "seller";
-    const depositCents = Math.round((body.priceCents * body.depositPercent) / 100);
-    const balanceCents = body.priceCents - depositCents;
+    const milestones = body.milestones?.length ? body.milestones : null;
+    const milestoneError = milestones ? validateMilestoneDrafts(body.priceCents, milestones) : null;
+    if (milestoneError) return NextResponse.json({ error: milestoneError }, { status: 400 });
+    if (milestones && totalMilestoneCents(milestones) !== body.priceCents) {
+      return NextResponse.json({ error: "Milestone amounts must add up to the total protected amount." }, { status: 400 });
+    }
+    const depositCents = milestones ? 0 : Math.round((body.priceCents * body.depositPercent) / 100);
+    const balanceCents = milestones ? body.priceCents : body.priceCents - depositCents;
 
     const verification = body.verificationId
       ? await prisma.verificationCheck.findUnique({ where: { id: body.verificationId }, select: { id: true, outcome: true } })
@@ -73,6 +90,21 @@ export async function POST(request: Request) {
         select: { id: true, publicToken: true },
       });
 
+      if (milestones) {
+        await transaction.milestone.createMany({
+          data: milestones.map((milestone, index) => ({
+            dealId: created.id,
+            position: index + 1,
+            title: milestone.title,
+            description: milestone.description || body.description,
+            acceptanceCriteria: milestone.acceptanceCriteria,
+            amountCents: milestone.amountCents,
+            dueAt: milestone.dueAt ? new Date(milestone.dueAt) : undefined,
+            verificationRequired: milestone.verificationRequired ?? false,
+          })),
+        });
+      }
+
       await transaction.consent.createMany({
         data: [
           { userId: seller.id, dealId: created.id, kind: "TERMS", version: legalEntity.termsVersion, ipAddress, userAgent },
@@ -83,7 +115,7 @@ export async function POST(request: Request) {
       return created;
     });
 
-    return NextResponse.json({ token: deal.publicToken, depositCents, balanceCents }, { status: 201 });
+    return NextResponse.json({ token: deal.publicToken, depositCents, balanceCents, milestoneCount: milestones?.length ?? 0 }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) return NextResponse.json({ error: "Please check the deal details." }, { status: 400 });
     console.error("deal.create_failed", error);

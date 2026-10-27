@@ -8,14 +8,17 @@ type Props = {
   isSeller: boolean;
   isBuyer: boolean;
   demoMode?: boolean;
+  hasMilestones?: boolean;
 };
 
-export default function DealActions({ token, status, isSeller, isBuyer, demoMode = false }: Props) {
+export default function DealActions({ token, status, isSeller, isBuyer, demoMode = false, hasMilestones = false }: Props) {
   const [note, setNote] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
+
+  if (hasMilestones) return null;
 
   async function submitDelivery() {
     setPending(true);
