@@ -45,3 +45,6 @@ mobile/.flutter-plugins
 mobile/.flutter-plugins-dependencies
 mobile/.packages
 mobile/android/.gradle/
+
+# Built APK artifacts
+mobile-dist/
