@@ -51,7 +51,7 @@
 
 .milestone-total span {
   color: #c9dfba;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
   text-transform: uppercase;
 }
@@ -75,7 +75,7 @@
 .milestone-totals {
   color: #89958c;
   display: flex;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   justify-content: space-between;
   margin-top: 8px;
@@ -99,7 +99,7 @@
 
 .milestone-number {
   color: #97a198;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 9px;
 }
 
@@ -107,7 +107,7 @@
   background: #eef0e7;
   border-radius: 20px;
   color: #7a857d;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   padding: 6px 9px;
   text-transform: uppercase;
@@ -159,7 +159,7 @@
 
 .milestone-criteria b {
   color: #4e6047;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin-right: 5px;
   text-transform: uppercase;
@@ -169,7 +169,7 @@
   color: #8e9990;
   display: flex;
   flex-wrap: wrap;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   gap: 7px 14px;
   margin: 12px 0 4px;
@@ -184,14 +184,14 @@
 
 .milestone-note b {
   color: #718068;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   text-transform: uppercase;
 }
 
 .milestone-note p {
   color: #637067;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 13px;
   font-style: italic;
   line-height: 1.45;
@@ -211,7 +211,7 @@
   border: 1px solid #c9d0c7;
   color: var(--ink);
   display: block;
-  font: 12px "DM Sans", sans-serif;
+  font-family: var(--font-sans), sans-serif; font-size: 12px;
   margin-bottom: 9px;
   outline: 0;
   padding: 10px;
@@ -249,7 +249,7 @@
 
 .milestone-gate b {
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -269,7 +269,7 @@
   align-items: flex-start;
   color: #6d5e3c;
   display: flex;
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 10px;
   gap: 7px;
   margin-top: 9px;
@@ -282,7 +282,7 @@
 
 .milestone-demo-note {
   color: #9aa39c;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   line-height: 1.45;
   margin: 10px 0 0;
@@ -306,7 +306,7 @@
 
 .contract-callout h3 {
   color: white;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 27px;
   font-style: italic;
   font-weight: 500;
@@ -331,7 +331,7 @@
 
 .contract-callout-meta span {
   color: #9eb3a6;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   text-transform: uppercase;
 }
@@ -398,7 +398,7 @@
 
 .contract-meta-row > span {
   color: #89958c;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   text-transform: uppercase;
 }
@@ -452,7 +452,7 @@
 }
 
 .contract-doc-number strong {
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 10px;
 }
 
@@ -489,7 +489,7 @@
 .contract-signatures span {
   color: #8a968c;
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin-bottom: 7px;
   text-transform: uppercase;
@@ -514,7 +514,7 @@
 .contract-signatures em {
   color: var(--green);
   display: block;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 17px;
   margin: 7px 0 2px;
 }
@@ -543,7 +543,7 @@
 .contract-terms b {
   color: #8a968c;
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   font-weight: 400;
   margin-bottom: 4px;
@@ -565,7 +565,7 @@
 
 .contract-ms-number {
   color: #98a39a;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 9px;
 }
 
@@ -601,7 +601,7 @@
 .contract-ms-side small {
   color: #8e9990;
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin-top: 4px;
   text-transform: uppercase;
@@ -616,7 +616,7 @@
 .contract-outcome {
   border-radius: 20px;
   flex: 0 0 auto;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   padding: 7px 9px;
   text-transform: uppercase;
@@ -672,7 +672,7 @@
 
 .contract-evidence > b {
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -691,7 +691,7 @@
 
 .contract-evidence small {
   color: #8c978e;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
 }
 
@@ -703,7 +703,7 @@
 
 .contract-hash {
   color: #8a968c;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   line-height: 1.5;
   margin: 17px 0 0;
@@ -731,7 +731,7 @@
 }
 
 .contract-sign-form h3 {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 28px;
   font-style: italic;
   font-weight: 500;
@@ -747,7 +747,7 @@
 .contract-sign-fields label {
   color: #849087;
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   letter-spacing: 0.05em;
   margin-bottom: 11px;
@@ -760,7 +760,7 @@
   border-bottom: 1px solid #c9d0c7;
   color: var(--ink);
   display: block;
-  font: 14px "DM Sans", sans-serif;
+  font-family: var(--font-sans), sans-serif; font-size: 14px;
   margin-top: 5px;
   outline: 0;
   padding: 8px 0;
@@ -768,7 +768,7 @@
 }
 
 .contract-sign-fields .signature-input {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 20px;
   font-style: italic;
 }
@@ -846,7 +846,7 @@
 .app-brand small {
   color: #93a097;
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 6px;
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -864,7 +864,7 @@
   background: #e7edda;
   border-radius: 20px;
   color: #687d57;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
   padding: 5px 7px;
   text-transform: uppercase;
@@ -877,7 +877,7 @@
   border-radius: 50%;
   color: var(--lime);
   display: inline-flex;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 9px;
   height: 31px;
   justify-content: center;
@@ -917,7 +917,7 @@
   color: #99a49b;
   display: flex;
   flex-direction: column;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
   gap: 4px;
   letter-spacing: 0.03em;
@@ -980,14 +980,14 @@
 
 .app-hero-kicker {
   color: #a8c1ae;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   letter-spacing: 0.08em;
 }
 
 .app-hero h2 {
   color: white;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 31px;
   font-weight: 400;
   letter-spacing: -0.07em;
@@ -997,7 +997,7 @@
 
 .app-hero h2 em {
   color: var(--lime);
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 35px;
   font-weight: 500;
 }
@@ -1066,14 +1066,14 @@
 }
 
 .app-hero-mark span {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 34px;
   font-style: italic;
 }
 
 .app-hero-mark small {
   color: #a8c1ae;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 6px;
   margin-top: 2px;
   text-transform: uppercase;
@@ -1107,7 +1107,7 @@
 
 .app-stat-grid span {
   color: #909a92;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 6px;
   margin-top: 4px;
   text-transform: uppercase;
@@ -1141,7 +1141,7 @@
 .app-section-link {
   border-bottom: 1px solid #a8b1aa;
   color: #6d7b72;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   padding-bottom: 3px;
   text-transform: uppercase;
@@ -1165,7 +1165,7 @@
 
 .app-quick-icon {
   color: #a4aea6;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin-bottom: 20px;
 }
@@ -1232,7 +1232,7 @@
 
 .app-status {
   border-radius: 20px;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
   padding: 5px 7px;
   text-transform: uppercase;
@@ -1261,7 +1261,7 @@
 }
 
 .app-deal-amount {
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 9px;
 }
 
@@ -1307,7 +1307,7 @@
 
 .app-trust-note blockquote {
   color: var(--green);
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--font-display), Georgia, serif;
   font-size: 22px;
   font-style: italic;
   letter-spacing: -0.04em;
@@ -1351,7 +1351,7 @@
 .app-back {
   color: #7d8b82;
   display: inline-block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin: 5px 2px 0;
   text-transform: uppercase;
@@ -1369,7 +1369,7 @@
 
 .app-deal-ref {
   color: #9aa49c;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
 }
 
@@ -1400,7 +1400,7 @@
 
 .app-deal-money span {
   color: #909b93;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
   text-transform: uppercase;
 }
@@ -1429,7 +1429,7 @@
 
 .app-deal-facts span {
   color: #97a198;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
   text-transform: uppercase;
 }
@@ -1486,7 +1486,7 @@
   border: 1px solid #c9d0c7;
   color: var(--green);
   display: block;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   margin-top: 22px;
   padding: 12px;
@@ -1519,7 +1519,7 @@
 
 .app-count {
   color: #97a198;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 9px;
 }
 
@@ -1539,7 +1539,7 @@
   color: var(--lime);
   display: flex;
   flex: 0 0 auto;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 13px;
   height: 53px;
   justify-content: center;
@@ -1562,7 +1562,7 @@
   background: #edf1e2;
   border-radius: 20px;
   color: #687d57;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 7px;
   padding: 4px 7px;
   text-transform: uppercase;
@@ -1613,7 +1613,7 @@
 .app-demo-note {
   background: #f4efe2;
   color: #7f704f;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   line-height: 1.5;
   margin: 17px 0;
@@ -1625,7 +1625,7 @@
   border: 1px solid #d1d6cd;
   color: #8b6259;
   cursor: pointer;
-  font-family: "DM Mono", monospace;
+  font-family: var(--font-mono), monospace;
   font-size: 8px;
   padding: 10px;
   text-transform: uppercase;

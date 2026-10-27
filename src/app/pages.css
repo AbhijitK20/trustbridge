@@ -1,0 +1,2166 @@
+/* ============================================================
+   TrustBridge — inner product pages
+   Dark hero bands, paper cards, pill controls.
+   Loaded after app.css so it wins on equal specificity.
+   ============================================================ */
+
+body {
+  overflow-x: clip;
+}
+
+/* ---------------------------------------------------------- */
+/* Entrance motion                                            */
+/* ---------------------------------------------------------- */
+
+@keyframes tb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes tb-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.check-hero > *,
+.referee-hero > *,
+.seller-hero > *,
+.legal-hero > *,
+.wa-hero > *,
+.admin-header > *,
+.contract-hero > * {
+  animation: tb-rise 0.85s var(--ease-out) both;
+}
+
+.check-hero > :nth-child(2),
+.referee-hero > :nth-child(2),
+.admin-header > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.check-hero > :nth-child(3),
+.referee-hero > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.check-panel,
+.check-result,
+.check-empty,
+.referee-chat,
+.deal-form,
+.public-deal-card,
+.milestone-section,
+.dispute-card,
+.legal-doc,
+.contract-doc {
+  animation: tb-rise 0.9s 0.18s var(--ease-out) both;
+}
+
+.check-output > * {
+  animation-delay: 0.26s;
+}
+
+.tb-card-in {
+  animation: tb-rise 0.9s 0.18s var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check-hero > *,
+  .referee-hero > *,
+  .seller-hero > *,
+  .legal-hero > *,
+  .wa-hero > *,
+  .admin-header > *,
+  .contract-hero > *,
+  .check-panel,
+  .check-result,
+  .check-empty,
+  .referee-chat,
+  .deal-form,
+  .public-deal-card,
+  .milestone-section,
+  .dispute-card,
+  .legal-doc,
+  .contract-doc {
+    animation: tb-fade 0.01s both;
+  }
+}
+
+/* ---------------------------------------------------------- */
+/* Nav — full-bleed dark bar                                  */
+/* ---------------------------------------------------------- */
+
+.check-page > .topbar,
+.referee-page > .topbar,
+.seller-page > .topbar,
+.public-deal-page > .topbar,
+.legal-page > .topbar,
+.wa-page > .topbar,
+.contract-page > .topbar,
+.admin-page > .topbar {
+  align-items: center;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(243, 239, 230, 0.08);
+  box-sizing: border-box;
+  color: var(--cream);
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  max-width: none !important;
+  padding: 18px max(24px, calc((100vw - 1360px) / 2)) !important;
+  position: relative;
+  z-index: 5;
+}
+
+.check-page > .topbar .brand,
+.referee-page > .topbar .brand,
+.seller-page > .topbar .brand,
+.public-deal-page > .topbar .brand,
+.legal-page > .topbar .brand,
+.wa-page > .topbar .brand,
+.contract-page > .topbar .brand,
+.admin-page > .topbar .brand {
+  color: var(--cream);
+  font-size: 18px;
+  letter-spacing: -0.03em;
+}
+
+.check-page > .topbar .brand-mark,
+.referee-page > .topbar .brand-mark,
+.seller-page > .topbar .brand-mark,
+.public-deal-page > .topbar .brand-mark,
+.legal-page > .topbar .brand-mark,
+.wa-page > .topbar .brand-mark,
+.contract-page > .topbar .brand-mark,
+.admin-page > .topbar .brand-mark {
+  background: var(--lime);
+  color: #0a1712;
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  height: 32px;
+  width: 32px;
+}
+
+.check-page > .topbar .nav-links,
+.referee-page > .topbar .nav-links,
+.legal-page > .topbar .nav-links,
+.wa-page > .topbar .nav-links {
+  gap: 4px;
+}
+
+.check-page > .topbar .nav-links a,
+.referee-page > .topbar .nav-links a,
+.seller-page > .topbar .nav-links a,
+.public-deal-page > .topbar .nav-links a,
+.legal-page > .topbar .nav-links a,
+.wa-page > .topbar .nav-links a,
+.contract-page > .topbar .nav-links a,
+.admin-page > .topbar .nav-links a {
+  border-radius: 100px;
+  color: rgba(243, 239, 230, 0.66);
+  font-size: 13px;
+  padding: 9px 13px;
+  transition: background 0.25s, color 0.25s;
+}
+
+.check-page > .topbar .nav-links a:hover,
+.referee-page > .topbar .nav-links a:hover,
+.seller-page > .topbar .nav-links a:hover,
+.legal-page > .topbar .nav-links a:hover,
+.wa-page > .topbar .nav-links a:hover,
+.admin-page > .topbar .nav-links a:hover {
+  background: rgba(243, 239, 230, 0.07);
+  color: var(--cream);
+}
+
+.check-page > .topbar .nav-ghost,
+.referee-page > .topbar .nav-ghost,
+.legal-page > .topbar .nav-ghost,
+.wa-page > .topbar .nav-ghost {
+  border-left: 1px solid rgba(243, 239, 230, 0.14);
+  border-radius: 0;
+  margin-left: 8px;
+  padding-left: 20px;
+}
+
+.check-page > .topbar .nav-cta,
+.referee-page > .topbar .nav-cta,
+.seller-page > .topbar .nav-cta,
+.public-deal-page > .topbar .nav-cta,
+.legal-page > .topbar .nav-cta,
+.wa-page > .topbar .nav-cta,
+.contract-page > .topbar .nav-cta,
+.admin-page > .topbar .nav-cta {
+  background: var(--lime);
+  border-radius: 100px;
+  color: #0a1712 !important;
+  font-weight: 600;
+  padding: 10px 17px;
+}
+
+.check-page > .topbar .nav-cta:hover,
+.referee-page > .topbar .nav-cta:hover,
+.seller-page > .topbar .nav-cta:hover,
+.legal-page > .topbar .nav-cta:hover,
+.wa-page > .topbar .nav-cta:hover {
+  background: var(--lime-soft);
+}
+
+.deal-nav-label {
+  color: rgba(243, 239, 230, 0.45);
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------- */
+/* Hero bands                                                 */
+/* ---------------------------------------------------------- */
+
+.check-page > .check-hero,
+.referee-page > .referee-hero,
+.seller-page > .seller-hero,
+.legal-page > .legal-hero,
+.wa-page > .wa-hero,
+.admin-page > .admin-header,
+.contract-page > .contract-hero {
+  background: var(--ink);
+  box-sizing: border-box;
+  color: var(--cream);
+  margin: 0 calc(50% - 50vw);
+  max-width: none;
+  padding-bottom: 104px;
+  padding-left: max(24px, calc((100vw - 1360px) / 2));
+  padding-right: max(24px, calc((100vw - 1360px) / 2));
+  padding-top: 58px;
+  position: relative;
+  width: 100vw;
+}
+
+.check-page > .check-hero::before,
+.referee-page > .referee-hero::before,
+.seller-page > .seller-hero::before,
+.legal-page > .legal-hero::before,
+.wa-page > .wa-hero::before,
+.admin-page > .admin-header::before,
+.contract-page > .contract-hero::before {
+  background-image: linear-gradient(rgba(243, 239, 230, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 239, 230, 0.045) 1px, transparent 1px);
+  background-size: 118px 118px;
+  content: "";
+  inset: 0;
+  mask-image: radial-gradient(80% 90% at 70% 10%, black, transparent 78%);
+  pointer-events: none;
+  position: absolute;
+}
+
+.check-page > .check-hero::after,
+.referee-page > .referee-hero::after,
+.seller-page > .seller-hero::after,
+.legal-page > .legal-hero::after,
+.wa-page > .wa-hero::after,
+.admin-page > .admin-header::after,
+.contract-page > .contract-hero::after {
+  background: radial-gradient(46% 70% at 82% 18%, rgba(148, 189, 74, 0.24), transparent 68%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.check-page > .check-hero > *,
+.referee-page > .referee-hero > *,
+.seller-page > .seller-hero > *,
+.legal-page > .legal-hero > *,
+.wa-page > .wa-hero > *,
+.admin-page > .admin-header > *,
+.contract-page > .contract-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.check-page > .check-hero .eyebrow,
+.referee-page > .referee-hero .eyebrow,
+.seller-page > .seller-hero .eyebrow,
+.legal-page > .legal-hero .eyebrow,
+.wa-page > .wa-hero .eyebrow,
+.admin-page > .admin-header .eyebrow,
+.contract-page > .contract-hero .eyebrow {
+  color: rgba(243, 239, 230, 0.5);
+}
+
+.check-page > .check-hero h1,
+.referee-page > .referee-hero h1,
+.seller-page > .seller-hero h1,
+.legal-page > .legal-hero h1,
+.wa-page > .wa-hero h1,
+.admin-page > .admin-header h1,
+.contract-page > .contract-hero h1 {
+  color: var(--cream);
+  font-size: clamp(42px, 5.6vw, 88px);
+  font-weight: 500;
+  letter-spacing: -0.052em;
+  line-height: 0.96;
+  max-width: 15ch;
+}
+
+.check-page > .check-hero h1 em,
+.referee-page > .referee-hero h1 em,
+.seller-page > .seller-hero h1 em,
+.legal-page > .legal-hero h1 em,
+.wa-page > .wa-hero h1 em,
+.admin-page > .admin-header h1 em,
+.contract-page > .contract-hero h1 em {
+  color: var(--lime);
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.check-hero-text,
+.referee-hero > p:not(.eyebrow),
+.wa-hero > p:not(.eyebrow),
+.contract-hero > p:not(.eyebrow) {
+  color: rgba(243, 239, 230, 0.6);
+  font-size: 15px;
+  line-height: 1.68;
+  max-width: 520px;
+}
+
+.admin-page > .admin-header > p:last-child,
+.legal-page > .legal-hero > p:not(.eyebrow) {
+  color: rgba(243, 239, 230, 0.58);
+}
+
+.check-page > .check-hero {
+  align-items: end;
+  display: grid;
+  gap: 56px;
+  grid-template-columns: 1.05fr 0.95fr;
+  max-width: 100vw;
+  padding-bottom: 104px;
+}
+
+.referee-hero {
+  text-align: left;
+}
+
+.seller-page > .seller-hero {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.seller-hero .seller-avatar {
+  background: var(--lime);
+  color: #0a1712;
+  font-family: var(--font-display), Georgia, serif;
+  height: 88px;
+  width: 88px;
+}
+
+.seller-hero .seller-legal-name {
+  color: rgba(243, 239, 230, 0.36);
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  margin: 24px 0 0;
+  text-transform: uppercase;
+}
+
+.seller-hero .trust-badge small {
+  color: rgba(243, 239, 230, 0.45);
+  font-size: 7.5px;
+}
+
+.seller-hero .trust-badge {
+  background: rgba(217, 242, 107, 0.12);
+  border: 1px solid rgba(217, 242, 107, 0.24);
+  margin-top: 22px;
+}
+
+.seller-hero .trust-badge strong {
+  color: var(--lime);
+}
+
+.seller-hero .trust-badge span,
+.seller-hero .trust-badge small {
+  color: rgba(243, 239, 230, 0.62);
+}
+
+/* ---------------------------------------------------------- */
+/* Body rhythm + cards                                        */
+/* ---------------------------------------------------------- */
+
+.check-grid,
+.referee-shell,
+.wa-shell,
+.legal-shell,
+.contract-doc,
+.verification-report {
+  position: relative;
+  z-index: 2;
+}
+
+.check-page > .check-grid {
+  margin: -58px auto 0;
+  max-width: 1320px;
+  padding: 0 32px 84px;
+}
+
+.referee-page > .referee-shell,
+.wa-page > .wa-shell {
+  margin: -58px auto 0;
+  max-width: 1080px;
+  padding: 0 32px 70px;
+}
+
+.legal-page > .legal-shell {
+  margin: -58px auto 0;
+  max-width: 980px;
+  padding: 0 32px 80px;
+}
+
+.check-panel,
+.check-result,
+.check-empty,
+.referee-chat,
+.deal-form,
+.public-deal-card,
+.milestone-section,
+.dispute-card,
+.legal-doc,
+.contract-doc {
+  background: var(--paper);
+  border: 1px solid rgba(10, 21, 16, 0.07);
+  border-radius: 22px;
+  box-shadow: 0 28px 70px rgba(10, 21, 16, 0.09);
+}
+
+.check-panel {
+  padding: 32px;
+}
+
+.check-result {
+  border-top-width: 1px;
+  padding: 34px;
+}
+
+.check-result.outcome-verified {
+  border-top: 4px solid var(--green);
+}
+
+.check-result.outcome-verified-with-conditions {
+  border-top: 4px solid #7a9a3e;
+}
+
+.check-result.outcome-undetermined {
+  border-top: 4px solid #c99a3e;
+}
+
+.check-result.outcome-contradicted {
+  border-top: 4px solid #b4573f;
+}
+
+.check-empty {
+  border-top: 1px solid rgba(10, 21, 16, 0.07);
+  padding: 40px;
+}
+
+/* ---------------------------------------------------------- */
+/* Typography inside cards                                    */
+/* ---------------------------------------------------------- */
+
+.card-label,
+.form-label {
+  color: #8b968e;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.check-result h2,
+.check-empty h2 {
+  font-size: clamp(30px, 3.2vw, 42px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.02;
+}
+
+.check-empty h2 {
+  font-size: clamp(32px, 3.6vw, 46px);
+}
+
+.check-result h2 em,
+.check-empty h2 em {
+  color: var(--green);
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.result-summary,
+.check-empty > p {
+  color: #62706a;
+  font-size: 13.5px;
+  line-height: 1.66;
+}
+
+.verdict-pill {
+  background: #e8f1cf;
+  border-radius: 100px;
+  color: #3d6a34;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 8px 12px;
+}
+
+.outcome-contradicted .verdict-pill {
+  background: #f6e5df;
+  color: #984c40;
+}
+
+.outcome-undetermined .verdict-pill {
+  background: #f5efdf;
+  color: #8a6a2f;
+}
+
+.outcome-verified-with-conditions .verdict-pill {
+  background: #eef3d8;
+  color: #4e6b2f;
+}
+
+.result-id {
+  color: #9aa39c;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+}
+
+.decision-line {
+  background: #f0f3e7;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.coverage-row span {
+  background: #f5f3ea;
+  border: 1px solid #e7e5da;
+  border-radius: 8px;
+  color: #7b8780;
+  font-family: var(--font-mono), monospace;
+  font-size: 8.5px;
+  padding: 6px 9px;
+}
+
+.result-columns li {
+  border-bottom: 1px dotted #e3e3da;
+  color: #5f6d66;
+  font-size: 11.5px;
+}
+
+.claim-card {
+  background: #faf8f1;
+  border: 1px solid #e8e6dd;
+  border-radius: 14px;
+}
+
+.claim-card h3 {
+  font-size: 16px;
+}
+
+.claim-card > p {
+  color: #5f6d66;
+  font-size: 11.5px;
+}
+
+.evidence-item blockquote {
+  color: #4d5b54;
+}
+
+/* ---------------------------------------------------------- */
+/* Scenario chips                                             */
+/* ---------------------------------------------------------- */
+
+.scenario-row {
+  border-bottom: 1px solid #e8e6dd;
+}
+
+.scenario-chips {
+  gap: 8px;
+}
+
+.scenario-chip {
+  background: #f6f4ec;
+  border: 1px solid #e7e5da;
+  border-radius: 12px;
+  color: var(--ink);
+  padding: 12px 13px;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.scenario-chip:hover {
+  background: #f1efe4;
+  border-color: #d8d6c9;
+  transform: translateY(-1px);
+}
+
+.scenario-chip.is-active {
+  background: var(--lime);
+  border-color: #b9d54e;
+  box-shadow: 0 10px 24px rgba(150, 180, 60, 0.22);
+}
+
+.scenario-chip small {
+  color: #6f7c74;
+}
+
+.scenario-chip.is-active small {
+  color: #3f4d24;
+}
+
+/* ---------------------------------------------------------- */
+/* Inputs                                                     */
+/* ---------------------------------------------------------- */
+
+.deal-form input,
+.deal-form textarea,
+.check-form input,
+.check-form textarea,
+.pay-area input,
+.workflow-box input,
+.workflow-box textarea,
+.milestone-action textarea,
+.report-box textarea,
+.rating-box textarea,
+.dispute-card textarea,
+.dispute-thread textarea,
+.contract-sign-form input,
+.contract-sign-form textarea,
+.legal-page input {
+  background: #fff;
+  border: 1px solid #dcded2;
+  border-radius: 12px;
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  letter-spacing: normal;
+  margin: 8px 0 0;
+  outline: 0;
+  padding: 13px 14px;
+  text-transform: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  width: 100%;
+}
+
+.deal-form input,
+.check-form input,
+.pay-area input {
+  margin-bottom: 22px;
+}
+
+.deal-form textarea,
+.check-form textarea {
+  line-height: 1.55;
+  margin-bottom: 22px;
+  resize: vertical;
+}
+
+.deal-form input:focus,
+.deal-form textarea:focus,
+.check-form input:focus,
+.check-form textarea:focus,
+.pay-area input:focus,
+.dispute-card textarea:focus,
+.chat-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(23, 73, 58, 0.1);
+}
+
+.check-form label,
+.deal-form label,
+.pay-area label {
+  color: #5d6a63;
+  font-family: var(--font-mono), monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.form-hint,
+.form-footnote {
+  color: #8b968e;
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+/* ---------------------------------------------------------- */
+/* Buttons                                                    */
+/* ---------------------------------------------------------- */
+
+.button-primary,
+.button-light,
+.form-submit {
+  align-items: center;
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  gap: 10px;
+  justify-content: center;
+  padding: 14px 20px;
+  transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.button-primary {
+  background: var(--ink);
+  box-shadow: 0 16px 32px rgba(10, 21, 16, 0.18);
+  color: var(--cream);
+}
+
+.button-primary:hover {
+  background: var(--green);
+  transform: translateY(-1px);
+}
+
+.button-light {
+  background: #fff;
+  border: 1px solid #dcded2;
+  color: var(--ink);
+}
+
+.button-light:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.button-primary span,
+.button-light span {
+  color: var(--lime);
+  margin-left: 0;
+}
+
+.button-light span {
+  color: var(--green);
+}
+
+.button-primary:disabled,
+.button-light:disabled,
+.form-submit:disabled {
+  cursor: wait;
+  opacity: 0.55;
+  transform: none;
+}
+
+.form-submit {
+  width: 100%;
+}
+
+.button-danger {
+  background: #f9eae5;
+  border: 1px solid #f0d6ce;
+  border-radius: 100px;
+  color: #984c40;
+  cursor: pointer;
+  padding: 12px 18px;
+}
+
+.text-link {
+  border-bottom: 1px solid #b9c2ba;
+  color: #53615b;
+  font-size: 12px;
+  padding-bottom: 3px;
+}
+
+/* ---------------------------------------------------------- */
+/* Split auth / create screens                                */
+/* ---------------------------------------------------------- */
+
+main.form-page {
+  background:
+    radial-gradient(60% 50% at 78% 10%, rgba(148, 189, 74, 0.22), transparent 62%),
+    radial-gradient(50% 40% at 10% 90%, rgba(23, 73, 58, 0.5), transparent 60%),
+    var(--ink);
+  box-sizing: border-box;
+  color: var(--cream);
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(320px, 0.92fr) minmax(420px, 1.08fr);
+  margin: 0;
+  max-width: none;
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+}
+
+main.form-page::before {
+  background-image: linear-gradient(rgba(243, 239, 230, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(243, 239, 230, 0.04) 1px, transparent 1px);
+  background-size: 96px 96px;
+  content: "";
+  inset: 0;
+  mask-image: radial-gradient(70% 60% at 30% 40%, black, transparent 75%);
+  pointer-events: none;
+  position: absolute;
+}
+
+main.form-page .form-intro {
+  align-self: stretch;
+  box-sizing: border-box;
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px max(40px, calc((100vw - 1180px) / 2));
+  position: relative;
+  z-index: 1;
+}
+
+main.form-page .form-intro .brand {
+  color: var(--cream);
+  font-size: 18px;
+  left: max(40px, calc((100vw - 1180px) / 2));
+  margin: 0;
+  position: absolute;
+  top: 40px;
+}
+
+main.form-page .form-intro .brand-mark {
+  background: var(--lime);
+  color: #0a1712;
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+}
+
+main.form-page .form-intro .eyebrow {
+  color: rgba(243, 239, 230, 0.45);
+  margin-bottom: 22px;
+}
+
+main.form-page .form-intro h1 {
+  color: var(--cream);
+  font-size: clamp(40px, 4.4vw, 66px);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  margin: 0 0 24px;
+  max-width: 12ch;
+}
+
+main.form-page .form-intro h1 em {
+  color: var(--lime);
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+main.form-page .form-intro > p:last-child {
+  color: rgba(243, 239, 230, 0.56);
+  font-size: 14.5px;
+  line-height: 1.66;
+  max-width: 340px;
+}
+
+main.form-page .deal-form {
+  align-self: center;
+  background: var(--paper);
+  border-radius: 24px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+  color: var(--ink);
+  margin: 32px clamp(20px, 4vw, 60px) 32px 0;
+  padding: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+main.form-page .workflow-title {
+  font-size: 17px;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+
+main.form-page .demo-footnote {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+main.form-page .demo-buttons {
+  display: grid;
+  gap: 9px;
+}
+
+main.form-page .form-divider {
+  border-top: 1px solid #e6e4da;
+  margin: 18px 0;
+}
+
+main.form-page .form-footnote {
+  color: #8b968e;
+  text-align: center;
+}
+
+main.form-page .form-error {
+  color: #a14d43;
+}
+
+/* ---------------------------------------------------------- */
+/* Referee chat                                               */
+/* ---------------------------------------------------------- */
+
+.referee-chat {
+  padding: 28px;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.chat-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+}
+
+.chat-avatar {
+  background: var(--lime);
+  color: #0a1720;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 15px;
+  height: 30px;
+  width: 30px;
+}
+
+.chat-bubble {
+  background: #fff;
+  border: 1px solid #e7e5da;
+  border-radius: 4px 16px 16px 16px;
+  color: #3f4c45;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 620px;
+  padding: 14px 16px;
+}
+
+.chat-summary {
+  color: #4f5d56;
+}
+
+.chat-reply {
+  background: #f4f6ea;
+  border: 1px solid #e3e8d2;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.chat-reply-head {
+  color: #71805f;
+  font-family: var(--font-mono), monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.chat-chip {
+  background: #f4f2e9;
+  border: 1px solid #e7e5da;
+  border-radius: 100px;
+  color: #5f6d66;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  padding: 7px 11px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.chat-chip:hover {
+  background: #eceadb;
+  border-color: #d5d3c4;
+}
+
+.chat-input {
+  background: #fff;
+  border: 1px solid #dcded2;
+  border-radius: 16px;
+  display: block;
+  margin-top: 14px;
+  padding: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.chat-input:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(23, 73, 58, 0.1);
+}
+
+.chat-input textarea {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  min-height: 84px;
+  outline: 0;
+  padding: 11px 12px;
+  resize: vertical;
+  width: 100%;
+}
+
+.chat-actions {
+  align-items: center;
+  border-top: 1px solid #eeece2;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  padding: 9px 9px 5px;
+}
+
+.chat-actions .form-hint {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------- */
+/* Public deal page                                           */
+/* ---------------------------------------------------------- */
+
+.public-deal-page {
+  background: linear-gradient(var(--ink) 0 340px, var(--cream) 340px);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 0 0 90px;
+}
+
+.public-deal-page > .topbar {
+  background: transparent;
+  border-bottom: 0;
+}
+
+.public-deal-page > .topbar .brand {
+  color: var(--cream);
+}
+
+.public-deal-page > .topbar .brand-mark {
+  background: var(--lime);
+  color: #0a1712;
+}
+
+.public-deal-card {
+  margin: 34px auto 0;
+  max-width: 720px;
+  padding: 44px;
+}
+
+.public-deal-card h1 {
+  color: var(--ink);
+  font-size: clamp(36px, 4.6vw, 60px);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  margin: 34px 0 18px;
+}
+
+.public-deal-card h1 em {
+  color: var(--green);
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.public-description {
+  color: #62706a;
+  font-size: 14.5px;
+}
+
+.public-meta b {
+  color: #99a29a;
+}
+
+.protection-note {
+  background: #f1f4e4;
+  border: 1px solid #e3e8d2;
+  border-radius: 12px;
+  color: #5f7052;
+  padding: 14px 16px;
+}
+
+.pay-area {
+  border-top: 1px solid #e8e6dd;
+}
+
+.deal-disclaimer {
+  color: #8b968e;
+  font-size: 10.5px;
+}
+
+.deal-extras {
+  max-width: 720px;
+}
+
+.milestone-section {
+  padding: 34px;
+}
+
+.milestone-card {
+  border-top: 1px solid #e8e6dd;
+}
+
+.milestone-criteria {
+  background: #f4f6ea;
+  border-radius: 10px;
+}
+
+.milestone-card h3 {
+  font-size: 18px;
+}
+
+.contract-callout {
+  border-radius: 20px;
+  padding: 32px 34px;
+}
+
+.deal-timeline {
+  position: relative;
+}
+
+.timeline-item {
+  border-left: 1px solid #dcded2;
+}
+
+/* ---------------------------------------------------------- */
+/* Seller profile                                             */
+/* ---------------------------------------------------------- */
+
+.seller-page {
+  background: var(--cream);
+  padding: 0 0 90px;
+}
+
+.seller-stats {
+  background: var(--paper);
+  border: 1px solid rgba(10, 21, 16, 0.07);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(10, 21, 16, 0.06);
+  margin-top: 40px;
+  padding: 26px 0;
+}
+
+.seller-reviews article {
+  border-bottom: 1px solid #e8e6dd;
+}
+
+.seller-reviews article p {
+  color: #4f5d56;
+}
+
+.trust-badge {
+  border-radius: 14px;
+}
+
+.seller-warning {
+  border-radius: 14px;
+}
+
+/* ---------------------------------------------------------- */
+/* Admin                                                      */
+/* ---------------------------------------------------------- */
+
+.admin-page {
+  background: var(--cream);
+  padding: 0 0 90px;
+}
+
+.admin-page > .admin-header {
+  margin-bottom: 0;
+  padding-bottom: 84px;
+}
+
+.dispute-list {
+  margin-top: -46px;
+  padding-top: 0;
+}
+
+.dispute-card {
+  padding: 32px;
+}
+
+.dispute-card h2 {
+  font-size: 26px;
+}
+
+.dispute-reason {
+  border-radius: 12px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  font-style: normal;
+}
+
+.empty-state {
+  border-radius: 22px;
+  margin-top: -40px;
+  padding: 56px;
+}
+
+/* ---------------------------------------------------------- */
+/* Legal                                                      */
+/* ---------------------------------------------------------- */
+
+.legal-page {
+  background: var(--cream);
+  padding: 0 0 80px;
+}
+
+.legal-page > .legal-hero {
+  padding-bottom: 96px;
+}
+
+.legal-doc {
+  padding: 48px;
+}
+
+.legal-doc h2,
+.legal-section h2 {
+  font-size: 26px;
+  letter-spacing: -0.04em;
+}
+
+.legal-section p,
+.legal-section li {
+  color: #4f5d56;
+  font-size: 13.5px;
+  line-height: 1.72;
+}
+
+.legal-banner {
+  background: #f7eee9;
+  border: 1px solid #f0d9d1;
+  border-radius: 14px;
+  color: #7f554d;
+}
+
+/* ---------------------------------------------------------- */
+/* WhatsApp demo + status pages                               */
+/* ---------------------------------------------------------- */
+
+.wa-page {
+  background: var(--cream);
+  padding: 0 0 80px;
+}
+
+.wa-shell {
+  margin-top: -58px;
+}
+
+.status-page {
+  align-items: center;
+  background: var(--ink);
+  color: var(--cream);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 24px;
+}
+
+.status-card {
+  background: rgba(243, 239, 230, 0.04);
+  border: 1px solid rgba(243, 239, 230, 0.12);
+  border-radius: 24px;
+  max-width: 520px;
+  padding: 44px;
+  text-align: center;
+  width: 100%;
+}
+
+.status-card h1 {
+  color: var(--cream);
+  font-size: clamp(34px, 4vw, 48px);
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.status-card p {
+  color: rgba(243, 239, 230, 0.6);
+}
+
+.status-mark {
+  align-items: center;
+  background: var(--lime);
+  border-radius: 50%;
+  color: #0a1712;
+  display: inline-flex;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+  height: 46px;
+  justify-content: center;
+  margin-bottom: 18px;
+  width: 46px;
+}
+
+.status-page .button-light {
+  background: transparent;
+  border-color: rgba(243, 239, 230, 0.24);
+  color: var(--cream);
+}
+
+/* ---------------------------------------------------------- */
+/* Legal footer — dark band                                   */
+/* ---------------------------------------------------------- */
+
+.legal-footer {
+  background: var(--ink);
+  color: rgba(243, 239, 230, 0.5);
+  margin-top: 0;
+  padding: 54px max(24px, calc((100vw - 1360px) / 2));
+}
+
+.legal-footer-inner {
+  max-width: 1360px;
+}
+
+.legal-footer .brand {
+  color: var(--cream);
+}
+
+.legal-footer .brand-mark {
+  background: var(--lime);
+  color: #0a1712;
+}
+
+.legal-footer-links a {
+  color: rgba(243, 239, 230, 0.66);
+}
+
+.legal-footer-links a:hover {
+  color: var(--lime);
+}
+
+.legal-footer-meta {
+  color: rgba(243, 239, 230, 0.34);
+}
+
+.legal-footer-meta a {
+  border-bottom-color: rgba(243, 239, 230, 0.2);
+  color: rgba(243, 239, 230, 0.55);
+}
+
+/* ---------------------------------------------------------- */
+/* Mobile                                                     */
+/* ---------------------------------------------------------- */
+
+@media (max-width: 980px) {
+  .check-page > .check-hero {
+    display: block;
+    padding-bottom: 88px;
+    padding-top: 40px;
+  }
+
+  .check-hero-text {
+    margin-top: 22px;
+  }
+
+  .check-page > .check-grid {
+    margin-top: -46px;
+    padding: 0 18px 60px;
+  }
+
+  main.form-page {
+    display: block;
+    padding-bottom: 40px;
+  }
+
+  main.form-page .form-intro {
+    padding: 96px 24px 40px;
+  }
+
+  main.form-page .form-intro .brand {
+    left: 24px;
+    top: 26px;
+  }
+
+  main.form-page .deal-form {
+    margin: 0 18px;
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .check-page > .topbar .nav-links a:not(.nav-cta),
+  .legal-page > .topbar .nav-links a:not(.nav-cta),
+  .wa-page > .topbar .nav-links a:not(.nav-cta) {
+    display: none;
+  }
+
+  .referee-page > .topbar .nav-links a:not(.nav-cta),
+  .seller-page > .topbar .nav-links a:not(.nav-cta) {
+    display: none;
+  }
+
+  .public-deal-card,
+  .check-panel,
+  .check-result,
+  .check-empty,
+  .referee-chat,
+  .milestone-section {
+    padding: 24px 20px;
+  }
+
+  .legal-doc {
+    padding: 28px 20px;
+  }
+
+  .public-deal-page {
+    padding: 0 14px 70px;
+  }
+
+  .deal-form {
+    padding: 26px 20px;
+  }
+}
+
+/* ---------------------------------------------------------- */
+/* Forms — selects, price row, checkboxes, milestones          */
+/* ---------------------------------------------------------- */
+
+.deal-form select,
+.check-form select,
+.contract-sign-form select {
+  appearance: none;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236d7d72' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+  border: 1px solid #dcded2;
+  border-radius: 12px;
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 13px 36px 13px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.deal-form select:focus,
+.check-form select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(23, 73, 58, 0.1);
+  outline: 0;
+}
+
+.deal-form .price-row {
+  align-items: stretch;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) 118px;
+  margin-top: 8px;
+}
+
+.deal-form .price-row input {
+  margin: 0;
+  width: 100%;
+}
+
+.deal-form .price-row select {
+  margin-top: 0;
+}
+
+.deal-form input[type="checkbox"],
+.deal-form input[type="radio"],
+.check-form input[type="checkbox"],
+.pay-area input[type="checkbox"],
+.public-deal-card input[type="checkbox"] {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  height: 16px;
+  margin: 2px 0 0;
+  padding: 0;
+  width: 16px;
+}
+
+.consent-check {
+  align-items: flex-start;
+  color: #5f6d66;
+  display: flex;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11.5px;
+  gap: 9px;
+  letter-spacing: 0;
+  line-height: 1.55;
+  margin: 18px 0 8px;
+  text-transform: none;
+}
+
+.consent-check span {
+  display: block;
+}
+
+.consent-check a {
+  border-bottom: 1px solid #c9d0c7;
+  color: var(--green);
+}
+
+.deal-form .form-hint {
+  margin: 2px 0 20px;
+}
+
+.deal-form label.consent-check,
+.pay-area label.consent-check {
+  color: #5f6d66;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.55;
+  text-transform: none;
+}
+
+.deal-form .form-divider {
+  border-top: 1px solid #e8e6dd;
+  margin: 24px 0 18px;
+}
+
+.deal-form .form-label {
+  margin: 0 0 4px;
+}
+
+/* Milestone editor */
+
+.milestone-editor {
+  border-top: 1px solid #e8e6dd;
+  margin-top: 12px;
+  padding-top: 20px;
+}
+
+.milestone-editor-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.milestone-editor-head .form-label {
+  margin: 0;
+}
+
+.milestone-editor-head .form-hint {
+  margin: 6px 0 0;
+  max-width: 400px;
+}
+
+.milestone-add {
+  flex: 0 0 auto;
+  font-size: 12px;
+  padding: 10px 15px;
+  white-space: nowrap;
+}
+
+.milestone-empty {
+  color: #8b968e;
+  font-size: 11.5px;
+  line-height: 1.5;
+  margin: 14px 0 0;
+}
+
+.milestone-edit-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.milestone-edit-card {
+  background: #f7f5ec;
+  border: 1px solid #e8e6dd;
+  border-radius: 14px;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.milestone-edit-top {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.milestone-edit-top input {
+  margin: 0;
+}
+
+.milestone-edit-top .button-danger {
+  flex: 0 0 auto;
+  font-size: 11px;
+  padding: 8px 12px;
+}
+
+.milestone-edit-two {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.milestone-edit-two label {
+  margin: 0;
+}
+
+.milestone-edit-two input,
+.milestone-edit-two select {
+  margin-top: 6px;
+}
+
+.milestone-verify {
+  align-items: center;
+  color: #5f6d66;
+  display: flex;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11.5px;
+  gap: 8px;
+  letter-spacing: 0;
+  margin: 0;
+  text-transform: none;
+}
+
+.milestone-verify input {
+  margin: 0;
+  width: 16px;
+}
+
+.milestone-editor-total {
+  color: #6f7c74;
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  margin-top: 14px;
+}
+
+/* Attached verification banner */
+
+.attached-check {
+  background: #f1f4e4;
+  border: 1px solid #e1e7cf;
+  border-radius: 14px;
+  margin-bottom: 22px;
+  padding: 16px;
+}
+
+.attached-check.outcome-contradicted {
+  background: #f9ece7;
+  border-color: #efd5cc;
+}
+
+.attached-check p {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 10px 0 4px;
+}
+
+.attached-check small {
+  color: #7b8780;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .form-two,
+  .milestone-edit-two {
+    grid-template-columns: 1fr;
+  }
+
+  .deal-form .price-row {
+    grid-template-columns: 1fr 104px;
+  }
+
+  .milestone-editor-head {
+    flex-direction: column;
+  }
+}
+
+/* ---------------------------------------------------------- */
+/* Mobile workspace shell                                     */
+/* ---------------------------------------------------------- */
+
+.app-shell {
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(148, 189, 74, 0.14), transparent 60%),
+    #071410;
+  padding: 34px 16px;
+}
+
+.app-phone {
+  border: 1px solid rgba(243, 239, 230, 0.14);
+  border-radius: 36px;
+  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.55);
+}
+
+.app-topbar {
+  background: rgba(243, 239, 230, 0.92);
+  border-bottom: 1px solid rgba(10, 21, 16, 0.06);
+}
+
+.app-brand .brand-mark {
+  background: var(--ink);
+  color: var(--lime);
+}
+
+.app-stat-grid {
+  background: transparent;
+  border: 0;
+  gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.app-stat-grid > div {
+  background: var(--paper);
+  border: 1px solid rgba(10, 21, 16, 0.07);
+  border-radius: 14px;
+  padding: 14px 12px;
+}
+
+.app-stat-grid > div + div {
+  border-left: 1px solid rgba(10, 21, 16, 0.07);
+}
+
+.app-quick-card {
+  background: var(--paper);
+  border: 1px solid rgba(10, 21, 16, 0.08);
+  border-radius: 16px;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+
+.app-quick-card:hover {
+  box-shadow: 0 16px 32px rgba(10, 21, 16, 0.1);
+  transform: translateY(-2px);
+}
+
+.app-quick-card-dark {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.app-deal-card {
+  border: 1px solid rgba(10, 21, 16, 0.08);
+  border-radius: 16px;
+}
+
+.app-hero {
+  border-radius: 22px;
+}
+
+.app-nav {
+  background: rgba(243, 239, 230, 0.94);
+  border-top: 1px solid rgba(10, 21, 16, 0.08);
+}
+
+/* ---------------------------------------------------------- */
+/* Deal page detail blocks                                    */
+/* ---------------------------------------------------------- */
+
+.payment-schedule {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  margin: 18px 0 6px;
+}
+
+.payment-schedule > div {
+  background: #f6f4ec;
+  border: 1px solid #e8e6dd;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.payee-disclosure {
+  background: #f6f4ec;
+  border: 1px solid #e8e6dd;
+  border-radius: 14px;
+  margin-top: 18px;
+  padding: 18px;
+}
+
+.pay-area {
+  border-top: 1px solid #e8e6dd;
+  margin-top: 24px;
+  padding-top: 22px;
+}
+
+.share-deal {
+  border-top: 1px solid #e8e6dd;
+  margin-top: 22px;
+  padding-top: 20px;
+}
+
+.share-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.share-links a,
+.share-links button {
+  background: #f6f4ec;
+  border: 1px solid #e2e0d4;
+  border-radius: 100px;
+  color: #4f5d56;
+  cursor: pointer;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 9px 14px;
+  text-transform: uppercase;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.share-links a:hover,
+.share-links button:hover {
+  background: #eef2dd;
+  border-color: #cdd6b0;
+  color: var(--green);
+}
+
+.deal-timeline {
+  border-top: 1px solid #e8e6dd;
+  margin-top: 22px;
+  padding-top: 20px;
+}
+
+.timeline-item {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 10px minmax(0, 1fr);
+  padding: 0 0 18px;
+  position: relative;
+}
+
+.timeline-item::before {
+  background: #e2e3d9;
+  content: "";
+  height: calc(100% - 12px);
+  left: 4px;
+  position: absolute;
+  top: 14px;
+  width: 1px;
+}
+
+.timeline-dot {
+  background: var(--lime);
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  height: 10px;
+  margin-top: 4px;
+  position: relative;
+  width: 10px;
+  z-index: 1;
+}
+
+.timeline-head {
+  align-items: baseline;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.timeline-item p {
+  color: #68756d;
+  font-size: 11px;
+}
+
+.timeline-head strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.timeline-head span {
+  color: #939d95;
+  font-family: var(--font-mono), monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .payment-schedule {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Checkboxes */
+
+.deal-form input[type="checkbox"],
+.deal-form input[type="radio"],
+.check-form input[type="checkbox"],
+.pay-area input[type="checkbox"],
+.public-deal-card input[type="checkbox"] {
+  appearance: none;
+  background: #fff;
+  border: 1.5px solid #c9cdbe;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 17px;
+  margin: 0;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+  width: 17px;
+}
+
+.deal-form input[type="checkbox"]:checked,
+.check-form input[type="checkbox"]:checked,
+.pay-area input[type="checkbox"]:checked,
+.public-deal-card input[type="checkbox"]:checked {
+  background-color: var(--green);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='9' viewBox='0 0 11 9'%3E%3Cpath d='M1 4.5L4 7.5L10 1.5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  border-color: var(--green);
+}
+
+/* Em spacing inside display headings */
+
+.check-page > .check-hero h1 em,
+.referee-page > .referee-hero h1 em,
+.seller-page > .seller-hero h1 em,
+.legal-page > .legal-hero h1 em,
+.wa-page > .wa-hero h1 em,
+.admin-page > .admin-header h1 em,
+.contract-page > .contract-hero h1 em,
+.public-deal-card h1 em {
+  margin-left: 0.05em;
+}
+
+/* ---------------------------------------------------------- */
+/* WhatsApp simulator                                         */
+/* ---------------------------------------------------------- */
+
+.wa-shell .wa-chat {
+  animation: tb-rise 0.9s 0.18s var(--ease-out) both;
+  background: #e9efe2;
+  border: 1px solid rgba(10, 21, 16, 0.08);
+  border-radius: 22px;
+  box-shadow: 0 28px 70px rgba(10, 21, 16, 0.12);
+  overflow: hidden;
+}
+
+.wa-head {
+  align-items: center;
+  background: var(--green);
+  color: var(--cream);
+  display: flex;
+  gap: 12px;
+  padding: 15px 20px;
+}
+
+.wa-avatar {
+  align-items: center;
+  background: var(--lime);
+  border-radius: 50%;
+  color: #0a1712;
+  display: flex;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 17px;
+  font-style: italic;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.wa-head strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.wa-head small {
+  color: rgba(243, 239, 230, 0.55);
+  font-family: var(--font-mono), monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wa-status {
+  background: rgba(217, 242, 107, 0.16);
+  border-radius: 100px;
+  color: var(--lime);
+  font-family: var(--font-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  margin-left: auto;
+  padding: 5px 9px;
+  text-transform: uppercase;
+}
+
+.wa-log {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 340px;
+  overflow-y: auto;
+  padding: 22px 20px;
+}
+
+.wa-row {
+  display: flex;
+}
+
+.wa-bubble {
+  background: #fff;
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 2px 6px rgba(10, 21, 16, 0.06);
+  color: #3c4a42;
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 78%;
+  padding: 11px 14px;
+}
+
+.wa-bubble p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.wa-typing {
+  color: #8b968e;
+  font-style: italic;
+}
+
+.wa-report {
+  border-bottom: 1px solid #cdd6bd;
+  color: var(--green);
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.wa-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 0 20px 14px;
+}
+
+.wa-chips button {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #d4dcc6;
+  border-radius: 100px;
+  color: #4c5a52;
+  cursor: pointer;
+  font-family: var(--font-mono), monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  padding: 8px 12px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.wa-chips button:hover {
+  background: #fff;
+  border-color: #b9c9a2;
+}
+
+.wa-input {
+  background: #fff;
+  border-top: 1px solid #dbe1d0;
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.wa-input input {
+  background: #f4f5ef;
+  border: 1px solid #dde2d2;
+  border-radius: 100px;
+  flex: 1;
+  font-size: 13px;
+  margin: 0;
+  outline: 0;
+  padding: 11px 16px;
+  width: auto;
+}
+
+.wa-input input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(23, 73, 58, 0.08);
+}
+
+.wa-input button {
+  background: var(--ink);
+  border: 0;
+  border-radius: 100px;
+  color: var(--cream);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0 20px;
+}
+
+.wa-input button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.wa-note {
+  color: #8b968e;
+  font-size: 9.5px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 20px 16px;
+}
+
+.wa-shell .form-error {
+  padding: 0 20px;
+}
+
+/* ---------------------------------------------------------- */
+/* Verification report (no hero)                              */
+/* ---------------------------------------------------------- */
+
+.check-page:has(> .verification-report) {
+  background: linear-gradient(var(--ink) 0 232px, var(--cream) 232px);
+  min-height: 100vh;
+  padding-bottom: 70px;
+}
+
+.check-page > .verification-report {
+  margin: -74px auto 0;
+  max-width: 940px;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.check-page:has(> .verification-report) > .check-footer {
+  color: #8b968e;
+}
+
+@media (max-width: 640px) {
+  .check-page > .verification-report {
+    margin-top: -54px;
+    padding: 0 16px;
+  }
+}
