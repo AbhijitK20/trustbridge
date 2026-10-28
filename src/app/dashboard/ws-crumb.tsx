@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 
 const LABELS: Array<[string, string]> = [
   ["/dashboard/deals", "Deals"],
+  ["/dashboard/new", "New deal"],
   ["/dashboard/contracts", "Contracts"],
   ["/dashboard/checks", "Checks"],
   ["/dashboard/disputes", "Disputes"],

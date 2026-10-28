@@ -173,7 +173,9 @@ export default function DashNav({
           {group.items.map((item) => {
             const active = item.exact
               ? pathname === item.href
-              : pathname === item.href || pathname.startsWith(`${item.href}/`);
+              : pathname === item.href ||
+                pathname.startsWith(`${item.href}/`) ||
+                (item.href === "/dashboard/deals" && pathname.startsWith("/dashboard/new"));
             const badge = item.badge ? counts[item.badge] : 0;
             return (
               <Link

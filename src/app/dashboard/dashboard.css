@@ -1885,3 +1885,64 @@ a.ws-panel:hover {
   color: #8d8777;
   font-size: 10px;
 }
+
+/* New deal inside the workspace */
+.ws-create-grid {
+  align-items: start;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.75fr);
+}
+
+.ws-create .deal-form {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ws-create .deal-form input,
+.ws-create .deal-form textarea,
+.ws-create .deal-form select {
+  border-radius: 6px;
+  font-size: 12.5px;
+  padding: 10px 11px;
+}
+
+.ws-create .deal-form .form-two {
+  gap: 14px;
+}
+
+.ws-create .deal-form .form-divider {
+  border-top-color: #ece4d5;
+}
+
+.ws-create .deal-form .form-submit {
+  margin-top: 14px;
+}
+
+.ws-create .deal-form .form-footnote {
+  text-align: left;
+}
+
+@media (max-width: 1080px) {
+  .ws-create-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ws-create .form-submit {
+  background: #14110d;
+  border: 1px solid #14110d;
+  box-shadow: 0 12px 30px rgba(20, 17, 13, 0.18);
+  bottom: 12px;
+  color: var(--cream);
+  position: sticky;
+  z-index: 5;
+}
+
+.ws-create .form-submit:hover {
+  background: var(--green);
+  border-color: var(--green);
+}

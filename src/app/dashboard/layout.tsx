@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import DashNav from "./dash-nav";
+import LiveRefresher from "./live-refresher";
 import WorkspaceCrumb from "./ws-crumb";
 import { dashboardSignOut } from "./actions";
 import "./dashboard.css";
@@ -123,6 +124,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <WorkspaceCrumb role={roleLabel} />
 
           <div className="ws-top-actions">
+            <LiveRefresher />
             <form className="ws-search" action="/dashboard/deals" role="search">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="11" cy="11" r="6.5" />
@@ -132,7 +134,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
               <span className="ws-kbd">/</span>
             </form>
 
-            <Link className="ws-btn ws-btn-ghost" href="/create">
+            <Link className="ws-btn ws-btn-ghost" href="/dashboard/new">
               New deal
             </Link>
 

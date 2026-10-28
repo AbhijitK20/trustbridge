@@ -100,7 +100,7 @@ export default async function DashboardDealsPage({
           <p>Filter by state, search by title or reference, and open the one that needs you.</p>
         </div>
         <div className="ws-head-actions">
-          <Link className="ws-btn" href="/create">
+          <Link className="ws-btn" href="/dashboard/new">
             New deal <i>↗</i>
           </Link>
         </div>

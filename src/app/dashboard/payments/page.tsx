@@ -134,7 +134,7 @@ export default async function DashboardPaymentsPage() {
                   <td colSpan={7}>
                     <span className="ws-empty" style={{ display: "block" }}>
                       No funded deals yet.{" "}
-                      <Link className="ws-inline-link" href="/create">
+                      <Link className="ws-inline-link" href="/dashboard/new">
                         Fund the first one
                       </Link>
                       .

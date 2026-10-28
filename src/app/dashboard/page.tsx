@@ -186,7 +186,7 @@ export default async function DashboardOverviewPage({
               </Link>
             )}
           </div>
-          <Link className="ws-btn" href="/create">
+          <Link className="ws-btn" href="/dashboard/new">
             New deal <i>↗</i>
           </Link>
         </div>
@@ -297,7 +297,7 @@ export default async function DashboardOverviewPage({
                   <td colSpan={6}>
                     <span className="ws-empty" style={{ display: "block" }}>
                       No deals yet.{" "}
-                      <Link className="ws-inline-link" href="/create">
+                      <Link className="ws-inline-link" href="/dashboard/new">
                         Create the first one
                       </Link>
                       .

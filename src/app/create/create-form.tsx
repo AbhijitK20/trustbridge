@@ -125,105 +125,95 @@ export default function CreateDealForm({
   const blocked = verification?.outcome === "CONTRADICTED";
 
   return (
-    <main className="form-page">
-      <div className="form-intro">
-        <Link className="brand" href="/">
-          <span className="brand-mark">T</span> trustbridge
-        </Link>
-        <p className="eyebrow">Start a protected deal</p>
-        <h1>Put the agreement<br /><em>in writing.</em></h1>
-        <p>One link. Clear deliverables. Payment protected until the work is delivered.</p>
+  <form className="deal-form" onSubmit={submit}>
+    {verification && (
+      <div className={`attached-check ${outcomeClass(verification.outcome)}`}>
+        <span className="verdict-pill">
+          Attached check · {verification.outcome.replaceAll("_", " ")}
+        </span>
+        <p>{verification.headline}</p>
+        <small>{verification.summary} Checked against {verification.organization}.</small>
       </div>
-      <form className="deal-form" onSubmit={submit}>
-        {verification && (
-          <div className={`attached-check ${outcomeClass(verification.outcome)}`}>
-            <span className="verdict-pill">
-              Attached check · {verification.outcome.replaceAll("_", " ")}
-            </span>
-            <p>{verification.headline}</p>
-            <small>{verification.summary} Checked against {verification.organization}.</small>
-          </div>
-        )}
-        {verificationError && <p className="form-error">{verificationError}</p>}
+    )}
+    {verificationError && <p className="form-error">{verificationError}</p>}
 
-        <input type="hidden" name="verificationId" value={verificationId ?? ""} />
+    <input type="hidden" name="verificationId" value={verificationId ?? ""} />
 
-        <label htmlFor="title">
-          What are you buying?
-          <input id="title" name="title" required defaultValue={initialTitle} placeholder="e.g. Brand identity & launch kit" />
+    <label htmlFor="title">
+      What are you buying?
+      <input id="title" name="title" required defaultValue={initialTitle} placeholder="e.g. Brand identity & launch kit" />
+    </label>
+    <label htmlFor="description">
+      Describe the deliverable
+      <textarea
+        id="description"
+        name="description"
+        required
+        minLength={10}
+        defaultValue={initialDescription}
+        placeholder="Be specific. What files, outcomes, or access should be delivered?"
+        rows={5}
+      />
+    </label>
+    <div className="form-two">
+      <label htmlFor="price">
+        Agreed price
+        <span className="price-row">
+          <input id="price" name="price" required min="1" step="0.01" type="number" value={price} onChange={(event) => setPrice(event.target.value)} placeholder="1200.00" />
+          <select name="currency" value={currency} onChange={(event) => setCurrency(event.target.value)} aria-label="Currency">
+            <option value="inr">INR ₹</option>
+            <option value="usd">USD $</option>
+          </select>
+        </span>
+      </label>
+      <label htmlFor="deadline">
+        Delivery by
+        <input id="deadline" name="deadline" type="date" />
+      </label>
+    </div>
+    {milestones.length === 0 && (
+      <>
+        <label htmlFor="depositPercent">
+          Deposit schedule
+          <select id="depositPercent" name="depositPercent" defaultValue="30">
+            <option value="30">30% at delivery · 70% on acceptance</option>
+            <option value="50">50% at delivery · 50% on acceptance</option>
+            <option value="100">100% on acceptance</option>
+          </select>
         </label>
-        <label htmlFor="description">
-          Describe the deliverable
-          <textarea
-            id="description"
-            name="description"
-            required
-            minLength={10}
-            defaultValue={initialDescription}
-            placeholder="Be specific. What files, outcomes, or access should be delivered?"
-            rows={5}
-          />
-        </label>
-        <div className="form-two">
-          <label htmlFor="price">
-            Agreed price
-            <span className="price-row">
-              <input id="price" name="price" required min="1" step="0.01" type="number" value={price} onChange={(event) => setPrice(event.target.value)} placeholder="1200.00" />
-              <select name="currency" value={currency} onChange={(event) => setCurrency(event.target.value)} aria-label="Currency">
-                <option value="inr">INR ₹</option>
-                <option value="usd">USD $</option>
-              </select>
-            </span>
-          </label>
-          <label htmlFor="deadline">
-            Delivery by
-            <input id="deadline" name="deadline" type="date" />
-          </label>
-        </div>
-        {milestones.length === 0 && (
-          <>
-            <label htmlFor="depositPercent">
-              Deposit schedule
-              <select id="depositPercent" name="depositPercent" defaultValue="30">
-                <option value="30">30% at delivery · 70% on acceptance</option>
-                <option value="50">50% at delivery · 50% on acceptance</option>
-                <option value="100">100% on acceptance</option>
-              </select>
-            </label>
-            <p className="form-hint">The full amount is held. The deposit releases when delivery is submitted; the balance releases when you accept.</p>
-          </>
-        )}
-        <MilestoneEditor milestones={milestones} onChange={setMilestones} price={price} currency={currency} />
-        <div className="form-divider" />
-        <p className="form-label">Seller details</p>
-        <label htmlFor="sellerName">
-          Name
-          <input id="sellerName" name="sellerName" required placeholder="Seller or studio name" />
-        </label>
+        <p className="form-hint">The full amount is held. The deposit releases when delivery is submitted; the balance releases when you accept.</p>
+      </>
+    )}
+    <MilestoneEditor milestones={milestones} onChange={setMilestones} price={price} currency={currency} />
+    <div className="form-divider" />
+    <p className="form-label">Seller details</p>
+    <label htmlFor="sellerName">
+      Name
+      <input id="sellerName" name="sellerName" required placeholder="Seller or studio name" />
+    </label>
 
-        <label className="consent-check">
-          <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
-          <span>
-            I agree to the <Link href="/legal/terms" target="_blank">Terms</Link> and{" "}
-            <Link href="/legal/privacy" target="_blank">Privacy Policy</Link> on behalf of the seller.
-          </span>
-        </label>
+    <label className="consent-check">
+      <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
+      <span>
+        I agree to the <Link href="/legal/terms" target="_blank">Terms</Link> and{" "}
+        <Link href="/legal/privacy" target="_blank">Privacy Policy</Link> on behalf of the seller.
+      </span>
+    </label>
 
-        {error && <p className="form-error">{error}</p>}
+    {error && <p className="form-error">{error}</p>}
 
-        {blocked ? (
-          <p className="form-error">
-            This verification contradicted a material claim. Do not create a protected deal based on this offer.
-          </p>
-        ) : (
-          <button className="button-primary form-submit" disabled={pending || !consent}>
-            {pending ? "Creating deal…" : "Create protected deal ↗"}
-          </button>
-        )}
-        <p className="form-footnote">
-          No payment is taken when creating a deal. You&apos;ll share the link with the buyer or seller first.
-        </p>
-      </form>
-    </main>
+    {blocked ? (
+      <p className="form-error">
+        This verification contradicted a material claim. Do not create a protected deal based on this offer.
+      </p>
+    ) : (
+      <button className="button-primary form-submit" disabled={pending || !consent}>
+        {pending ? "Creating deal…" : "Create protected deal ↗"}
+      </button>
+    )}
+    <p className="form-footnote">
+      No payment is taken when creating a deal. You&apos;ll share the link with the buyer or seller first.
+    </p>
+  </form>
   );
 }
