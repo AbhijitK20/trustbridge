@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import AdminNav from "../admin-nav";
 import type { CheckResult } from "@/lib/verification";
 import DeliveryQueue, { type Delivery } from "./delivery-queue";
 
@@ -84,17 +85,7 @@ export default function DisputeQueue({ disputes: initial, deliveries, demoMode =
 
   return (
     <main className="admin-page">
-      <nav className="topbar">
-        <Link className="brand" href="/">
-          <span className="brand-mark">T</span> trustbridge
-        </Link>
-        <div className="nav-links">
-          <Link href="/admin/compliance">Compliance</Link>
-          <Link href="/admin/approvals">Approvals</Link>
-          <Link href="/admin/reports">Reports</Link>
-          <span className="deal-nav-label">Admin · dispute desk</span>
-        </div>
-      </nav>
+            <AdminNav section="dispute desk" />
       <header className="admin-header">
         <p className="eyebrow">Human review required</p>
         <h1>Protect the <em>decision.</em></h1>

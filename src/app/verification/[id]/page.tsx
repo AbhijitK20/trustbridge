@@ -26,7 +26,7 @@ export default async function VerificationReportPage({
   const outcome = check.outcome.toLowerCase().replaceAll("_", "-");
 
   return (
-    <main className="check-page">
+    <main className="check-page verification-page">
       <nav className="topbar check-topbar">
         <Link className="brand" href="/" aria-label="TrustBridge home">
           <span className="brand-mark">T</span> trustbridge
@@ -38,14 +38,33 @@ export default async function VerificationReportPage({
         </div>
       </nav>
 
+      <header className="verification-hero">
+        <p className="eyebrow">Verification report · #{check.id.slice(0, 8).toUpperCase()}</p>
+        <h1>{report.headline}</h1>
+        <p className="verification-summary">{report.summary}</p>
+        <div className="verification-hero-meta">
+          <span className={`verdict-pill verdict-${outcome}`}>
+            {check.outcome.replaceAll("_", " ")}
+          </span>
+          <span className="verification-decision">
+            Recommended · {check.decision.replaceAll("_", " ").toLowerCase()}
+          </span>
+          <span className="verification-org">
+            {check.organization} ·{" "}
+            {new Date(check.createdAt).toLocaleString("en-IN", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            })}
+          </span>
+        </div>
+      </header>
+
       <section className="verification-report">
         <section className={`check-result outcome-${outcome}`}>
           <div className="result-top">
-            <span className="verdict-pill">{check.outcome.replaceAll("_", " ")}</span>
-            <span className="result-id">#{check.id.slice(0, 8).toUpperCase()}</span>
+            <span className="result-id">Report #{check.id.slice(-6).toUpperCase()}</span>
+            <span className="result-advice">Advisory · a human decides any dispute</span>
           </div>
-          <h2>{report.headline}</h2>
-          <p className="result-summary">{report.summary}</p>
 
           <div className="decision-line">
             <span>Recommended action</span>
@@ -57,10 +76,6 @@ export default async function VerificationReportPage({
               <span key={tier}><b>{count}</b> {tier}</span>
             ))}
           </div>
-
-          <p className="report-meta">
-            Checked against {check.organization} · {new Date(check.createdAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}
-          </p>
 
           <div className="result-columns">
             <div>

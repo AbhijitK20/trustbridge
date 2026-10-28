@@ -51,13 +51,14 @@ export default async function ReceiptPage({ params }: { params: Promise<{ token:
 
   const kyc = deal.sellerProfile.kyc;
   const fee = deal.platformFeeCents || calculatePlatformFee(deal.priceCents);
-  const sellerNet = Math.max(0, deal.priceCents - fee);
+  const sellerNet = deal.priceCents;
+  const buyerTotal = deal.priceCents + fee;
   const consent = deal.consents.find((item) => item.userId === deal.buyerId) ?? deal.consents[0];
   const paymentRef = deal.stripePaymentId?.startsWith("demo_") ? "Sandbox ledger (simulated)" : deal.stripePaymentId ?? "Not recorded";
 
   return (
     <main className="receipt-page">
-      <nav className="topbar check-topbar">
+      <nav className="topbar receipt-topbar">
         <Link className="brand" href="/"><span className="brand-mark">T</span> trustbridge</Link>
         <div className="nav-links">
           <Link href={`/deal/${deal.publicToken}`}>Back to deal</Link>
@@ -65,16 +66,30 @@ export default async function ReceiptPage({ params }: { params: Promise<{ token:
         </div>
       </nav>
 
-      <div className="receipt-shell">
-        <header className="receipt-head">
-          <div>
-            <p className="eyebrow">Payment receipt</p>
-            <h1>Receipt #{deal.publicToken.slice(-8).toUpperCase()}</h1>
-            <p>{deal.title}</p>
-          </div>
-          <span className="receipt-status">{deal.status.replaceAll("_", " ")}</span>
-        </header>
+      <header className="receipt-hero">
+        <p className="eyebrow">Payment receipt</p>
+        <h1>
+          Receipt <em>#{deal.publicToken.slice(-8).toUpperCase()}</em>
+        </h1>
+        <p className="receipt-sub">
+          {deal.title} ·{" "}
+          {new Date(deal.createdAt).toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
+        <div className="receipt-hero-meta">
+          <span className={`receipt-status receipt-status-${deal.status.toLowerCase()}`}>
+            <i /> {deal.status.replaceAll("_", " ")}
+          </span>
+          <Link className="receipt-hero-link" href={`/deal/${deal.publicToken}`}>
+            Back to the deal <span>↗</span>
+          </Link>
+        </div>
+      </header>
 
+      <div className="receipt-shell">
         <section className="receipt-card">
           <div className="receipt-grid">
             <div>
@@ -100,8 +115,9 @@ export default async function ReceiptPage({ params }: { params: Promise<{ token:
             <div className="receipt-row"><span>Deal total</span><strong>{money(deal.priceCents, deal.currency)}</strong></div>
             <div className="receipt-row"><span>Deposit</span><span>{money(deal.depositCents, deal.currency)}</span></div>
             <div className="receipt-row"><span>Balance</span><span>{money(deal.balanceCents, deal.currency)}</span></div>
-            <div className="receipt-row"><span>Platform fee (from seller payout)</span><span>{money(fee, deal.currency)}</span></div>
-            <div className="receipt-row"><span>Seller receives after fee</span><span>{money(sellerNet, deal.currency)}</span></div>
+            <div className="receipt-row"><span>Protection fee (buyer-paid)</span><span>{money(fee, deal.currency)}</span></div>
+            <div className="receipt-row"><span>Buyer total</span><span>{money(buyerTotal, deal.currency)}</span></div>
+            <div className="receipt-row"><span>Seller receives</span><span>{money(sellerNet, deal.currency)}</span></div>
             <div className="receipt-row receipt-total"><span>Protected amount</span><strong>{money(deal.priceCents, deal.currency)}</strong></div>
           </div>
 
