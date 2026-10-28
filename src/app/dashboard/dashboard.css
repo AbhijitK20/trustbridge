@@ -2061,3 +2061,10 @@ a.ws-panel:hover {
 .ws-side-foot {
   margin-top: 14px;
 }
+
+/* Let the nav scroll inside the sidebar instead of pushing the footer */
+.ws-nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-right: 2px;
+}
