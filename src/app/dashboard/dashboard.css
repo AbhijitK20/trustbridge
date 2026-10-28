@@ -1831,3 +1831,57 @@ a.ws-panel:hover {
     display: none;
   }
 }
+
+.live-pill {
+  align-items: center;
+  color: #89958c;
+  display: inline-flex;
+  font-family: var(--font-mono), monospace;
+  font-size: 7px;
+  gap: 5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.live-pill.is-live { color: var(--green); }
+.live-dot { background: currentColor; border-radius: 50%; height: 4px; width: 4px; }
+.live-pill.is-live .live-dot { background: var(--lime); box-shadow: 0 0 0 3px #d4ec6a33; }
+
+/* Reviews */
+.ws-stars {
+  color: #d7cbb2;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+}
+
+.ws-stars .is-on {
+  color: #a8802f;
+}
+
+.ws-review {
+  border-bottom: 1px solid #f1ebde;
+  padding: 15px 18px;
+}
+
+.ws-review:last-child {
+  border-bottom: 0;
+}
+
+.ws-review-top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ws-review-quote {
+  color: #3d372c;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 16px;
+  line-height: 1.45;
+  margin: 7px 0 6px;
+  max-width: 60ch;
+}
+
+.ws-review-foot {
+  color: #8d8777;
+  font-size: 10px;
+}

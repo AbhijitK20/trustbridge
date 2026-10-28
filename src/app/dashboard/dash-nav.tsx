@@ -65,6 +65,21 @@ function Icon({ name }: { name: string }) {
         <path d="M12 17h.01" />
       </>
     ),
+    disputes: (
+      <>
+        <path d="M6 21V4M6 4h10.5l-1.6 4 1.6 4H6" />
+      </>
+    ),
+    activity: (
+      <>
+        <path d="M3 12h4l2-6 4 12 2-6h6" />
+      </>
+    ),
+    reviews: (
+      <>
+        <path d="m12 3.5 2.6 5.4 6 .8-4.4 4.2 1.1 5.9-5.3-2.9-5.3 2.9 1.1-5.9L3.4 9.7l6-.8z" />
+      </>
+    ),
   };
 
   return (
@@ -85,6 +100,8 @@ const GROUPS: Array<{
       { href: "/dashboard/deals", label: "Deals", icon: "deals", badge: "deals" },
       { href: "/dashboard/contracts", label: "Contracts", icon: "deals" },
       { href: "/dashboard/checks", label: "Checks", icon: "checks" },
+      { href: "/dashboard/disputes", label: "Disputes", icon: "disputes" },
+      { href: "/dashboard/reviews", label: "Reviews", icon: "reviews" },
     ],
   },
   {
@@ -101,11 +118,15 @@ const GROUPS: Array<{
       { href: "/dashboard/settings", label: "Settings", icon: "settings" },
       { href: "/dashboard/notifications", label: "Notifications", icon: "notifications", badge: "attention" },
       { href: "/dashboard/security", label: "Security", icon: "security" },
+      { href: "/dashboard/activity", label: "Activity", icon: "activity" },
     ],
   },
   {
     label: "Support",
-    items: [{ href: "/dashboard/help", label: "Help & legal", icon: "help" }],
+    items: [
+      { href: "/dashboard/help", label: "Help & legal", icon: "help" },
+      { href: "/referee", label: "Referee chat", icon: "checks" },
+    ],
   },
 ];
 
