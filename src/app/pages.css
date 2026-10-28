@@ -3354,11 +3354,11 @@ main.form-page .form-intro .button-primary {
 }
 
 .check-scene {
-  height: 520px;
-  left: -230px;
-  opacity: 0.16;
-  top: -190px;
-  width: 520px;
+  height: 540px;
+  left: -150px;
+  opacity: 0.26;
+  top: -70px;
+  width: 540px;
 }
 
 .check-hero > :not(.check-scene) {
