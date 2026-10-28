@@ -3,7 +3,10 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { releasedForDeal, sellerCreditSummary } from "@/lib/credits";
+import { demoWallet } from "@/lib/demo-credits";
+import { demoModeEnabled } from "@/lib/demo-mode";
 import { requestPayout } from "../actions";
+import { addDemoCreditAction, moveDemoCreditAction } from "../credits-actions";
 
 function money(cents: number) {
   return new Intl.NumberFormat("en-IN", {
@@ -16,7 +19,13 @@ function money(cents: number) {
 export default async function DashboardCreditsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ saved?: string; error?: string }>;
+  searchParams: Promise<{
+    saved?: string;
+    error?: string;
+    topup?: string;
+    moved?: string;
+    to?: string;
+  }>;
 }) {
   const session = await auth();
   if (!session?.user?.id) redirect("/signin?next=/dashboard/credits");
@@ -36,6 +45,8 @@ export default async function DashboardCreditsPage({
   });
   if (!user) redirect("/signin");
 
+  const wallet = await demoWallet(user.id);
+  const demoEnabled = demoModeEnabled();
   const seller = user.sellerProfile;
   const summary = seller ? sellerCreditSummary(seller.deals, seller.payoutRequests) : null;
   const sellerReleased = seller?.deals.reduce((sum, deal) => sum + releasedForDeal(deal), 0) ?? 0;
@@ -77,6 +88,148 @@ export default async function DashboardCreditsPage({
       {params.error === "seller" && (
         <div className="ws-banner ws-banner-error">Complete seller verification before requesting a payout.</div>
       )}
+      {params.topup && (
+        <div className="ws-banner ws-banner-ok">
+          Added {money(Number(params.topup) * 100)} in sandbox credits.
+        </div>
+      )}
+      {params.moved && (
+        <div className="ws-banner ws-banner-ok">
+          Moved {money(Number(params.moved) * 100)} to {params.to}.
+        </div>
+      )}
+      {params.error === "demo_amount" && (
+        <div className="ws-banner ws-banner-error">Enter an amount between ₹1 and ₹1,00,000.</div>
+      )}
+      {params.error === "demo_balance" && (
+        <div className="ws-banner ws-banner-error">Not enough sandbox credits for that transfer.</div>
+      )}
+      {params.error === "demo_recipient" && (
+        <div className="ws-banner ws-banner-error">No TrustBridge account uses that email.</div>
+      )}
+      {params.error === "demo_self" && (
+        <div className="ws-banner ws-banner-error">Send credits to a different account.</div>
+      )}
+      {params.error === "demo_failed" && (
+        <div className="ws-banner ws-banner-error">The transfer could not be completed. Try again.</div>
+      )}
+      {params.error === "demo_off" && (
+        <div className="ws-banner ws-banner-error">Demo credits are disabled in this environment.</div>
+      )}
+
+      <section className="ws-panel" style={{ marginTop: 12 }}>
+        <div className="ws-panel-head">
+          <div>
+            <small>Sandbox wallet</small>
+            <h2>Add or move credits</h2>
+          </div>
+          <span style={{ fontFamily: "var(--font-display), Georgia, serif", fontSize: 30 }}>
+            {money(wallet.balanceCents)}
+          </span>
+        </div>
+        <div className="ws-panel-body">
+          <p className="ws-note" style={{ marginBottom: 16 }}>
+            Demo credits only. No real money moves and no Razorpay charge is created. Use this to
+            exercise balances, transfers and payouts until live payments are enabled.
+          </p>
+
+          {demoEnabled ? (
+            <div className="ws-grid-2">
+              <form action={addDemoCreditAction} className="ws-form">
+                <div className="ws-form-row">
+                  <label htmlFor="add-amount">Add credits (INR)</label>
+                  <input
+                    id="add-amount"
+                    name="amount"
+                    type="number"
+                    min="1"
+                    max="100000"
+                    step="1"
+                    placeholder="1000"
+                    required
+                  />
+                  <small>Minimum ₹1. Maximum ₹1,00,000 per top-up.</small>
+                </div>
+                <div className="ws-form-foot">
+                  <button className="ws-btn" type="submit">
+                    Add sandbox credits
+                  </button>
+                </div>
+              </form>
+
+              <form action={moveDemoCreditAction} className="ws-form">
+                <div className="ws-form-row">
+                  <label htmlFor="move-email">Recipient email</label>
+                  <input
+                    id="move-email"
+                    name="email"
+                    type="email"
+                    placeholder="seller@example.com"
+                    required
+                  />
+                </div>
+                <div className="ws-form-row">
+                  <label htmlFor="move-amount">Amount (INR)</label>
+                  <input
+                    id="move-amount"
+                    name="amount"
+                    type="number"
+                    min="1"
+                    max="100000"
+                    step="1"
+                    placeholder="500"
+                    required
+                  />
+                </div>
+                <div className="ws-form-foot">
+                  <button className="ws-btn ws-btn-ghost" type="submit">
+                    Move credits
+                  </button>
+                </div>
+              </form>
+            </div>
+          ) : (
+            <p className="ws-note">
+              Sandbox credits are off. Set <code>DEMO_MODE=true</code> to enable them.
+            </p>
+          )}
+
+          {wallet.entries.length > 0 && (
+            <div className="ws-table-wrap" style={{ marginTop: 18 }}>
+              <table className="ws-table">
+                <thead>
+                  <tr>
+                    <th>Activity</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {wallet.entries.map((entry, index) => (
+                    <tr key={`${entry.createdAt.toISOString()}-${index}`}>
+                      <td>
+                        <span className="ws-cell-title">
+                          {entry.action === "DEMO_CREDIT_TOPUP"
+                            ? "Top-up"
+                            : entry.action === "DEMO_CREDIT_TRANSFER_IN"
+                              ? "Transfer in"
+                              : "Transfer out"}
+                        </span>
+                        {entry.note && <small style={{ display: "block", color: "#89958c" }}>{entry.note}</small>}
+                      </td>
+                      <td>
+                        {entry.amountCents > 0 ? "+" : ""}
+                        {money(entry.amountCents)}
+                      </td>
+                      <td>{entry.createdAt.toLocaleDateString("en-IN", { day: "2-digit", month: "short" })}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </section>
 
       {seller && summary ? (
         <>
@@ -302,9 +455,9 @@ export default async function DashboardCreditsPage({
               <span className="ws-kpi-note">3% paid by you on top of seller prices</span>
             </div>
             <div className="ws-kpi">
-              <span className="ws-kpi-label">Seller credits</span>
-              <span className="ws-kpi-value">—</span>
-              <span className="ws-kpi-note">Seller verification unlocks the credits and payout ledger</span>
+              <span className="ws-kpi-label">Sandbox wallet</span>
+              <span className="ws-kpi-value">{money(wallet.balanceCents)}</span>
+              <span className="ws-kpi-note">Add or move demo credits in the panel above</span>
             </div>
           </section>
 
