@@ -145,6 +145,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 <Link href="/dashboard/payments">
                   Payments <span aria-hidden="true">↗</span>
                 </Link>
+                <Link href="/check">
+                  Verify a claim <span aria-hidden="true">↗</span>
+                </Link>
+                <Link href="/referee">
+                  Referee chat <span aria-hidden="true">↗</span>
+                </Link>
+                <Link href="/dashboard/help">
+                  Help &amp; legal <span aria-hidden="true">↗</span>
+                </Link>
                 {user.sellerProfile && (
                   <Link href={`/seller/${user.sellerProfile.slug}`}>
                     Public seller page <span aria-hidden="true">↗</span>

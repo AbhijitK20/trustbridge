@@ -2044,3 +2044,20 @@ a.ws-panel:hover {
     transform: none;
   }
 }
+
+/* Keep the longer nav inside the viewport */
+.ws-nav {
+  gap: 14px;
+}
+
+.ws-nav-item {
+  padding: 7px 9px;
+}
+
+.ws-nav-label {
+  margin-bottom: 5px;
+}
+
+.ws-side-foot {
+  margin-top: 14px;
+}
