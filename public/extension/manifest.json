@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TrustBridge \u2014 Check before you pay",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Four-state verification for offers found in chat, email, and job boards.",
   "permissions": [
     "activeTab"
@@ -10,6 +10,15 @@
     "http://localhost:3000/*",
     "https://trustbridge-abhithe.vercel.app/*"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -23,6 +32,12 @@
     }
   ],
   "action": {
-    "default_title": "TrustBridge \u2014 check this page"
+    "default_title": "TrustBridge \u2014 check this page",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
   }
 }

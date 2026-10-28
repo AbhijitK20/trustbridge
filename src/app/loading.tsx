@@ -4,8 +4,8 @@ export default function Loading() {
       <div className="status-card status-loading">
         <span className="status-mark">T</span>
         <p className="eyebrow">TrustBridge</p>
-        <h1>Reading the record.</h1>
-        <p>Fetching the deal, the evidence, and the last decision.</p>
+        <h1>Opening the workspace.</h1>
+        <p>Loading the record, the evidence, and the last decision.</p>
       </div>
     </main>
   );

@@ -328,7 +328,7 @@ export function Process() {
               </p>
               <div style={{ marginTop: 34 }}>
                 <Magnetic>
-                  <Link className="lp-btn lp-btn-lime" href="/create">
+                  <Link className="lp-btn lp-btn-lime" href="/signin">
                     Create a deal <i>↗</i>
                   </Link>
                 </Magnetic>
@@ -672,7 +672,7 @@ export function FinalCta() {
         </p>
         <div className="lp-cta-actions">
           <Magnetic strength={0.4}>
-            <Link className="lp-btn lp-btn-lime" href="/create">
+            <Link className="lp-btn lp-btn-lime" href="/signin">
               Create your first deal <i>↗</i>
             </Link>
           </Magnetic>

@@ -85,7 +85,7 @@ export const LEGAL_PAGES: Record<string, LegalPage> = {
       {
         heading: "8. Fees and taxes",
         paragraphs: [
-          "TrustBridge charges the platform fee shown at checkout or in the deal record. The fee is separate from the seller's price and may be subject to GST or other taxes. Sellers are responsible for their own income tax and tax registrations.",
+          "TrustBridge charges a 3% buyer protection fee on top of the seller's listed price. The fee is shown separately at checkout, is not part of the protected amount, and may attract GST. The seller receives the full listed price. Sellers are responsible for their own income tax and tax registrations.",
         ],
       },
       {
@@ -190,7 +190,7 @@ export const LEGAL_PAGES: Record<string, LegalPage> = {
       {
         heading: "4. Refunds and releases",
         paragraphs: [
-          `Refunds and releases are processed by ${partner}. Timing depends on the payment method and the banks involved. Platform fees are generally non-refundable once the review has been completed, unless required by law.`,
+          `Refunds and releases are processed by ${partner}. Timing depends on the payment method and the banks involved. The buyer protection fee is generally non-refundable once the deal is funded and protection has begun, except where required by law. If a payment fails or is cancelled before protection begins, the fee is refunded.`,
         ],
       },
       {
@@ -286,7 +286,7 @@ export const LEGAL_PAGES: Record<string, LegalPage> = {
       {
         heading: "3. Taxes and invoices",
         paragraphs: [
-          "The seller is responsible for its own tax registrations, invoices, GST, TDS, income tax, and any other obligations. TrustBridge may issue a platform fee invoice separately from the seller's invoice.",
+          "The seller receives the full listed price; the buyer pays the protection fee separately. The seller is responsible for its own tax registrations, invoices, GST, TDS, income tax, and any other obligations. TrustBridge may issue a protection-fee invoice separately from the seller's invoice.",
         ],
       },
       {

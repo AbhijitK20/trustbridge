@@ -60,11 +60,13 @@ class ApiClient {
             .timeout(const Duration(seconds: 30));
       } else {
         response = await http
-            .post(uri, headers: _headers(json: true), body: jsonEncode(body ?? {}))
+            .post(uri,
+                headers: _headers(json: true), body: jsonEncode(body ?? {}))
             .timeout(const Duration(seconds: 30));
       }
     } catch (error) {
-      throw ApiException(0, 'Could not reach TrustBridge. Check your connection.');
+      throw ApiException(
+          0, 'Could not reach TrustBridge. Check your connection.');
     }
 
     Map<String, dynamic> decoded = <String, dynamic>{};
@@ -85,15 +87,58 @@ class ApiClient {
     return decoded;
   }
 
-  Future<Map<String, dynamic>> login(String role) async {
-    final data = await _request('POST', '/api/mobile/login', body: {'role': role});
+  Future<void> _storeSession(Map<String, dynamic> data) async {
     _token = data['token'] as String?;
     _cookieName = data['cookieName'] as String?;
     currentUser = (data['user'] as Map?)?.cast<String, dynamic>();
     final prefs = await SharedPreferences.getInstance();
-    if (_token != null) await prefs.setString('tb_token', _token!);
-    if (_cookieName != null) await prefs.setString('tb_cookie', _cookieName!);
-    if (currentUser != null) await prefs.setString('tb_user', jsonEncode(currentUser));
+    if (_token != null) {
+      await prefs.setString('tb_token', _token!);
+    }
+    if (_cookieName != null) {
+      await prefs.setString('tb_cookie', _cookieName!);
+    }
+    if (currentUser != null) {
+      await prefs.setString('tb_user', jsonEncode(currentUser));
+    }
+  }
+
+  Future<Map<String, dynamic>> login(String role) async {
+    final data =
+        await _request('POST', '/api/mobile/login', body: {'role': role});
+    await _storeSession(data);
+    return data;
+  }
+
+  Future<Map<String, dynamic>?> pollGoogleSignIn(String device) async {
+    final uri = Uri.parse('$baseUrl/api/mobile/auth/poll?device=$device');
+    late http.Response response;
+    try {
+      response = await http.get(uri, headers: {
+        'Accept': 'application/json'
+      }).timeout(const Duration(seconds: 20));
+    } catch (_) {
+      throw ApiException(
+          0, 'Could not reach TrustBridge. Check your connection.');
+    }
+    if (response.statusCode == 202) return null;
+
+    Map<String, dynamic> data = <String, dynamic>{};
+    if (response.body.isNotEmpty) {
+      try {
+        data = jsonDecode(response.body) as Map<String, dynamic>;
+      } catch (_) {
+        data = {'error': 'The server returned an unexpected response.'};
+      }
+    }
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw ApiException(
+        response.statusCode,
+        (data['error'] as String?) ?? 'Google sign-in failed.',
+        data,
+      );
+    }
+    await _storeSession(data);
     return data;
   }
 
@@ -114,7 +159,8 @@ class ApiClient {
   Future<Map<String, dynamic>> deal(String token) =>
       _request('GET', '/api/mobile/deals/$token');
 
-  Future<Map<String, dynamic>> profile() => _request('GET', '/api/mobile/profile');
+  Future<Map<String, dynamic>> profile() =>
+      _request('GET', '/api/mobile/profile');
 
   Future<Map<String, dynamic>> runCheck(Map<String, dynamic> input) =>
       _request('POST', '/api/check', body: input);

@@ -10,10 +10,10 @@ export const legalEntity = {
   grievanceOfficer: text(process.env.LEGAL_GRIEVANCE_OFFICER, "[Grievance Officer — replace before launch]"),
   jurisdiction: text(process.env.LEGAL_JURISDICTION, "India"),
   paymentPartner: text(process.env.PAYMENT_PARTNER_NAME, "[Licensed payment/escrow partner — replace before launch]"),
-  termsVersion: text(process.env.LEGAL_TERMS_VERSION, "2026-10-27"),
+  termsVersion: text(process.env.LEGAL_TERMS_VERSION, "2026-10-28"),
   privacyVersion: text(process.env.LEGAL_PRIVACY_VERSION, "2026-10-27"),
-  sellerAgreementVersion: text(process.env.LEGAL_SELLER_AGREEMENT_VERSION, "2026-10-27"),
-  effectiveDate: text(process.env.LEGAL_EFFECTIVE_DATE, "27 October 2026"),
+  sellerAgreementVersion: text(process.env.LEGAL_SELLER_AGREEMENT_VERSION, "2026-10-28"),
+  effectiveDate: text(process.env.LEGAL_EFFECTIVE_DATE, "28 October 2026"),
   kycProvider: text(process.env.KYC_PROVIDER, "manual"),
 };
 

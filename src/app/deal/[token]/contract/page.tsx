@@ -139,8 +139,12 @@ export default async function ContractPage({
               {date(snapshot.deal.deliveryDeadline)}
             </span>
             <span>
-              <b>Platform fee</b>
+              <b>Buyer protection fee</b>
               {money(snapshot.fees.platformFeeCents, snapshot.deal.currency)} ({snapshot.fees.platformFeePercent}%)
+            </span>
+            <span>
+              <b>Buyer total</b>
+              {money(snapshot.fees.buyerTotalCents ?? snapshot.deal.amountCents + snapshot.fees.platformFeeCents, snapshot.deal.currency)}
             </span>
             <span>
               <b>Seller receives</b>

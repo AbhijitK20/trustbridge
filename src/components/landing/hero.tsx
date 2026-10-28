@@ -138,7 +138,7 @@ export function Hero() {
               </Link>
             </Magnetic>
             <Magnetic strength={0.2}>
-              <Link className="lp-btn lp-btn-ghost" href="/create">
+              <Link className="lp-btn lp-btn-ghost" href="/signin">
                 Protect a deal <i>→</i>
               </Link>
             </Magnetic>

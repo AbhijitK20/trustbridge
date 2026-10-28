@@ -27,6 +27,15 @@ function LayersIcon() {
   );
 }
 
+function ChatIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 5.5h14v10H9l-4 3v-13z" />
+      <path d="M8 9h8M8 12h5" />
+    </svg>
+  );
+}
+
 function UserIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -40,6 +49,7 @@ const ITEMS = [
   { href: "/app", label: "Home", icon: HomeIcon },
   { href: "/app/check", label: "Check", icon: ScanIcon },
   { href: "/app/deals", label: "Deals", icon: LayersIcon },
+  { href: "/app/referee", label: "Chat", icon: ChatIcon },
   { href: "/app/profile", label: "Profile", icon: UserIcon },
 ];
 

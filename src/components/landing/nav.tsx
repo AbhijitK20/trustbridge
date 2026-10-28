@@ -57,7 +57,7 @@ export function LandingNav() {
               </Link>
             ),
           )}
-          <Link className="lp-nav-cta" href="/create">
+          <Link className="lp-nav-cta" href="/signin">
             Create a deal <i>↗</i>
           </Link>
         </nav>
@@ -122,7 +122,7 @@ export function LandingNav() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.46, duration: 0.6 }}
               >
-                <Link className="lp-btn lp-btn-lime" href="/create" onClick={() => setOpen(false)}>
+                <Link className="lp-btn lp-btn-lime" href="/signin" onClick={() => setOpen(false)}>
                   Create a deal <i>↗</i>
                 </Link>
               </motion.div>

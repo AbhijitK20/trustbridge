@@ -9,3 +9,7 @@ export function stripeClient() {
 export function calculatePlatformFee(amountCents: number, percentage = env.PLATFORM_FEE_PERCENT) {
   return Math.round(amountCents * (percentage / 100));
 }
+
+export function calculateBuyerTotal(amountCents: number, percentage = env.PLATFORM_FEE_PERCENT) {
+  return amountCents + calculatePlatformFee(amountCents, percentage);
+}

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 function money(cents: number, currency = "inr") {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -126,10 +128,10 @@ export default async function AppHomePage() {
             <small>Progress, next action, and money in one place.</small>
             <span className="app-quick-arrow">↗</span>
           </Link>
-          <Link className="app-quick-card app-quick-card-dark" href="/demo/whatsapp">
+          <Link className="app-quick-card app-quick-card-dark" href="/app/referee">
             <span className="app-quick-icon">04</span>
-            <strong>WhatsApp bot</strong>
-            <small>Send a suspicious offer to the referee.</small>
+            <strong>Referee chat</strong>
+            <small>Paste an offer and get a reply you can send.</small>
             <span className="app-quick-arrow">↗</span>
           </Link>
         </div>

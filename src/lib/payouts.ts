@@ -52,7 +52,7 @@ export async function releaseDepositDeal(dealId: string) {
   }
 
   const { stripe, chargeId } = await assertPayoutReady(deal);
-  const amount = Math.max(0, split.depositCents - split.depositFee);
+  const amount = split.depositCents;
 
   if (amount <= 0) {
     await prisma.deal.update({ where: { id: deal.id }, data: { depositReleasedAt: new Date() } });
@@ -96,7 +96,7 @@ export async function releaseBalanceDeal(dealId: string) {
   }
 
   const split = calculateFeeSplit(deal.priceCents, deal.depositCents);
-  const amount = Math.max(0, split.balanceCents - split.balanceFee);
+  const amount = split.balanceCents;
 
   if (amount <= 0) {
     await prisma.$transaction([

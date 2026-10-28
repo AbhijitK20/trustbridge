@@ -2,7 +2,8 @@
   if (window.__trustbridgePill || document.getElementById("trustbridge-extension")) return;
   window.__trustbridgePill = true;
 
-  const API = globalThis.TRUSTBRIDGE_API || "http://localhost:3000";
+  const APP_HOSTS = new Set(["trustbridge-abhithe.vercel.app", "localhost", "127.0.0.1"]);
+  const API = globalThis.TRUSTBRIDGE_API || (APP_HOSTS.has(location.hostname) ? location.origin : "http://localhost:3000");
   const host = document.createElement("div");
   host.id = "trustbridge-extension";
   host.style.cssText = "position:fixed;z-index:2147483647;right:20px;bottom:20px;";
@@ -266,6 +267,14 @@
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") panel.hidden = true;
   });
+
+  if (globalThis.chrome && chrome.runtime && chrome.runtime.onMessage) {
+    chrome.runtime.onMessage.addListener((message) => {
+      if (!message || message.type !== "TRUSTBRIDGE_TOGGLE") return;
+      panel.hidden = !panel.hidden;
+      if (!panel.hidden) prefill();
+    });
+  }
 
   document.body.appendChild(host);
 

@@ -1,7 +1,8 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { connection } from "next/server";
 import { auth } from "@/auth";
 import AppNav from "./app-nav";
+import AppAuth from "./app-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +21,9 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
+  await connection();
   const session = await auth();
-  if (!session?.user?.id) redirect("/signin?next=/app");
+  if (!session?.user?.id) return <AppAuth />;
 
   return (
     <div className="app-shell">

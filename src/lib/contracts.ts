@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { calculatePlatformFee } from "@/lib/stripe";
+import { calculateBuyerTotal, calculatePlatformFee } from "@/lib/stripe";
 import { legalEntity } from "@/lib/legal";
 import type { CheckResult } from "@/lib/verification";
 
@@ -96,6 +96,7 @@ export type ContractSnapshot = {
   }>;
   fees: {
     platformFeeCents: number;
+    buyerTotalCents: number;
     sellerNetCents: number;
     platformFeePercent: number;
   };
@@ -173,8 +174,9 @@ export function buildContractSnapshot(deal: ContractDeal): ContractSnapshot {
     })),
     fees: {
       platformFeeCents: fee,
-      sellerNetCents: Math.max(0, deal.priceCents - fee),
-      platformFeePercent: Number(process.env.PLATFORM_FEE_PERCENT ?? 5),
+      buyerTotalCents: calculateBuyerTotal(deal.priceCents),
+      sellerNetCents: deal.priceCents,
+      platformFeePercent: Number(process.env.PLATFORM_FEE_PERCENT ?? 3),
     },
     terms: {
       platform: "TrustBridge",

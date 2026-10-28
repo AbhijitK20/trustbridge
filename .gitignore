@@ -48,3 +48,22 @@ mobile/android/.gradle/
 
 # Built APK artifacts
 mobile-dist/
+
+# Generated video media (scripts stay in the repo)
+video/out/
+video/clips/
+video/clips_people/
+video/stills/
+video/stills_mixed/
+video/stills_people/
+video/vo/
+video/overlays/
+
+# Design exports
+design/*.png
+design/*.figcraft
+
+# Flutter local SDK path / signing
+mobile/android/local.properties
+mobile/android/key.properties
+mobile/android/**/*.jks

@@ -902,7 +902,7 @@
   border-top: 1px solid #e3e1d8;
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   left: 50%;
   max-width: 430px;
   padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
@@ -1325,6 +1325,24 @@
 
 .app-page {
   padding-top: 9px;
+}
+
+.app-referee .referee-chat {
+  background: transparent;
+  box-shadow: none;
+  padding: 0 0 8px;
+}
+
+.app-referee .chat-log {
+  max-height: 52vh;
+}
+
+.app-referee .chat-chip {
+  font-size: 8px;
+}
+
+.app-referee .chat-input textarea {
+  font-size: 12px;
 }
 
 .app-page-head {
@@ -1781,5 +1799,215 @@
     border-radius: 0;
     min-height: 100vh;
     max-width: none;
+  }
+}
+
+/* App login / workspace handoff */
+.app-auth-phone {
+  min-height: 100vh;
+}
+
+.app-auth-main {
+  padding: 30px 22px 46px;
+}
+
+.app-auth-title {
+  color: var(--ink);
+  font-family: var(--font-serif), serif;
+  font-size: clamp(43px, 11vw, 58px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+  margin: 18px 0 14px;
+}
+
+.app-auth-title em {
+  font-style: italic;
+}
+
+.app-auth-sub {
+  color: #78877e;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0 0 22px;
+  max-width: 310px;
+}
+
+.app-auth-card {
+  background: #fbf8ef;
+  border: 1px solid #e2ddcf;
+  border-radius: 5px;
+  box-shadow: 0 18px 45px #263a2e12;
+  padding: 17px;
+}
+
+.app-auth-google {
+  background: #fffdf7;
+  border: 1px solid #d7d0bf;
+  border-radius: 4px;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 14px;
+  text-align: center;
+  width: 100%;
+}
+
+.app-auth-google:hover {
+  background: #f7f0e2;
+}
+
+.app-auth-divider {
+  align-items: center;
+  color: #908a7a;
+  display: flex;
+  font-family: var(--font-mono), monospace;
+  font-size: 7px;
+  gap: 9px;
+  letter-spacing: 0.08em;
+  margin: 16px 0;
+  text-transform: uppercase;
+}
+
+.app-auth-divider::before,
+.app-auth-divider::after {
+  background: #e6dfd0;
+  content: "";
+  height: 1px;
+  flex: 1;
+}
+
+.app-auth-form label {
+  color: #7f877e;
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.07em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.app-auth-form input {
+  background: #fffdf7;
+  border: 1px solid #ddd6c7;
+  border-radius: 3px;
+  color: var(--ink);
+  display: block;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  margin-bottom: 12px;
+  outline: 0;
+  padding: 11px 10px;
+  width: 100%;
+}
+
+.app-auth-form input:focus {
+  border-color: var(--green);
+}
+
+.app-auth-actions {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.app-auth-primary,
+.app-auth-secondary {
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 12px 7px;
+  text-align: center;
+}
+
+.app-auth-primary {
+  background: var(--green);
+  border: 1px solid var(--green);
+  color: white;
+}
+
+.app-auth-secondary {
+  background: transparent;
+  border: 1px solid #cfc7b6;
+  color: var(--green);
+}
+
+.app-auth-hint {
+  color: #999385;
+  font-size: 9px;
+  line-height: 1.5;
+  margin: 10px 0 0;
+}
+
+.app-auth-portals {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.app-auth-portals form {
+  display: flex;
+}
+
+.app-auth-portal {
+  background: #f6f3e7;
+  border: 1px solid #e1dccf;
+  border-radius: 3px;
+  color: var(--ink);
+  cursor: pointer;
+  min-height: 76px;
+  padding: 11px;
+  position: relative;
+  text-align: left;
+  transition: background .2s, border-color .2s, transform .2s;
+  width: 100%;
+}
+
+.app-auth-portal:hover {
+  background: #eef3d8;
+  border-color: #b9c696;
+  transform: translateY(-1px);
+}
+
+.app-auth-portal span {
+  color: #89938a;
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+
+.app-auth-portal strong {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  max-width: 12ch;
+}
+
+.app-auth-portal i {
+  color: var(--green);
+  font-style: normal;
+  position: absolute;
+  right: 9px;
+  top: 9px;
+}
+
+.app-auth-portal-admin {
+  background: #eef3d8;
+  border-color: #c7d3a7;
+}
+
+@media (max-width: 380px) {
+  .app-auth-actions,
+  .app-auth-portals {
+    grid-template-columns: 1fr;
   }
 }

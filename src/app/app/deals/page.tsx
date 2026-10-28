@@ -2,6 +2,8 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 function money(cents: number, currency: string) {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",

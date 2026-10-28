@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TB {
-  static const ink = Color(0xFF17231F);
-  static const cream = Color(0xFFF4F0E8);
-  static const paper = Color(0xFFFBFAF6);
-  static const green = Color(0xFF1B4D3E);
-  static const lime = Color(0xFFD4EC6A);
-  static const limeSoft = Color(0xFFE8F1CF);
-  static const muted = Color(0xFF718079);
-  static const line = Color(0xFFD7D9D0);
+  static const ink = Color(0xFF14110D);
+  static const cream = Color(0xFFF1EADD);
+  static const paper = Color(0xFFFBF6EC);
+  static const green = Color(0xFF233A30);
+  static const lime = Color(0xFFE7D4A8);
+  static const limeSoft = Color(0xFFF2E3BF);
+  static const muted = Color(0xFF6E6A5E);
+  static const line = Color(0xFFDDD5C5);
   static const blush = Color(0xFFF6E5DF);
-  static const amber = Color(0xFFF5ECD4);
+  static const amber = Color(0xFFF4ECDA);
 }
 
 ThemeData tbTheme() {
@@ -75,7 +75,7 @@ ThemeData tbTheme() {
       filled: true,
       fillColor: TB.paper,
       labelStyle: const TextStyle(color: TB.muted, fontSize: 12),
-      hintStyle: const TextStyle(color: Color(0xFFA2ABA3), fontSize: 13),
+      hintStyle: const TextStyle(color: Color(0xFF9A9383), fontSize: 13),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
@@ -160,7 +160,7 @@ Color statusColor(String status) {
     case 'DISPUTED':
       return const Color(0xFF984C40);
     case 'DELIVERED':
-      return const Color(0xFF876E33);
+      return const Color(0xFF7A6636);
     case 'REFUNDED':
       return const Color(0xFF8D5B4D);
     default:
@@ -175,9 +175,9 @@ Color outcomeColor(String? outcome) {
     case 'CONTRADICTED':
       return const Color(0xFF984C40);
     case 'VERIFIED_WITH_CONDITIONS':
-      return const Color(0xFF876E33);
+      return const Color(0xFF7A6636);
     default:
-      return const Color(0xFF876E33);
+      return const Color(0xFF7A6636);
   }
 }
 

@@ -8,7 +8,7 @@ const envSchema = z.object({
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_CONNECT_RETURN_URL: z.string().url().default("http://localhost:3000/onboarding/return"),
   STRIPE_CONNECT_REFRESH_URL: z.string().url().default("http://localhost:3000/onboarding/refresh"),
-  PLATFORM_FEE_PERCENT: z.coerce.number().min(0).max(50).default(5),
+  PLATFORM_FEE_PERCENT: z.coerce.number().min(0).max(50).default(3),
   NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
 });
 

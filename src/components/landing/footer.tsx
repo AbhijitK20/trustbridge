@@ -3,7 +3,7 @@ import { LEGAL_LINKS, legalEntity } from "@/lib/legal";
 
 const product = [
   { href: "/check", label: "Verify a claim" },
-  { href: "/create", label: "Create a deal" },
+  { href: "/signin", label: "Create a deal" },
   { href: "/referee", label: "Referee chat" },
   { href: "/demo/scam?preview=1", label: "Extension demo" },
 ];

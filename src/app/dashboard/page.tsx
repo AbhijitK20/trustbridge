@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { getDashboardUser } from "@/lib/dashboard-user";
 import { prisma } from "@/lib/prisma";
 
 function money(cents: number, currency: string) {
@@ -105,19 +105,8 @@ export default async function DashboardOverviewPage({
 }: {
   searchParams: Promise<{ view?: string }>;
 }) {
-  const session = await auth();
-  if (!session?.user?.id) redirect("/signin?next=/dashboard");
-
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: {
-      id: true,
-      name: true,
-      role: true,
-      sellerProfile: { select: { id: true, isVerified: true, trustScore: true } },
-    },
-  });
-  if (!user) redirect("/signin");
+  const user = await getDashboardUser();
+  if (!user) redirect("/signin?next=/dashboard");
 
   const requested = (await searchParams).view;
   const isSeller = Boolean(user.sellerProfile);

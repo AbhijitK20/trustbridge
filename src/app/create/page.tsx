@@ -22,7 +22,8 @@ export default async function CreateDealPage({
     for (const [key, value] of Object.entries(params)) {
       if (value) query.set(key, value);
     }
-    redirect(`/signin?next=${encodeURIComponent(`/create?${query.toString()}`)}`);
+    const next = query.toString() ? `/create?${query.toString()}` : "/create";
+    redirect(`/signin?next=${encodeURIComponent(next)}`);
   }
   return (
     <main className="form-page">

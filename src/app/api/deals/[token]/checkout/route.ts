@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { canAcceptPayment } from "@/lib/deals";
 import { clientAddress, mutationGuard } from "@/lib/abuse";
 import { legalEntity } from "@/lib/legal";
+import { calculateBuyerTotal, calculatePlatformFee } from "@/lib/stripe";
 
 const buyerSchema = z.object({
   buyerEmail: z.string().email(),
@@ -89,12 +90,18 @@ export async function POST(request: Request, { params }: { params: Promise<{ tok
           price_data: {
             currency: deal.currency,
             product_data: { name: deal.title, description: deal.description.slice(0, 500) },
-            unit_amount: deal.priceCents,
+            unit_amount: calculateBuyerTotal(deal.priceCents),
           },
           quantity: 1,
         },
       ],
-      metadata: { dealId: deal.id, publicToken: deal.publicToken, consentVersion: legalEntity.termsVersion },
+      metadata: {
+        dealId: deal.id,
+        publicToken: deal.publicToken,
+        consentVersion: legalEntity.termsVersion,
+        protectionFeeCents: String(calculatePlatformFee(deal.priceCents)),
+        buyerTotalCents: String(calculateBuyerTotal(deal.priceCents)),
+      },
       success_url: `${env.NEXT_PUBLIC_APP_URL}/deal/${deal.publicToken}?paid=1`,
       cancel_url: `${env.NEXT_PUBLIC_APP_URL}/deal/${deal.publicToken}?cancelled=1`,
     });

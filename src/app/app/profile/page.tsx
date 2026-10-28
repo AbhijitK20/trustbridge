@@ -3,6 +3,8 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { appSignOut } from "./actions";
 
+export const dynamic = "force-dynamic";
+
 function initials(name: string | null | undefined) {
   if (!name) return "TB";
   return name
@@ -106,6 +108,10 @@ export default async function AppProfilePage() {
         </Link>
         <Link className="app-link-row" href="/create">
           <span>Start a protected deal</span>
+          <span>↗</span>
+        </Link>
+        <Link className="app-link-row" href="/app/referee">
+          <span>Referee chat</span>
           <span>↗</span>
         </Link>
         <Link className="app-link-row" href="/demo/whatsapp">

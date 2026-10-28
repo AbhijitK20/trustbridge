@@ -411,10 +411,10 @@ export async function buildContractPdf(
 
   writer.heading("5. Fees and payout");
   writer.text(
-    `Platform fee: ${money(snapshot.fees.platformFeeCents, snapshot.deal.currency)} (${snapshot.fees.platformFeePercent}%). Seller receives: ${money(
-      snapshot.fees.sellerNetCents,
+    `Protection fee: ${money(snapshot.fees.platformFeeCents, snapshot.deal.currency)} (${snapshot.fees.platformFeePercent}%), paid by the buyer on top of the deal amount. Buyer total: ${money(
+      snapshot.fees.buyerTotalCents ?? snapshot.deal.amountCents + snapshot.fees.platformFeeCents,
       snapshot.deal.currency,
-    )}. Fees are deducted from the seller payout.`,
+    )}. Seller receives the full deal amount: ${money(snapshot.fees.sellerNetCents, snapshot.deal.currency)}.`,
     { size: 9, leading: 13, gap: 8 },
   );
 

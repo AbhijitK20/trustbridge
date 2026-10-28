@@ -9,6 +9,8 @@ import DealExtras from "@/app/deal/[token]/deal-extras";
 import DealTimeline from "@/app/deal/[token]/timeline";
 import ShareDeal from "@/app/deal/[token]/share-deal";
 
+export const dynamic = "force-dynamic";
+
 function money(cents: number, currency: string) {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
