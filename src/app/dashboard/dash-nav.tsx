@@ -75,6 +75,13 @@ function Icon({ name }: { name: string }) {
         <path d="M3 12h4l2-6 4 12 2-6h6" />
       </>
     ),
+    verify: (
+      <>
+        <circle cx="10.5" cy="10.5" r="6" />
+        <path d="m15 15 4 4" />
+        <path d="m8 10.5 1.8 1.8L13 8.7" />
+      </>
+    ),
     reviews: (
       <>
         <path d="m12 3.5 2.6 5.4 6 .8-4.4 4.2 1.1 5.9-5.3-2.9-5.3 2.9 1.1-5.9L3.4 9.7l6-.8z" />
@@ -89,10 +96,16 @@ function Icon({ name }: { name: string }) {
   );
 }
 
-const GROUPS: Array<{
+type NavItem = {
+  href: string;
   label: string;
-  items: Array<{ href: string; label: string; icon: string; exact?: boolean; badge?: "deals" | "attention" }>;
-}> = [
+  icon: string;
+  exact?: boolean;
+  badge?: "deals" | "attention";
+};
+
+function buildGroups(sellerSlug?: string | null): Array<{ label: string; items: NavItem[] }> {
+  return [
   {
     label: "Workspace",
     items: [
@@ -100,6 +113,7 @@ const GROUPS: Array<{
       { href: "/dashboard/deals", label: "Deals", icon: "deals", badge: "deals" },
       { href: "/dashboard/contracts", label: "Contracts", icon: "deals" },
       { href: "/dashboard/checks", label: "Checks", icon: "checks" },
+      { href: "/check", label: "Verify a claim", icon: "verify" },
       { href: "/dashboard/disputes", label: "Disputes", icon: "disputes" },
       { href: "/dashboard/reviews", label: "Reviews", icon: "reviews" },
     ],
@@ -109,6 +123,9 @@ const GROUPS: Array<{
     items: [
       { href: "/dashboard/payments", label: "Payments", icon: "payments" },
       { href: "/dashboard/credits", label: "Credits", icon: "payments" },
+      sellerSlug
+        ? { href: `/seller/${sellerSlug}`, label: "Public seller page", icon: "profile" }
+        : { href: "/seller/verify", label: "Sell on TrustBridge", icon: "credits" },
     ],
   },
   {
@@ -128,22 +145,26 @@ const GROUPS: Array<{
       { href: "/referee", label: "Referee chat", icon: "checks" },
     ],
   },
-];
+  ];
+}
 
 export default function DashNav({
   dealCount = 0,
   attentionCount = 0,
+  sellerSlug,
   mobile = false,
 }: {
   dealCount?: number;
   attentionCount?: number;
+  sellerSlug?: string | null;
   mobile?: boolean;
 }) {
   const pathname = usePathname();
+  const groups = buildGroups(sellerSlug);
   const counts = { deals: dealCount, attention: attentionCount };
 
   if (mobile) {
-    const flat = GROUPS.flatMap((group) => group.items);
+    const flat = groups.flatMap((group) => group.items);
     return (
       <nav className="ws-mobile-nav" aria-label="Workspace">
         {flat.map((item) => {
@@ -167,7 +188,7 @@ export default function DashNav({
 
   return (
     <nav className="ws-nav" aria-label="Workspace">
-      {GROUPS.map((group) => (
+      {groups.map((group) => (
         <div className="ws-nav-group" key={group.label}>
           <p className="ws-nav-label">{group.label}</p>
           {group.items.map((item) => {

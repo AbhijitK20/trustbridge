@@ -3551,3 +3551,27 @@ main.form-page .form-intro .button-primary {
     width: 260px;
   }
 }
+
+/* Auth intro quick links */
+main.form-page .auth-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 26px;
+}
+
+main.form-page .auth-quick a {
+  border-bottom: 1px solid rgba(243, 239, 230, 0.18);
+  color: rgba(243, 239, 230, 0.62);
+  font-family: var(--font-mono), monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+main.form-page .auth-quick a:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}

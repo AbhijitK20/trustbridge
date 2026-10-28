@@ -24,13 +24,23 @@ export default async function DashboardProfilePage({
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    include: { sellerProfile: { include: { kyc: true } } },
+    include: { sellerProfile: { include: { kyc: true } }, accounts: { select: { provider: true } } },
   });
   if (!user) redirect("/signin");
 
   const params = await searchParams;
   const seller = user.sellerProfile;
   const kyc = seller?.kyc;
+  const providers = user.accounts.map((account) => account.provider);
+  const hasGoogle = providers.includes("google");
+  const hasPassword = providers.includes("credentials");
+  const signInLabel = hasPassword
+    ? hasGoogle
+      ? "Google + password"
+      : "Email & password"
+    : hasGoogle
+      ? "Google"
+      : "—";
   const isVerified = Boolean(seller?.isVerified);
   const payoutReady = Boolean(kyc?.payoutAccountLast4);
 
@@ -104,7 +114,7 @@ export default async function DashboardProfilePage({
               </div>
               <div className="ws-fact">
                 <span>Sign-in</span>
-                <strong>Google</strong>
+                <strong>{signInLabel}</strong>
               </div>
             </div>
           </div>
@@ -137,7 +147,7 @@ export default async function DashboardProfilePage({
                   <div className="ws-form-row">
                     <label htmlFor="email">Login email</label>
                     <input id="email" value={user.email} readOnly />
-                    <small>Email changes are handled through Google sign-in.</small>
+                    <small>{hasGoogle ? "Email changes are handled through Google sign-in." : "Email changes are not available in this demo."}</small>
                   </div>
                 </div>
                 <div className="ws-form-foot">
@@ -221,6 +231,26 @@ export default async function DashboardProfilePage({
                   Payouts go only to the verified legal name above. TrustBridge never asks for full
                   bank credentials in chat.
                 </p>
+              </div>
+            </section>
+          )}
+
+          {!seller && (
+            <section className="ws-panel">
+              <div className="ws-panel-head">
+                <div>
+                  <small>Seller setup</small>
+                  <h2>Sell on TrustBridge</h2>
+                </div>
+              </div>
+              <div className="ws-panel-body">
+                <p className="ws-note" style={{ marginBottom: 14 }}>
+                  Verify a work email, legal name, and payout account to publish a public seller
+                  profile, appear in seller search, and receive payouts.
+                </p>
+                <Link className="ws-btn" href="/seller/verify">
+                  Start seller setup <i>↗</i>
+                </Link>
               </div>
             </section>
           )}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { getDashboardSession, getDashboardUser } from "@/lib/dashboard-user";
 import { prisma } from "@/lib/prisma";
 import DashNav from "./dash-nav";
 import LiveRefresher from "./live-refresher";
@@ -21,48 +21,29 @@ function initials(name: string | null | undefined) {
 }
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth();
+  const session = await getDashboardSession();
   if (!session?.user?.id) redirect("/signin?next=/dashboard");
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      image: true,
-      sellerProfile: { select: { isVerified: true, slug: true } },
-    },
-  });
+  const user = await getDashboardUser();
   if (!user) redirect("/signin");
 
-  const [buyerActive, sellerActive, attention, disputes] = await Promise.all([
-    prisma.deal.count({
-      where: { buyerId: user.id, status: { notIn: ["RELEASED", "REFUNDED", "EXPIRED"] } },
-    }),
-    prisma.deal.count({
-      where: { sellerId: user.id, status: { notIn: ["RELEASED", "REFUNDED", "EXPIRED"] } },
-    }),
-    prisma.deal.count({
-      where: {
-        OR: [
-          { buyerId: user.id, status: "DELIVERED" },
-          { sellerId: user.id, status: "HELD" },
-          { buyerId: user.id, status: "DISPUTED" },
-          { sellerId: user.id, status: "DISPUTED" },
-        ],
-      },
-    }),
-    prisma.deal.count({
-      where: {
-        OR: [
-          { buyerId: user.id, status: "DISPUTED" },
-          { sellerId: user.id, status: "DISPUTED" },
-        ],
-      },
-    }),
-  ]);
+  const dealRows = await prisma.deal.findMany({
+    where: { OR: [{ buyerId: user.id }, { sellerId: user.id }] },
+    select: { buyerId: true, sellerId: true, status: true },
+  });
+  const closed = new Set(["RELEASED", "REFUNDED", "EXPIRED"]);
+  const buyerActive = dealRows.filter((deal) => deal.buyerId === user.id && !closed.has(deal.status)).length;
+  const sellerActive = dealRows.filter((deal) => deal.sellerId === user.id && !closed.has(deal.status)).length;
+  const attention = dealRows.filter(
+    (deal) =>
+      (deal.buyerId === user.id && ["DELIVERED", "DISPUTED"].includes(deal.status)) ||
+      (deal.sellerId === user.id && ["HELD", "DISPUTED"].includes(deal.status)),
+  ).length;
+  const disputes = dealRows.filter(
+    (deal) =>
+      deal.status === "DISPUTED" &&
+      (deal.buyerId === user.id || deal.sellerId === user.id),
+  ).length;
 
   const dealCount = buyerActive + sellerActive;
   const roleLabel = user.role.replaceAll("_", " ").toLowerCase();
@@ -91,7 +72,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <span aria-hidden="true">⌄</span>
         </Link>
 
-        <DashNav dealCount={dealCount} attentionCount={attention} />
+        <DashNav dealCount={dealCount} attentionCount={attention} sellerSlug={user.sellerProfile?.slug ?? null} />
 
         <div className="ws-side-foot">
           <Link className="ws-user" href="/dashboard/profile">
@@ -179,7 +160,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           </div>
         </header>
 
-        <DashNav dealCount={dealCount} attentionCount={attention} mobile />
+        <DashNav dealCount={dealCount} attentionCount={attention} sellerSlug={user.sellerProfile?.slug ?? null} mobile />
 
         <main className="ws-content">
           {children}

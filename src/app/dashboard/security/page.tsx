@@ -23,7 +23,10 @@ export default async function DashboardSecurityPage() {
   ]);
   if (!user) redirect("/signin");
 
-  const provider = user.accounts[0]?.provider ?? "google";
+  const providers = user.accounts.map((account) => account.provider);
+  const hasGoogle = providers.includes("google");
+  const hasPassword = providers.includes("credentials");
+  const providerLabel = hasPassword ? (hasGoogle ? "Google + password" : "Email & password") : "Google";
   const memberDays = daysSince(new Date(user.createdAt));
 
   return (
@@ -35,8 +38,9 @@ export default async function DashboardSecurityPage() {
             Keep the keys <em>close.</em>
           </h1>
           <p>
-            TrustBridge uses Google sign-in. We never store a TrustBridge password or full payment
-            credentials.
+            {hasPassword
+            ? "TrustBridge signs you in with email and password, or Google when connected. Passwords are stored as scrypt hashes, never in plain text."
+            : "TrustBridge uses Google sign-in. We never store a TrustBridge password or full payment credentials."}
           </p>
         </div>
         <div className="ws-head-actions">
@@ -50,14 +54,14 @@ export default async function DashboardSecurityPage() {
         <div className="ws-kpi">
           <span className="ws-kpi-label">Sign-in method</span>
           <span className="ws-kpi-value" style={{ textTransform: "capitalize" }}>
-            {provider}
+            {providerLabel}
           </span>
           <span className="ws-kpi-note">{user.email}</span>
         </div>
         <div className="ws-kpi">
           <span className="ws-kpi-label">Email verified</span>
-          <span className="ws-kpi-value">{user.emailVerified ? "Yes" : "Via Google"}</span>
-          <span className="ws-kpi-note">Linked to a verified Google identity</span>
+          <span className="ws-kpi-value">{user.emailVerified ? "Yes" : hasGoogle ? "Via Google" : "Not verified"}</span>
+          <span className="ws-kpi-note">{hasGoogle ? "Linked to a verified Google identity" : "Set when the account was created"}</span>
         </div>
         <div className="ws-kpi">
           <span className="ws-kpi-label">Active sessions</span>
@@ -89,7 +93,7 @@ export default async function DashboardSecurityPage() {
             </div>
             <div className="ws-fact">
               <span>Other sessions</span>
-              <strong>{sessions > 1 ? `${sessions - 1} managed by Google` : "None"}</strong>
+              <strong>{sessions > 1 ? (hasGoogle ? `${sessions - 1} managed by Google` : `${sessions - 1} other session(s)`) : "None"}</strong>
             </div>
             <div className="ws-fact">
               <span>Session control</span>
@@ -97,8 +101,9 @@ export default async function DashboardSecurityPage() {
             </div>
             <hr className="ws-divider" />
             <p className="ws-note">
-              Use this on a shared computer. Other active sessions are managed from your Google
-              account security page.
+              {hasGoogle
+                ? "Use this on a shared computer. Other active sessions are managed from your Google account security page."
+                : "Use this on a shared computer. Signing in again ends the previous session on the record."}
             </p>
             <div style={{ display: "flex", gap: 8, marginTop: 14, flexWrap: "wrap" }}>
               <form action={dashboardSignOut}>
@@ -106,14 +111,20 @@ export default async function DashboardSecurityPage() {
                   Sign out
                 </button>
               </form>
-              <Link
-                className="ws-btn ws-btn-ghost"
-                href="https://myaccount.google.com/security"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Google security <i>↗</i>
-              </Link>
+              {hasGoogle ? (
+                <Link
+                  className="ws-btn ws-btn-ghost"
+                  href="https://myaccount.google.com/security"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Google security <i>↗</i>
+                </Link>
+              ) : (
+                <Link className="ws-btn ws-btn-ghost" href="/dashboard/settings">
+                  Account settings <i>↗</i>
+                </Link>
+              )}
             </div>
           </div>
         </section>
@@ -130,8 +141,12 @@ export default async function DashboardSecurityPage() {
               <div className="ws-check-item">
                 <span className="ws-check-icon">✓</span>
                 <span className="ws-check-copy">
-                  <strong>No TrustBridge password</strong>
-                  <small>Authentication is delegated to Google OAuth.</small>
+                  <strong>{hasPassword ? "No plaintext password" : "No TrustBridge password"}</strong>
+                  <small>
+                    {hasPassword
+                      ? "Passwords are stored as scrypt hashes with a random salt."
+                      : "Authentication is delegated to Google OAuth."}
+                  </small>
                 </span>
               </div>
               <div className="ws-check-item">

@@ -54,10 +54,19 @@ export async function passwordSignUp(formData: FormData) {
   let user;
   try {
     user = await prisma.$transaction(async (tx) => {
+      const rawName = email
+        .split("@")[0]
+        .replace(/[._-]+/g, " ")
+        .replace(/\d+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      const displayName = rawName
+        ? rawName.replace(/\b\w/g, (letter) => letter.toUpperCase())
+        : "Member";
       const created = await tx.user.create({
         data: {
           email,
-          name: email.split("@")[0],
+          name: displayName,
         },
       });
       await tx.account.create({

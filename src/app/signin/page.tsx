@@ -61,6 +61,11 @@ export default async function SignInPage({
           <em>close.</em>
         </h1>
         <p>Sign in to create agreements, submit delivery, and keep a clear record of every decision.</p>
+        <div className="auth-quick">
+          <Link href="/check">Verify a claim <span>↗</span></Link>
+          <Link href="/referee">Referee chat <span>↗</span></Link>
+          <Link href="/create">Start a deal <span>↗</span></Link>
+        </div>
       </div>
 
       <div className="deal-form auth-card">
