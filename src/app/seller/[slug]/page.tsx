@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import SellerReport from "./seller-report";
+import InnerScene from "@/components/experience/inner-scene";
 
 export default async function SellerProfilePage({ params }: { params: Promise<{ slug: string }> }) {
   const profile = await prisma.sellerProfile.findUnique({
@@ -47,6 +48,7 @@ export default async function SellerProfilePage({ params }: { params: Promise<{ 
         <Link className="nav-cta" href="/create">Create a deal ↗</Link>
       </nav>
 
+      <InnerScene mode="seal" className="seller-scene" />
       <section className="seller-hero">
         <p className="eyebrow">Seller profile</p>
         <div className="seller-avatar">{(profile.user.name ?? profile.slug).slice(0, 1).toUpperCase()}</div>

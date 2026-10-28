@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CheckForm from "./check-form";
 import LegalFooter from "@/components/legal-footer";
+import InnerScene from "@/components/experience/inner-scene";
 
 export const metadata: Metadata = {
   title: "TrustBridge | Verify before you pay",
@@ -26,6 +27,7 @@ export default function CheckPage() {
         </div>
       </nav>
 
+      <InnerScene mode="evidence" className="check-scene" />
       <header className="check-hero">
         <div>
           <p className="eyebrow"><span className="eyebrow-dot" /> Evidence before money</p>

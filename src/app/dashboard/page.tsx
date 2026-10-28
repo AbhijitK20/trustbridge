@@ -231,7 +231,10 @@ export default async function DashboardOverviewPage({
                   <span className="ws-chart-value">{item.total > 0 ? money(item.total, "INR") : "—"}</span>
                   <div
                     className={`ws-chart-bar ${index === series.length - 1 ? "is-current" : ""}`}
-                    style={{ height: `${Math.max(3, Math.round((item.total / peak) * 100))}%` }}
+                    style={{
+                      height: `${Math.max(3, Math.round((item.total / peak) * 100))}%`,
+                      animationDelay: `${index * 70}ms`,
+                    }}
                   />
                   <span className="ws-chart-label">{item.label}</span>
                 </div>

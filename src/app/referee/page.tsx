@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import RefereeChat from "./referee-chat";
 import LegalFooter from "@/components/legal-footer";
+import InnerScene from "@/components/experience/inner-scene";
 
 export const metadata: Metadata = {
   title: "TrustBridge | Talk to the referee",
@@ -24,6 +25,7 @@ export default function RefereePage() {
         </div>
       </nav>
 
+      <InnerScene mode="seal" className="referee-scene" />
       <header className="referee-hero">
         <p className="eyebrow"><span className="eyebrow-dot" /> The deal referee</p>
         <h1>Say it in chat.<br /><em>Check it in chat.</em></h1>

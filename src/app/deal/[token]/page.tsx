@@ -12,11 +12,13 @@ import DealExtras from "./deal-extras";
 import { getDealTimeline } from "@/lib/timeline";
 import LegalFooter from "@/components/legal-footer";
 import { legalEntity } from "@/lib/legal";
-import { calculatePlatformFee } from "@/lib/stripe";
+import { calculateBuyerTotal, calculatePlatformFee } from "@/lib/stripe";
 import { daysUntil } from "@/lib/time";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import type { CheckResult } from "@/lib/verification";
+import InnerScene from "@/components/experience/inner-scene";
+import { Tilt } from "@/components/experience/ui";
 
 export default async function PublicDealPage({
   params,
@@ -80,7 +82,8 @@ export default async function PublicDealPage({
   });
   const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/deal/${deal.publicToken}`;
   const platformFee = calculatePlatformFee(deal.priceCents);
-  const sellerNet = Math.max(0, deal.priceCents - platformFee);
+  const buyerTotal = calculateBuyerTotal(deal.priceCents);
+  const sellerNet = deal.priceCents;
   const money = (cents: number) =>
     new Intl.NumberFormat("en-IN", {
       style: "currency",
@@ -95,6 +98,8 @@ export default async function PublicDealPage({
         </Link>
         <span className="deal-nav-label">Protected deal</span>
       </nav>
+      <InnerScene mode="seal" className="deal-scene" />
+      <Tilt max={3} className="deal-tilt">
       <section className="public-deal-card">
         <div className="deal-card-head">
           <span className="status-pill">
@@ -127,13 +132,21 @@ export default async function PublicDealPage({
         </div>
         <div className="card-divider" />
         <div className="money-row">
-          <span>Total protected amount</span>
+          <span>Protected amount to seller</span>
           <strong>
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: deal.currency.toUpperCase(),
             }).format(deal.priceCents / 100)}
           </strong>
+        </div>
+        <div className="money-row">
+          <span>Buyer protection fee ({process.env.PLATFORM_FEE_PERCENT ?? "3"}%)</span>
+          <strong>{money(platformFee)}</strong>
+        </div>
+        <div className="money-row">
+          <span>Buyer pays</span>
+          <strong>{money(buyerTotal)}</strong>
         </div>
         <div className="protection-note">
           <span className="secure-lock">⌁</span>
@@ -198,9 +211,10 @@ export default async function PublicDealPage({
           </div>
         )}
         <p className="fee-note">
-          Platform fee {money(platformFee)} (
-          {process.env.PLATFORM_FEE_PERCENT ?? "5"}%) is deducted from the
-          seller payout. Seller receives {money(sellerNet)}.
+          The buyer pays a {process.env.PLATFORM_FEE_PERCENT ?? "3"}% protection
+          fee of {money(platformFee)} on top of the deal amount. The seller
+          receives the full {money(sellerNet)}. The fee is separate from the
+          protected balance and may attract GST.
         </p>
         {deal.status === "DELIVERED" && deal.autoReleaseAt && (
           <div className="review-window">
@@ -376,6 +390,7 @@ export default async function PublicDealPage({
         )}
         {deal.status === "RELEASED" && <RatingForm token={deal.publicToken} />}
       </section>
+      </Tilt>
       <p className="deal-disclaimer">
         Automated triage is advisory only. Review the deliverables carefully
         before confirming delivery.
